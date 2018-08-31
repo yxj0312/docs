@@ -46,7 +46,7 @@
 
 - try to be fun, but actually very boring
 - and extremly long (15 minutes overtime)
-- christopher should read those actor's lines, which are written in the ppt and belongs to him. But he didn't, and made that girl a little bit nervous :D
+- christopher should read those actor's lines, which are written in the slides and belongs to him. But he didn't, and made that girl a little bit nervous :D
 - at least, I know php and js can do more intersting(maybe) things
 
 # August 31th
@@ -62,7 +62,7 @@
 ### Things every developer absolutely, positively needs to know about database indexing
 
 - best of the day or maybe best speech I've ever seen
-- best PPT, less and concise words, beautiful font, 
+- best slides, less and concise words, beautiful font, 
 - perfect live coding
 - humor
 - focus on little things, not just talk in generalities
@@ -87,7 +87,7 @@
 
 - very beautiful and intersting examples
 - less talk but always talk about key point, which is good
-- best ppt in this laracon
+- best slides in this laracon
 
 ## 16:00 - 17:00
 ### SOLID Design Principles
