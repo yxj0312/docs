@@ -3,7 +3,17 @@
 ### Build bridges, not walls—Design for users across cultures
 
 - taiwan borned girl talked about culture difference, intesting, less useful for my job.
-- lots of fun things, like chinese people perfer index contents than searching contents
+- lots of fun things about culture difference, for example:
+    - German:
+        1. Trust logos from trustshops.de
+        2. Reviews from German customers
+        3. German customers in roster
+        4. Accepted payment methods
+        5. Company description in footer
+    - Chinese
+        1. Typing Chinese takes a long time and finding the precise word isn't easy
+        2. Search sucks, so optimize for browsing
+      
 
 ## 10:30 - 11:05:
 ### Zero to API with Lumen
