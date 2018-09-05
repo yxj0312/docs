@@ -188,43 +188,61 @@
 
 - best of the day or maybe best speech I've ever seen
 - best slides, less and concise words, beautiful font, 
-- perfect live coding
+- perfect live coding (must see)
 - humor
 - focus on little things, not just talk in generalities
+- some notes:
+    - No sliver bullet:
+    Indexing makes reading faster, but writing slower  
 
 ## 11:50 -  12:40
-### Crypto for Everyone
+### Crypto for Everyone (:star::star:)
 
 - master of php
 - more like a professer, giving a lecture
+- talking about the new encryption technique of PHP (Sodium)
 - lack of laravel example
-- stuffy room makes me tried and felt asleep again
+- ~stuffy room makes me tried and felt asleep again~
 
 ## 13:40 - 14:40
-### Laravel Design Patterns
+### Laravel Design Patterns (:star::star::star::star:)
 
 - I know him! the guy always been seen at laracast community
 - basic knowledge, but many examples from laravel
 - 4st best speech of the day
+- use a pizza as example (from making pizza to delivery pizza) to show how design pattern like factory, builder and so on.
+- very vivid
 
 ## 14:40 - 15:30
-### Advanced animations with Vue.js: taking your interface to the next level
+### Advanced animations with Vue.js: taking your interface to the next level(:star::star::star:)
 
 - very beautiful and intersting examples
 - less talk but always talk about key point, which is good
 - best slides in this laracon
+- much more suitable for a pure frontend developer, you should know what is a frame, and how an animation works
 
 ## 16:00 - 17:00
-### SOLID Design Principles
+### SOLID Design Principles (:star::star::star::star:)
 
 - very good examples
 - 3nd best speech of the day
+- some notes:
+    - The purpose of SOLID design principles
+        - To make the code more maintainable
+        - To make it eaiser to quickly extend the system with new funcionality without braking the existing ones
+        - To make the code easier to read and uderstand, thus spend less time figuring out what it does and more time acutally developing the solution
+        - Introduced by Robert Martin (Uncle Bob), named by Michael Feathers
 
 ## 17:00 - 17:40
-### State of Laravel
+### State of Laravel (:star::star::star:)
 
 - really really short
-- At the first day, when I took a picture with Taylot, I asked him, will his speech take a long time like the one in Laracon US this year.
+- talks some new features of Laravel 5.7, like customizing the pagniation
+- talks some features of nova, also not so much
+- In his tweet, just before the speech began, he answered someones' questions, that there will not going to be laravel 6 next year, unless
+    - PHP 7.3 has big changes/new feature
+    - Laravel 5.11 is not good, so Laravel 5 will end at Laravel 5.10
+- ~At the first day, when I took a picture with Taylot, I asked him, will his speech take a long time like the one in Laracon US this year.
 And he answered, no, just 45 minutes.
-but come on, it's only 40 min, and u actually started at 17:05. lol
+but come on, it's only 40 min, and u actually started at 17:05. lol~
 
