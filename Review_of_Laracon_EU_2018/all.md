@@ -56,11 +56,20 @@
         - Only has 'make:migration' and 'make:seeder'
         - No 'make:model'
         - No 'make:controller'
-        - No 'make:auth' + scaffolding (she mentioned later, you should use javascript like jwt instead)
+        - No 'make:auth' + scaffolding 
+            - AuthServiceProvider provided(uncommented in app.php)
+            - JWT
+            - Authentication middleware like 
+            ```php
+            $router->group(['middleware' => 'jwt.auth'],function() use($router){
+            ....
+            })
+            ```
         - Many more since Lumen is slimmed down
     
 - some good examples about how to write apis:
-    there are apis example about pokemon, which are very clearly sturctured, could be useful for our work:
+
+    there are apis example about pokemon, which are very clearly sturctured, could be useful for our work
     
 
 ## 11:50 - 12:40:
