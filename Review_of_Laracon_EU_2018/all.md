@@ -11,7 +11,7 @@
 :star::star::star::star::star: -  Very useful, best performance, must see
 
 ## 9:30 - 10:30: 
-### Build bridges, not walls—Design for users across cultures
+### Build bridges, not walls—Design for users across cultures (:star::star::star:)
 
 - taiwan borned girl talked about culture difference, intesting, less useful for my job.
 - lots of fun things about culture difference, for example:
@@ -27,10 +27,41 @@
       
 
 ## 10:30 - 11:05:
-### Zero to API with Lumen
+### Zero to API with Lumen (:star::star::star:)
 
 - very basic, short speech
-- some good examples about how to write apis(coming soon...)
+- if you are new to lumen, or if you have no idea what is an api, you should watch this video
+- some notes:
+    
+    - Routing difference between laravel and lumen
+    
+    ```php
+        // Laravel Routing
+        Route::get('/', function(){
+            return view('welcome');
+        });
+        
+        // Lumen Routing
+        $router->get('/', function() use($router) {
+            return $router->app->version();
+        })
+    ```
+    - Differences in Artisan
+        - No 'serve' command
+        - No 'key:generate'
+        - No 'tinker'
+        - No 'env'
+        - No 'down'
+        - No 'vendor:publish'
+        - Only has 'make:migration' and 'make:seeder'
+        - No 'make:model'
+        - No 'make:controller'
+        - No 'make:auth' + scaffolding (she mentioned later, you should use javascript like jwt instead)
+        - Many more since Lumen is slimmed down
+    
+- some good examples about how to write apis:
+    there are apis example about pokemon, which are very clearly sturctured, could be useful for our work:
+    
 
 ## 11:50 - 12:40:
 ### Twelve-Factor Apps
