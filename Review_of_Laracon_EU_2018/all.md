@@ -130,13 +130,13 @@
 - ~missed something due to going to the toilets~
 
 ## 16:00 - 17:00:
-### Handling media in a Laravel application
+### Handling media in a Laravel application (:star::star::star::star::star:)
 
 - best of the day
 - very useful package, which can be used in all of our project, right now!
 - [links at Laracon US 2018](https://www.youtube.com/watch?v=3eyftAR5ilo)
 - ~I'm so tired, and felt asleep, but still best of the day!~
-- some introduction:
+- some introductions:
     - [Medialibrary is a Laravel (5.6 and up) package that can associate all sorts of files with Eloquent models. It provides a simple, fluent API to work with.](https://docs.spatie.be/laravel-medialibrary/v7/introduction)
         - Working with media collections
         - Converting images
@@ -145,8 +145,9 @@
         - And other cool stuffs, like: Working with multiple filesystems
 
 ## 17:00 - 18:15:
-### 5 [fun] ways to fall in love [again] with code
+### 5 [fun] ways to fall in love [again] with code (:star:)
 
+- only watch this if u can't sleep well
 - try to be fun, but actually very boring
 - and extremly long (15 minutes overtime)
 - christopher should read those actor's lines, which are written in the slides and belongs to him. But he didn't, and made that girl a little bit nervous :D
@@ -154,15 +155,36 @@
 
 # August 31th
 ## 09:30 - 10:30:
-### Fundamentally Flawed: Privacy, People and the Age of Data
+### Fundamentally Flawed: Privacy, People and the Age of Data (:star::star::star::star:)
 
 - 2nd best of the day
 - talk about importance of privacy, data security
-- very fluent English and perfect performance
-- very clever guy
+- some notes:
+    - Data breach procedure
+        1. Take down everything
+        2. Export & isolate all avilable backups
+        3. Identify affected users and affected data
+        4. Contact affected users via bulk emial API
+        5. Reset all affected users' passwords for safety
+    - Watch for unitended data access
+    - "Public" is ambiguous
+        - Private...only me: Hashed password
+        - Private...me + employee with DB access: Email address
+        - Public...me + explicit whitelist: Shared files
+        - Public...me + implicit whitelist: Online status
+        - Public...entire web: Public post
+        - Public.. entire web + bots: Public API
+    - What should we do:
+        - Have a protocol for self-harming behavior
+        - Let me log out from other devices
+        - Do usability testing to find hidden data leaks
+        - Write a saner privacy policy document
+        - Have a security audit
+        - Audit your dependencies.You rely on them
+        - Purge old employees, keys and users
 
 ## 10:30 - 11:20:
-### Things every developer absolutely, positively needs to know about database indexing
+### Things every developer absolutely, positively needs to know about database indexing (:star::star::star::star::star:)
 
 - best of the day or maybe best speech I've ever seen
 - best slides, less and concise words, beautiful font, 
