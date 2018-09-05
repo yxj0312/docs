@@ -105,19 +105,29 @@
             
 
 ## 13:40 - 14:40:
-### Migrating a 15 Year Old Enterprise Application to Laravel: Lessons Learned and Opportunities Gained
+### Migrating a 15 Year Old Enterprise Application to Laravel: Lessons Learned and Opportunities Gained (:star::star:)
 
 - actually not talking about lesson learned, just talking about 'jokes' earned
 - lots of talks are about how laravel is good for long time maintance
 - good example of enterprise workflow
 - jebaited :(
+- some notes:
+    - use laravel caching
+    - laravel security(list some laravel security features here, meaningless for this topic, I think)
+    - tell us, they use ciclecl to run npm install/phpunit/jest after commiting of github (which also useless, and many other productions can also do these things)
+    - they use aws and saucelabs, which is good :sleepy:
+    - introduce their products, which are less related with this topic
+    
+
+
 
 ## 14:40 - 15:30:
-### Content Security Policy 101 by Christoph Rumpel
+### Content Security Policy 101 by Christoph Rumpel (No star here, cause this took place at unconference, hasn't been recoreded)
 
 - brand new stuffs for me
 - interesting
-- missed something due to going to the toilets
+- [Wiki](https://de.wikipedia.org/wiki/Content_Security_Policy)
+- ~missed something due to going to the toilets~
 
 ## 16:00 - 17:00:
 ### Handling media in a Laravel application
@@ -125,7 +135,14 @@
 - best of the day
 - very useful package, which can be used in all of our project, right now!
 - [links at Laracon US 2018](https://www.youtube.com/watch?v=3eyftAR5ilo)
-- I'm so tired, and felt asleep, but still best of the day!
+- ~I'm so tired, and felt asleep, but still best of the day!~
+- some introduction:
+    - [Medialibrary is a Laravel (5.6 and up) package that can associate all sorts of files with Eloquent models. It provides a simple, fluent API to work with.](https://docs.spatie.be/laravel-medialibrary/v7/introduction)
+        - Working with media collections
+        - Converting images
+        - Responsive images
+        - Converting other file types
+        - And other cool stuffs, like: Working with multiple filesystems
 
 ## 17:00 - 18:15:
 ### 5 [fun] ways to fall in love [again] with code
