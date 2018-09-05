@@ -247,11 +247,11 @@ And he answered, no, just 45 minutes.
 but come on, it's only 40 min, and u actually started at 17:05. lol~
 
 ## Some other speeches, which we haven't attended, but could be useful
-### Customizing Laravel - Franz Liedke
-### Simplified Continuous Integration with Laravel and Jenkins - Margaret Staples
-### Kickass Laravel Development with Docker - David McKay
-### How we abused PHP and Laravel to do Big Data. - Marten Westphal
-### OMG MySQL 8.0 is out! Are we there yet? - Gabriela Ferrara
-### Extending Laravel Nova - Marcel Pociot
+- Customizing Laravel - Franz Liedke
+- Simplified Continuous Integration with Laravel and Jenkins - Margaret Staples
+- Kickass Laravel Development with Docker - David McKay
+- How we abused PHP and Laravel to do Big Data. - Marten Westphal
+- OMG MySQL 8.0 is out! Are we there yet? - Gabriela Ferrara
+- Extending Laravel Nova - Marcel Pociot
 
 
