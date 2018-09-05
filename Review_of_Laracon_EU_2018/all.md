@@ -1,4 +1,15 @@
 # August 30th
+## Recommend level: 
+:star: - Not worth to watch
+
+:star::star: - Not recommended
+
+:star::star::star: - Something useful or intersting or can learn somthing from
+
+:star::star::star::star: - Very useful, should watch
+
+:star::star::star::star::star: -  Very useful, best performance, must see
+
 ## 9:30 - 10:30: 
 ### Build bridges, not walls—Design for users across cultures
 
