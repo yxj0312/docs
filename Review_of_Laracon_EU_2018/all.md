@@ -73,11 +73,36 @@
     
 
 ## 11:50 - 12:40:
-### Twelve-Factor Apps
+### Twelve-Factor Apps (:star::star::star:)
 
 - very useful principles
 - some of them I do not quite unstand, need to watch the record again
-- coming soon...
+- some notes(not all):
+    - One codebase for one application
+    - If it only exists in production, it doesn't exist at all
+    - Git commit your vendor directory -> :scream:
+    - Bake system/PHP libraries into your server/Docker image
+    - Strict separation from code
+    - .env file considered harmful (very intersting, should see!)
+        - Simple solutions:
+            1. Store your config encrypted in cloud storage
+            2. Download on deployment
+            3. For each variable, export into enviroment
+            4. Run your app
+            5. Example:
+            ```php
+               #!/user/bin/env bash
+               aws s3 cp s3://my-bucket/config-vars config-vars
+               export $(cat config-vars | xargs) && php -fpm
+            ```
+        - Better solutions:
+            - AWS Secrets / Parameter Store(SSM)
+            - Kubernetes Secrets
+            - Hashicorp Vault
+            - Heroku Config
+    - If you care about your data, use managed database hosting
+            
+            
 
 ## 13:40 - 14:40:
 ### Migrating a 15 Year Old Enterprise Application to Laravel: Lessons Learned and Opportunities Gained
