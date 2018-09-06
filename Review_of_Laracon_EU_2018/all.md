@@ -82,8 +82,8 @@
     - If it only exists in production, it doesn't exist at all
     - Git commit your vendor directory -> :scream:
     - Bake system/PHP libraries into your server/Docker image
-    - Strict separation from code
-    - .env file considered harmful (very intersting, should see!)
+    - Strict separation of configuration files from code
+    - .env file (and database.php in the config directory etc.) considered harmful (very intersting, should see!)
         - Simple solutions:
             1. Store your config encrypted in cloud storage
             2. Download on deployment
@@ -127,6 +127,9 @@
 - brand new stuffs for me
 - interesting
 - [Wiki](https://de.wikipedia.org/wiki/Content_Security_Policy)
+- links:
+    - https://christoph-rumpel.com/2018/03/content-security-policy-101
+    - https://vimeo.com/263232503   (Laravel Packages - Spatie CSP (Content Security Policy))
 - ~missed something due to going to the toilets~
 
 ## 16:00 - 17:00:
@@ -191,9 +194,15 @@
 - perfect live coding (must see)
 - humor
 - focus on little things, not just talk in generalities
+- [slides](https://www.slideshare.net/KaiSassnowski/things-every-developer-absolutely-positively-needs-to-know-about-database-indexing-112669367)
+- [Database Dump](https://github.com/ksassnowski/indexing-example-database)
 - some notes:
     - No sliver bullet:
-    Indexing makes reading faster, but writing slower  
+    Indexing makes reading faster, but writing slower
+    - With every new SQL query one should check its indexing
+    - Slow QueriesARE ONE THE MOST COMMON CAUSES OF POOR PERFORMANCE
+    - DEVELOPERS DON'T KNOW (ENOUGH) ABOUT indexing
+    - THE column order MATTERS!
 
 ## 11:50 -  12:40
 ### Crypto for Everyone (:star::star:)
