@@ -110,7 +110,7 @@ public function retryUntil() {
 - macro
 ```php
 <!-- define a macro to get UNIX timestamp-->
-Route::get('/carbon', functioni(){
+Route::get('/carbon', function(){
     Illuminate\Support\Carbon::macro('unix', function(){
         return $this->format('U');
     });
@@ -137,6 +137,7 @@ Route::get('/carbon-json', function(){
     return $array;
 })
 ```
+or write them in AppServiceProvider
 
 - 15:30 - responsable objects...
 ```php
