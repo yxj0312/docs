@@ -1,0 +1,1 @@
+VerifyCsrfToken in middleware of kernel.php
