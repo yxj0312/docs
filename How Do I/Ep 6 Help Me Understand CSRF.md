@@ -16,7 +16,7 @@ How do u set the token?
 
             - in start() method of Store.php
 
-litte hints:
+little hints:
 
 Add timestamps on the pivot table
 
