@@ -1,3 +1,4 @@
+https://laracasts.com/series/how-do-i/episodes/18
 ```php
 $data = [
     'front' => [
