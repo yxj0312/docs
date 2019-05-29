@@ -1,6 +1,6 @@
 https://laracasts.com/series/laravel-from-scratch-2018/episodes/35
 
-Some usages: 
+Some usages:
 ```php
 $users->first()
 $users->last()
@@ -52,3 +52,4 @@ $songs->sum('length');
 ```
 
 Higer order collections:
+test
