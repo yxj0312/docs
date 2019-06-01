@@ -52,4 +52,3 @@ $songs->sum('length');
 ```
 
 Higer order collections:
-test
