@@ -52,3 +52,28 @@ $songs->sum('length');
 ```
 
 Higer order collections:
+Let's say, we wanna grap all users, who are verified.
+
+```php
+$users->filter(function ($user){ return $user->email_verified_at; })
+
+
+$users->filter->email_verified_at
+```
+Behind the scense: in Collection.php->__get()->HigherOrderCollectionProxy
+
+it calls the column or method, for example if u have a method in User.php called
+```php
+public function isVerified()
+{
+    return (bool) $this->email_verified_at;
+}
+
+$users->filter->isVerified();
+```
+
+Custom collection:
+
+$users->areAllVerified()
+
+
