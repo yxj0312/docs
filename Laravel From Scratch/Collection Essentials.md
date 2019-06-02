@@ -76,4 +76,5 @@ Custom collection:
 
 $users->areAllVerified()
 
+Laracast broken
 
