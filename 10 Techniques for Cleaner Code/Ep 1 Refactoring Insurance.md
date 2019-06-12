@@ -43,7 +43,7 @@ class SendUpgradeCouponToNewMonthlySubscribers extends Command
 }
 ```
 
-## Let's us create a test:
+## Let's create a test:
 
 ```php
     class SendUpgradeCouponToNewMonthlySubscribersTest extends TestCase
