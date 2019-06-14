@@ -144,7 +144,7 @@ More you use mocks, you get little more capping there. Because now in order to t
 
             $this->artisan('laracasts:send-upgrade-coupon-to-new-monthly-subscribers');
 
-            $gateway->shouldHaveReceived()->createCoupon(\Mockery::any());
+            $gateway->shouldHaveReceived()->createCoupon(\Mockery::any())->once();
 
             // Then, they should receive an email
             Mail::assertSent(UpgradeToYearly::class, 1);
