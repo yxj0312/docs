@@ -1,3 +1,7 @@
+# [Play With Confidence](https://laracasts.com/series/ten-techniques-for-cleaner-code/episodes/2)
+
+> Technique #2. Now that we've learned to back up our code with a series of tests, we can move on to the second technique. Clean code isn't a straight line. Often, you'll follow a variety of roundabouts, tunnels, and even u-turns to get there. The secret is to play with confidence. Make a small tweak, run the tests, and then decide: "Is this better than before?"
+
 ## Problem 3: We don't have test coverage for 
 ```php
 $coupon = Coupon::generate([
