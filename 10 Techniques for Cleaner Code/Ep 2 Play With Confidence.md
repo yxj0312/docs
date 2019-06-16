@@ -48,8 +48,8 @@ $coupon = Coupon::generate([
 ```
 
 ### Refactor 
-- change foreach to collection each
-- remove $users
+- Change foreach to collection each
+- Remove $users
 ```php
 class SendUpgradeCouponToNewMonthlySubscribers extends Command
 {
@@ -88,7 +88,7 @@ class SendUpgradeCouponToNewMonthlySubscribers extends Command
 }
 ```
 
-- extract method makeCoupon()
+- Extract method makeCoupon()
 - Add info after sending email
 ```php
 class SendUpgradeCouponToNewMonthlySubscribers extends Command
@@ -192,7 +192,7 @@ class SendUpgradeCouponToNewMonthlySubscribers extends Command
 }
 ```
 
-- refactor code generation without including user id or time
+- Refactor code generation without including user id or time
 ```php
 
 protected function makeCoupon($gateway)
@@ -294,7 +294,7 @@ class SendUpgradeCouponToNewMonthlySubscribers extends Command
     }
 }
 ```
-- expose that a user can be emailed
+- Expose that a user can be emailed
 
 ```php
     trait Subscribable
@@ -359,7 +359,7 @@ class SendUpgradeCouponToNewMonthlySubscribers extends Command
 }
 ```
 
-- pluck email instead of info('Done')
+- Pluck email instead of info('Done')
 
 ```php
 class SendUpgradeCouponToNewMonthlySubscribers extends Command
