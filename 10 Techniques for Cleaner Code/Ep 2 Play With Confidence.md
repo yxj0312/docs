@@ -130,4 +130,274 @@ class SendUpgradeCouponToNewMonthlySubscribers extends Command
 
 }
 ```
+- Add a trait for scope to $user model
 
+```php
+    trait Subscribable
+    {
+        public function scopeOnPlan($query. $plan)
+        {
+            $query->where('stripe_plan', $plan);
+        }
+
+        public function scopeSubscribedOn($query, $date =  null)
+        {
+            // Default: of last week
+            $date = $date ?? today()->subweek();
+             
+            $query->where('created_at', $date);
+        }
+    }
+```
+
+```php
+class SendUpgradeCouponToNewMonthlySubscribers extends Command
+{
+    protected $signature = 'laracasts:send-upgrade-coupon-to-new-monthly-subscribers';
+
+    protected $description = 'Send a coupon to monthly subscribers to upgrade.';
+
+    /**
+     * Excute the console command
+    */
+    public function handle(Gateway $gateway)
+    {
+        User::active()
+            ->onPlan('monthly-15') 
+            ->subscribedOn(today()->subMonths(3))
+            // You can get rid of this get(), because there is a each method on the query build.
+            // ->get()
+            ->each(function ($user) use ($gateway){
+                Mail::to($user)->send(
+                    // a mailable class
+                    new UpgradeToYearly($user, $this->makeCoupon($user, $gateway))
+                );
+
+                $this->info("Send email to {$user->email}");
+            });
+
+        $this->info('Done'); 
+    }
+
+    protected function makeCoupon($user, $gateway)
+    {
+        return  Coupon::generate([
+            'code' => hash('md5', $user->id . '-' . time()),
+            'percentage_discount' => 10,
+            'description' => 'Upgrade to yearly',
+            'duration' => 'once'
+        ], $gateway);
+    }
+
+}
+```
+
+- refactor code generation without including user id or time
+```php
+
+protected function makeCoupon($gateway)
+{
+    return  Coupon::generate([
+        'code' => str_random(25),
+        'percentage_discount' => 10,
+        'description' => 'Upgrade to yearly',
+        'duration' => 'once'
+    ], $gateway);
+}
+```
+
+- In the command construct, we resolve our gateway
+```php
+class SendUpgradeCouponToNewMonthlySubscribers extends Command
+{
+    protected $signature = 'laracasts:send-upgrade-coupon-to-new-monthly-subscribers';
+
+    protected $description = 'Send a coupon to monthly subscribers to upgrade.';
+
+    protected $gateway;
+
+    public function __construct(Gateway $gateway)
+    {
+        $this->gateway = $gateway;
+
+        parent::__construct();
+    }
+
+    /**
+     * Excute the console command
+    */
+    public function handle()
+    {
+        User::active()
+            ->onPlan('monthly-15') 
+            ->subscribedOn(today()->subMonths(3))
+            ->each(function ($user) {
+                Mail::to($user)->send(
+                    new UpgradeToYearly($user, $this->makeCoupon())
+                );
+
+                $this->info("Send email to {$user->email}");
+            });
+
+        $this->info('Done'); 
+    }
+
+    protected function makeCoupon()
+    {
+        return  Coupon::generate([
+            'code' => str_random(25),
+            'percentage_discount' => 10,
+            'description' => 'Upgrade to yearly',
+            'duration' => 'once'
+        ], $this->gateway);
+    }
+
+}
+```
+
+- Or another approach
+```php
+class SendUpgradeCouponToNewMonthlySubscribers extends Command
+{
+    protected $signature = 'laracasts:send-upgrade-coupon-to-new-monthly-subscribers';
+
+    protected $description = 'Send a coupon to monthly subscribers to upgrade.';
+
+    /**
+     * Excute the console command
+    */
+    public function handle()
+    {
+        User::active()
+            ->onPlan('monthly-15') 
+            ->subscribedOn(today()->subMonths(3))
+            ->each(function ($user) {
+                Mail::to($user)->send(
+                    new UpgradeToYearly($user, $this->makeCoupon())
+                );
+
+                $this->info("Send email to {$user->email}");
+            });
+
+        $this->info('Done'); 
+    }
+
+    protected function makeCoupon()
+    {
+        return  Coupon::generate([
+            'code' => str_random(25),
+            'percentage_discount' => 10,
+            'description' => 'Upgrade to yearly',
+            'duration' => 'once'
+            // Resolve() === app(): grap this thing out of the service container
+        ], resolve(Gateway::class));
+    }
+}
+```
+- expose that a user can be emailed
+
+```php
+    trait Subscribable
+    {
+        public function scopeOnPlan($query. $plan)
+        {
+            $query->where('stripe_plan', $plan);
+        }
+
+        public function scopeSubscribedOn($query, $date =  null)
+        {
+            // Default: of last week
+            $date = $date ?? today()->subweek();
+             
+            $query->where('created_at', $date);
+        }
+
+        // Call while sending through the user
+        public function email($callback)
+        {
+            return Mail::to($this)->send($callback($this));
+        }
+    }
+```
+
+```php
+class SendUpgradeCouponToNewMonthlySubscribers extends Command
+{
+    protected $signature = 'laracasts:send-upgrade-coupon-to-new-monthly-subscribers';
+
+    protected $description = 'Send a coupon to monthly subscribers to upgrade.';
+
+    /**
+     * Excute the console command
+    */
+    public function handle()
+    {
+        User::active()
+            ->onPlan('monthly-15') 
+            ->subscribedOn(today()->subMonths(3))
+            ->get()
+            ->each
+            ->email(function ($user) {
+                $this->info("Send email to {$user->email}");
+
+                return new UpgradeToYearly($user, $this->makeCoupon());
+            });
+
+        $this->info('Done'); 
+    }
+
+    protected function makeCoupon()
+    {
+        return  Coupon::generate([
+            'code' => str_random(25),
+            'percentage_discount' => 10,
+            'description' => 'Upgrade to yearly',
+            'duration' => 'once'
+            // Resolve() === app(): grap this thing out of the service container
+        ], resolve(Gateway::class));
+    }
+}
+```
+
+- pluck email instead of info('Done')
+
+```php
+class SendUpgradeCouponToNewMonthlySubscribers extends Command
+{
+    protected $signature = 'laracasts:send-upgrade-coupon-to-new-monthly-subscribers';
+
+    protected $description = 'Send a coupon to monthly subscribers to upgrade.';
+
+    /**
+     * Excute the console command
+    */
+    public function handle()
+    {
+        $emails = User::active()
+            ->onPlan('monthly-15') 
+            ->subscribedOn(today()->subMonths(3))
+            ->get()
+            ->each
+            ->email(function ($user) {
+                return new UpgradeToYearly($user, $this->makeCoupon());
+            })
+            ->pluck('email');
+
+        $this->info(
+            "Finished. Sent upgrade coupons to " .
+            $emails->implode(', ')
+        ); 
+    }
+
+    protected function makeCoupon()
+    {
+        return  Coupon::generate([
+            'code' => str_random(25),
+            'percentage_discount' => 10,
+            'description' => 'Upgrade to yearly',
+            'duration' => 'once'
+            // Resolve() === app(): grap this thing out of the service container
+        ], resolve(Gateway::class));
+    }
+}
+```
