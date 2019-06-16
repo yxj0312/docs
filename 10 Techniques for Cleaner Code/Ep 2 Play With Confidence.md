@@ -299,7 +299,7 @@ class SendUpgradeCouponToNewMonthlySubscribers extends Command
 ```php
     trait Subscribable
     {
-        public function scopeOnPlan($query. $plan)
+        public function scopeOnPlan($query, $plan)
         {
             $query->where('stripe_plan', $plan);
         }
