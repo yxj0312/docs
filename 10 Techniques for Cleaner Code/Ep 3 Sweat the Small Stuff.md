@@ -40,9 +40,43 @@ class SupportController extends Controller
 }
 
 ```
+Test:
+```php 
+/** @test */
+function it_sends_a_support_email()
+{
+    Mail::fake();
+
+    $this->post('/contact', $fields = $this->validFields());
+
+    Mail::assertQueued(SupportTicket::class. function($mail) use ($filed){
+        return $mail->sender == $fields['email'];
+    })
+}
+```
+
 
 ## Refactor
 - Import everything
     ```php 
     use  \Laracast\Mail\SupportTicket;
+    ```
+
+- Call validate method directly
+    ```php 
+        request()->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'question' => 'required',
+            'verification' => 'required|in:5, five'
+        ]);
+    ```
+
+- Inline instead of creating variable for only one time used email
+    ```php 
+        Mail::to('support@laracast.com')->send($mailable);
+    ```
+- Change hard code of email address with a configuration file
+    ```php 
+        Mail::to(config('laracasts.supportEmail'))->send($mailable);
     ```
