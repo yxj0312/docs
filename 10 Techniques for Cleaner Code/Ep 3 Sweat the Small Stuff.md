@@ -18,8 +18,8 @@ class SupportController extends Controller
         $email = 'support@laracast.com';
 
         $mailable = new \Laracast\Mail\SupportTicket(
-            request()->input('email');
-            request()->input('question');
+            request()->input('email'),
+            request()->input('question')
         );
 
         Mail::to($email)->send($mailable);
@@ -76,7 +76,60 @@ function it_sends_a_support_email()
     ```php 
         Mail::to('support@laracast.com')->send($mailable);
     ```
-- Change hard code of email address with a configuration file
+- Change hard coding of email address with a configuration file
     ```php 
         Mail::to(config('laracasts.supportEmail'))->send($mailable);
+    ```
+- Instead of request()->input, using:
+    ```php 
+        $mailable = new SupportTicket(request('email'),request('question'));
+    ```
+- $mailable can be inline
+    ```php 
+        Mail::to(config('laracasts.supportEmail'))->send(
+            new SupportTicket(request('email'),request('question')
+        );
+    ```
+- Change send to queue
+    ```php 
+        Mail::to(config('laracasts.supportEmail'))->queue(
+            new SupportTicket(request('email'),request('question')
+        );
+    ```
+- Refactor if-else
+    - ```return ['status' => 'Success'];``` could be in one line.
+    - if-else is good for readability. but in this case, we already have a return before else.
+    -  there's home() helper function.
+    ```php 
+        if (request()->wantsJson) {
+            return ['status' => 'Success'];
+        }
+
+        flash()->overlay(
+            'Message Sent!',
+            'We will get back to you as soon as possible.'
+        );
+
+        return home();    
+    ```
+- Add doc block for comment
+    ```php 
+        /**
+         * Submit a new support request.
+         *
+         * @return array|\RedirectResponse 
+         */  
+    ```
+- Validate attributes
+    ```php 
+        $attributes = request()->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'question' => 'required',
+            'verification' => 'required|in:5, five'
+        ]);
+
+        Mail::to(config('laracasts.supportEmail'))->queue(
+            new SupportTicket($attributes['email'], $attributes['question']
+        );
     ```
