@@ -120,7 +120,7 @@ function it_sends_a_support_email()
          * @return array|\RedirectResponse 
          */  
     ```
-- Validate attributes
+- Validate attributes(optional)
     ```php 
         $attributes = request()->validate([
             'name' => 'required',
