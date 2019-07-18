@@ -21,3 +21,5 @@ class TeamsController extends Controller {
     ....
 }
 ```
+
+[methods](https://github.com/yxj0312/docs/blob/master/images/sc_methods.JPG)
