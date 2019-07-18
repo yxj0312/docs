@@ -23,3 +23,14 @@ class TeamsController extends Controller {
 ```
 
 ![methods](https://github.com/yxj0312/docs/blob/master/images/sc_methods.JPG)
+
+## Problems and solutions:
+
+- To many assit method such like 'leave Team'
+
+    1. Maybe create a service class instead
+    2. Or create another controller and extract the assit methods to that controller, so here we can return to the seven restful actions(create/store/destory etc.):
+
+        - Here, for example: create a TeamMembersController
+        - Move 'storeMember', 'destoryMember' to this controller
+        - Rename them to store and destroy.
