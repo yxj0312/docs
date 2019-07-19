@@ -38,3 +38,44 @@ class TeamsController extends Controller {
 
     ![methods_2](https://github.com/yxj0312/docs/blob/master/images/sc_methods_2.PNG)
 
+- Ist 'findUserById' and 'findUserByEmail' above really necessary in TeamController?
+
+    - Use Static method
+        - We have a scopeOwnedBy Method:
+        ```php
+        public function ownedBy(Builder $query, $ownerId)
+        {
+            return $query->where('owner_id', $ownerId)
+        }
+        ```
+        - Change it to a static method
+        ```php
+            public static function ownedBy($id)
+            {
+                return static::with('manager  ')->where('owner_id', $id)->first();
+            }
+        ```
+        - Then we can use it like in getTeam()
+        ```php
+        protected function getTeam()
+        {
+            return Team::ownedBy(auth()->id());
+        }
+        ```
+        - or in show() of TeamController
+
+        ```php
+        public function show(Request $request)
+        {
+            if (! $team = Team::ownedBy(auth()->id())) {
+                return redirect()->route('create_team_path');
+            }
+
+            $data = [
+                ....
+            ]
+        }
+        ```
+
+    - Or create a trait to do that
+
