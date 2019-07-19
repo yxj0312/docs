@@ -36,5 +36,5 @@ class TeamsController extends Controller {
         - Rename them to store and destroy.
         - 'inviteMember' also move to this controller
 
-    ![methods_2](https://github.com/yxj0312/docs/blob/master/images/sc_methods_2.JPG)
+    ![methods_2](https://github.com/yxj0312/docs/blob/master/images/sc_methods_2.PNG)
 
