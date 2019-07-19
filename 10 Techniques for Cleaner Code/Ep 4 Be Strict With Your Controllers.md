@@ -34,3 +34,7 @@ class TeamsController extends Controller {
         - Here, for example: create a TeamMembersController
         - Move 'storeMember', 'destoryMember' to this controller
         - Rename them to store and destroy.
+        - 'inviteMember' also move to this controller
+
+    ![methods_2](https://github.com/yxj0312/docs/blob/master/images/sc_methods_2.JPG)
+
