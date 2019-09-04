@@ -1,0 +1,2 @@
+- First Party Extension: Flare
+- You can see route name in App tab
