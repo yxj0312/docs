@@ -1,0 +1,6 @@
+- In app.js, there is no reference of vue or any javascript framework
+- In package.json, no vue
+- In L5, out of the box we include asset/css and js, in L6 not anymore(u need to do it manually after type npm install and npm run dev)
+- No more php artisan make:auth command, all of it has been removed to a laravel/ui package
+- ```composer require laravel/ui php artisan ui vue --auth```
+- Then you have all dependencies you have in L5
