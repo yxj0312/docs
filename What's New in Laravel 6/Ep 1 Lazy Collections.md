@@ -55,3 +55,46 @@ Route::get('/', function(){
 
     return 'Done';
 });
+```
+Let's reform it:
+```php
+function readLogFile($file) {
+    $fp = fopen($file, 'r');
+
+    while ($line = fget($fp){
+        yield $line;
+    })
+}
+
+Route::get('/', function(){
+    foreach (readLogFile(storage_path('log/laravel-2019-09-03.log')) as $line){
+        dump($line);
+    }
+
+    return 'Done';
+});
+```
+We could turn it to a lazy collection
+
+```php
+Route::get('/', function(){
+    // $lines = new LazyCollection(function (){
+    $lines  = LazyCollection::make(function (){
+        $fp = fopen(storage_path('log/laravel-2019-09-03.log'), 'r');
+
+        while ($line = fget($fp){
+            yield $line;
+        })
+    });
+
+    // or you can continue chaining it
+    collection->map(...)
+
+    // You can use any collection methods to iterator it
+    $lines->map(function ($line){
+        return strlen($line);
+    })->all();
+
+    return 'Done';
+});
+```
