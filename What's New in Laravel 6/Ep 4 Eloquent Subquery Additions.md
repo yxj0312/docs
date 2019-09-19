@@ -1,4 +1,4 @@
-1. Add a subquery
+## Add a subquery
 ```php
 App\User::addSelect(['last_watched_video' => function ($query) {
     $query->select('lessson_id')
@@ -22,5 +22,20 @@ App\User::addSelect(['last_watched_video' => function ($query) {
         ...
         last_watched_video: 1158
     }
-
 ]
+
+### what's happening there
+```php
+DB::listen(function ($query) { var_dump($query->sql);});
+```
+
+## Another example: grap our users, order them according to those who recently watched videos.
+```php
+App\User::orderBy(function ($query){
+    $query->select('created_at')
+        ->from('watching')
+        ->latest()
+        ->whereColumn('user_id', 'users.id')
+        ->limit(1);
+})->find(41, 50)
+```
