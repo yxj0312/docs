@@ -31,7 +31,7 @@ DB::listen(function ($query) { var_dump($query->sql);});
 
 ## Another example: grap our users, order them according to those who recently watched videos.
 ```php
-App\User::orderBy(function ($query){
+App\User::orderByDesc(function ($query){
     $query->select('created_at')
         ->from('watching')
         ->latest()
