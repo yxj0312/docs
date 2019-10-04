@@ -4,3 +4,4 @@
 24.09.2019 design
 25.09.2019 til 01:30 landingpage finish
 26.09.2019 baisc layout of form fileds
+05.10.2019 back from vacation and ajust frontend styles
