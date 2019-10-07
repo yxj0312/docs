@@ -6,4 +6,5 @@
 26.09.2019 baisc layout of form fileds
 05.10.2019 back from vacation and ajust frontend styles
 06.10.2019 Shopping, coding
-07.10.2019 骑上我心爱的小摩托，她永远都不会堵车
+06.10.2019 骑上我心爱的小摩托，她永远都不会堵车
+07.10.2019 Image swapping
