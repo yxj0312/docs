@@ -14,3 +14,4 @@
 15.10.2019 back from niederland
 16.10.2019 worksday one learning forge on laracast
 18.10.2019 work new design
+19.10.2019 go cologne 
