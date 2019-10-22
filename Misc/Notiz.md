@@ -16,3 +16,4 @@
 18.10.2019 work new design
 20.10.2019 go cologne 
 21.10.2019 Monday no private work
+22.10.2019 sick
