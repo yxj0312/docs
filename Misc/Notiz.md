@@ -18,3 +18,4 @@
 21.10.2019 Monday no private work
 22.10.2019 sick
 23.10.2019 still sick, but do some private works
+25.10.2019 prepare to barcelona
