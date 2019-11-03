@@ -19,3 +19,4 @@
 22.10.2019 sick
 23.10.2019 still sick, but do some private works
 25.10.2019 prepare to barcelona
+3.11.2019 back from barcelona, go to benrath and coding private work
