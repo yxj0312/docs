@@ -20,3 +20,4 @@
 23.10.2019 still sick, but do some private works
 25.10.2019 prepare to barcelona
 3.11.2019 back from barcelona, go to benrath and coding private work
+9.11.2019 last day only play in the night
