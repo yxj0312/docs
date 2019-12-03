@@ -21,3 +21,4 @@
 25.10.2019 prepare to barcelona
 3.11.2019 back from barcelona, go to benrath and coding private work
 9.11.2019 last day only play in the night
+3.12.2019 装显示器。玩守望先锋哇哈哈哈
