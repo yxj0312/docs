@@ -14,7 +14,7 @@
 15.10.2019 back from niederland
 16.10.2019 worksday one learning forge on laracast
 18.10.2019 work new design
-20.10.2019 go cologne 
+20.10.2019 go cologne
 21.10.2019 Monday no private work
 22.10.2019 sick
 23.10.2019 still sick, but do some private works
@@ -23,3 +23,4 @@
 9.11.2019 last day only play in the night
 3.12.2019 装显示器。玩守望先锋哇哈哈哈
 5.12.2019 overwatch
+7.12.2019 形式主义
