@@ -1,0 +1,15 @@
+- Git Version Control: 3
+- Basic Terminal Usage: 3
+- Data Structures & Algorithms: 2-4
+- SOLID, KISS, YAGNI
+    - SOLID: 3
+    - KISS: 3 (Keep it simple)
+    - YAGNI: 2 (You aren't gonna need it, XP(Extreme programming))
+- Github: 3
+- Licenses:2
+- Semantic Versioning: 1-2
+- SSH: 2-3
+- HTTP/HTTPS and APIs: 2-3
+- Design Patterns: 2-3
+- Character Encodings (ASCII): 2-3
+
