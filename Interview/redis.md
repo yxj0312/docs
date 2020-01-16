@@ -52,9 +52,10 @@ public function index($channel, ThreadFilters $filters)
         return $threads;
     }
 
-    $trending = collect(Redis::zrevrange('trending_threads', 0, -1))->map(function ($thread){
-        return json_decode($thread);
-    });
+    $trending = array_map('json_decode', Redis::zrevrange('trending_threads', 0, -1));
+    // $trending = collect(Redis::zrevrange('trending_threads', 0, -1))->map(function ($thread){
+    //     return json_decode($thread);
+    // });
 
     return view('threads.index', compact('threads', 'trending'));
 }
