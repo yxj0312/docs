@@ -5,9 +5,11 @@
 ## Example
 Two Tables
 - Posts(id/title)
-- comments(id/body/post_id)
+- Comments(id/body/post_id)
 
 ```sql
 alert table comments
-add foreign key (post_id) references posts(id)
+add foreign key (post_id) references posts(id) on delete cascade
 ```
+
+Go sakila->store/film/inventory table
