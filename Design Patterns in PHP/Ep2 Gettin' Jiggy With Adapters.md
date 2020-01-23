@@ -109,7 +109,7 @@ class Book {
             }
         }    
     ```
-3. If try person try to read Kindle now
+3. If person try to read Kindle now
     ```php
     (new Person)->read(new Kindle);
     ```
