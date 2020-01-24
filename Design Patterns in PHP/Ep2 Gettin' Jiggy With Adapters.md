@@ -4,7 +4,7 @@
 
 > Use an Adapter, plug your memory card into it, An adapter offers you an USB port, that you can plug into your computer!
 
-### Second Example
+Or:
 > Different plug in US and EU, what we do?
 
 > Use an Adapter to make two different interfaces connect.
@@ -88,7 +88,7 @@ class Book {
         (new Person)->read(new Book);
     ```
 
-2.  For Kindle,  also extract an interface
+2.  For o,  also extract an interface
     ```php
         interface eReaderInterface {
             public function turnOn();
@@ -114,3 +114,98 @@ class Book {
     (new Person)->read(new Kindle);
     ```
     it's not going to work, because the interface that will use here does not match the interface that we wish to use.
+
+4. We create a class to allow two different interfaces to communicate to each
+
+    ```php
+    class KindleAdapter implements BookInterface{
+        
+        private $kindle;
+        // We need to inject our actual kindle here
+        public function __construct(Kindle $kindle)
+        {
+            $this->kindle = $kindle;
+        }
+
+        public function open()
+        {
+            return $this->kindle->turnOn();
+        }
+
+        public function turnPage()
+        {
+            return $this->kindle->pressNextButton();
+        }
+    }
+    ```
+5. The key component is:
+    5.1. Create an Adapter
+    5.2. Then you inject your class and translate the original interface method over to the new one.
+
+    ```php
+    (new Person)->read(new KindleAdapter(new Kindle));
+    ```
+    We didn't have to change our Person class one bit.
+
+    Once again for understanding:
+    Kindle(new Kindle) is not here to the same contract as we expect. To fix this, we wrap up kindle an adapter(new KindleAdapter()) and pass that to the read method.
+
+6. You should rename this Adapter to eReaderAdapter
+
+    ```php
+    class eReaderAdapter implements BookInterface{
+        
+        private $reader;
+        // We need to inject our actual kindle here
+        public function __construct(eReaderInterface $reader)
+        {
+            $this->kindle = $reader;
+        }
+
+        public function open()
+        {
+            return $this->kindle->turnOn();
+        }
+
+        public function turnPage()
+        {
+            return $this->kindle->pressNextButton();
+        }
+    }
+    ```
+    ```php
+        class Nook {
+
+            public function turnOn()
+            {
+                var_dump('turn the Nook on');
+            }
+
+            public function pressNextButton()
+            {
+                var_dump('press the next button on the Nook');
+            }
+        }    
+    ```
+
+    ```php
+    (new Person)->read(new eReaderAdapter(new Nook));
+    ```
+
+### Seconde Example
+FilesystemAdapter of Laravel: It's wrapping the popular Flysystem api into an interface that laravel users will be familiar with.
+
+As an example, let's see get()
+    
+```php
+public function get($path)
+{
+    // $driver is injected.
+    try {
+        // wrapping to the read method
+        return $this->driver->read($path);
+    } catch (\League\Flysystem\FileNotFoundException $e) {
+        throw new ContractFileNotFoundException($path, $e->getCode(), $e);
+    }
+}
+```
