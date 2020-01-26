@@ -27,7 +27,7 @@ class LogToXWebService {
 
 ### Encapsulate and make them interchangeable
 
-#### By Creating an interface, because basic concept are depending upon abstraction rather than con-creation.
+#### By Creating an interface, because basic concept are depending upon abstraction rather than concretions.
 
 ```php
 interface Logger {
