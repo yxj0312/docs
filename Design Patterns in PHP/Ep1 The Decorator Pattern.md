@@ -50,7 +50,7 @@ echo(new BasicInspectionAndOilChangeAndTireRotation())->getCost();
 > Very quickly the server breaks down for following reasons:
 
 1. The class numbers will be insane
-2. Hard coding preis here, if the  basic inspection changes to 25, you will have to change it in multiple place
+2. Hard coding here, if the  basic inspection changes to 25, you will have to change it in multiple place
 3. There is no way to decorator or extend the behavior of our basicInspection without hard coding or creating these new classes
 
 
@@ -109,12 +109,12 @@ echo(new BasicInspection())->getCost();
 echo(new OilChange(new BasicInspection()))->getCost(); 
 ```
 
-> Fazit: 
+> Tips: 
 
 - You have your core service: BasicInspection
 - And then you have your decorator that you force to implement the same contract: OilChange
-- The deorator must accept the constructor, some instances or implementation of that some contract: CarService
-- This allows us to build up this object in run time rather than falling back to something like heritance.
+- The decorator must accept the constructor, some instances or implementation of that some contract: CarService
+- This allows us to build up this object in run time rather than falling back to something like inheritance.
 
 
 ```php
@@ -202,14 +202,14 @@ class TireRotation implements CarService
 } 
 ```
 ```php
-// We want to add tire roation, we don't have to build up another class or refer to an inheirtance to find a way to macke this work,  we just decorated as needed at run time
+// We want to add tire rotation, we don't have to build up another class or refer to an inheritance to find a way to make this work,  we just decorated as needed at run time
 $service = newTireRotation(new BasicInspection);
 
 echo $service->getDescription();
 echo $service->getCost();
 ```
 
-> Understanding when this will be appropriated vs. inheirtance.
+> Understanding when this will be appropriated vs. inheritance.
 
 - Here, why is exactly that case?
 
@@ -253,9 +253,9 @@ class CarService
 - We are completely breaking many of this SOLID principle, specifically the 'Open Close Principle (OCP)'
     - Open to extension but close to modification
     - Ist this close to modification?
-        - No. Everytime we add a new service, you would have to return to this class 'CarService' and add addtional methods and possibly change existing codes -> break and more bugs
+        - No. Every time we add a new service, you would have to return to this class 'CarService' and add additional methods and possibly change existing codes -> break and more bugs
         - However, if we instead to use interface to extend functionality and behavior what we need to, we never have to worry about any of this stuffs.
-        - We can get ride of all of this, and perfer to decorate to add behavior what we need to 
+        - We can get ride of all of this, and prefer to decorate to add behavior what we need to 
         - As long as each of this related decorators implement a carService interface, doing this stuff is trivial(不重要的). Just make sure that you extend will eventually(终究) make a call to that class that is wrapping.
 
 ```php
@@ -265,11 +265,11 @@ echo(new TireRotation(new OilChange(new BasicInspection())))->getCost();
 
 > End
 
-This Pattern is approriate for the most instance, where:
-you want to change or just behavior in some way and you are feeling pressure than to simply inheirt from another class
+This Pattern is appropriate for the most instance, where:
+you want to change or just behavior in some way and you are feeling pressure than to simply inherit from another class
 
-> Always ask youself
+> Always ask yourself
 
-If I inheirt from that class, do I really need to pulling the entirety(整体) of that functionality or do I instead simply need a behavior of one or two methods
+If I inherit from that class, do I really need to pulling the entirety(整体) of that functionality or do I instead simply need a behavior of one or two methods
 
 If that is the case, then maybe you could prefer to the decorator pattern

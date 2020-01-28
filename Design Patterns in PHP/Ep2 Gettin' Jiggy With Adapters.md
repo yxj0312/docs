@@ -139,7 +139,9 @@ class Book {
     }
     ```
 5. The key component is:
+
     5.1. Create an Adapter
+    
     5.2. Then you inject your class and translate the original interface method over to the new one.
 
     ```php
