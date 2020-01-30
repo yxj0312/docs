@@ -69,17 +69,24 @@ class Alarm {
 // DTO(data transfer object)
 class HomeStatus {
     public $alarmOn = true;
-    public $locked = true;
+    // public $locked = true;
+    // Get an exception: the door is not locked!
+    public $locked = false;
     public $lightsOff = true
 }
 
+// Set up objects
 $locks = new Locks;
 $lights = new Lights;
 $alarm = new Alarm;
 
-$status = new HomeStatus;
 
-$locks->check($status);
+$locks->succeedWith($lights);
+$lights->succeedWith($alarm);
+
+$lock->check(new HomeStatus)
 
 ```
+This is not a decorator pattern, although they are similar.
 
+With the chain of responsibility pattern, any of these objects had the ability to slice through the chain, so that nothing else gets triggered
