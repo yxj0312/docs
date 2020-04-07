@@ -41,19 +41,59 @@ Say we have a customer
 
 ```php
 class Customer {
-    public function __constuct($plan)
+    protected $type;
+
+    public function __construct($type)
     {
-        $this->plan = $plan;
+        $this->type = $type;
+    }
+
+    public function type()
+    {
+        return $this-type;
     }
 }
 
 // TEST
 class CustomerIsGoldTest extends PHPUnit_Framework_TextCase
 {
-    /** @text */
+    /** @test */
     function a_customer_is_gold_if_they_have_the_respective_type()
     {
+        $specification = new CustomerIsGold;
 
+        $goldCustomer = new Customer('gold');
+        $silverCustomer = new Customer('silver');
+
+        $this->assertTrue($specification->isSatisfiedBy($goldCustomer));
+        $this->assertFalse($specification->isSatisfiedBy($silverCustomer));
     }
 }
 ```
+
+> Possible Scenario: Image that you are using repository in your application, and you wanna find a way to fetch all items from the database or from your collection, which has a specification that you pass in.
+
+```php
+// TEST
+class CustomersRepositoryTest extends PHPUnit_Framework_TextCase
+{
+    /** @test */
+    public function it_fetches_all_customers_who_match_a_give_specification()
+    {
+        $customers = new CustomersRepository(
+            [
+                new Customer('gold'),
+                new Customer('bronze'),
+                new Customer('silver'),
+            ]
+        );
+        $spec = new CustomerIsGold;
+
+        $customers->bySpecification($spec)
+    }
+}
+
+```
+
+> From comments:  this pattern could be considered a software anti-pattern! More on that on the wikipedia page: <https://en.wikipedia.org/wiki/Specification_pattern#Criticisms.>
+> 
