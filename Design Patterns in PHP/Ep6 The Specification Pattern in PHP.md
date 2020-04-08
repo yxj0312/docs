@@ -87,9 +87,19 @@ class CustomersRepositoryTest extends PHPUnit_Framework_TextCase
                 new Customer('silver'),
             ]
         );
-        $spec = new CustomerIsGold;
 
-        $customers->bySpecification($spec)
+        $results = $customers->bySpecification(new CustomerIsSpec);
+
+        $this->assertCount(2, $results);
+    }
+}
+
+
+// Implementation
+class CustomersRepository {
+    public function bySpecification()
+    {
+        
     }
 }
 
