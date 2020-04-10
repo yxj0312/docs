@@ -77,18 +77,41 @@ class CustomerIsGoldTest extends PHPUnit_Framework_TextCase
 // TEST
 class CustomersRepositoryTest extends PHPUnit_Framework_TextCase
 {
-    /** @test */
-    public function it_fetches_all_customers_who_match_a_give_specification()
+    protected $customers;
+
+    public function setUp()
     {
-        $customers = new CustomersRepository(
+        $this->customers = new CustomersRepository(
             [
                 new Customer('gold'),
                 new Customer('bronze'),
                 new Customer('silver'),
+                new Customer('gold'),
             ]
         );
+    }
 
-        $results = $customers->bySpecification(new CustomerIsSpec);
+    /** @test */
+    public function it_fetches_all_customers()
+    {
+        $results = $this->customers->all();
+
+        $this->assertCount(4, $results);
+    }
+
+    /** @test */
+    public function it_fetches_all_customers_who_match_a_give_specification()
+    {
+        // $customers = new CustomersRepository(
+        //     [
+        //         new Customer('gold'),
+        //         new Customer('bronze'),
+        //         new Customer('silver'),
+        //         new Customer('gold'),
+        //     ]
+        // );
+
+        $results = $this->customers->bySpecification(new CustomerIsSpec);
 
         $this->assertCount(2, $results);
     }
@@ -97,9 +120,29 @@ class CustomersRepositoryTest extends PHPUnit_Framework_TextCase
 
 // Implementation
 class CustomersRepository {
+    protected $customers;
+
+    public function __construct(array $customers)
+    {
+        $this->customers = $customers;
+    }
+
     public function bySpecification()
     {
-        
+        $matches = [];
+        // homework: translate it to a array_filter
+        foreach ($this->customers as $customer) {
+            if ($specification->isSatisfiedBy($customer)) {
+                $matches[] = $customer;
+            }
+        }
+
+        return $matches;
+    }
+
+    public function all()
+    {
+        return $this->customers;
     }
 }
 
