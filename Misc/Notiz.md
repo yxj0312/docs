@@ -1,37 +1,75 @@
 21.09.2019 do private work for handwerkermesse.
+
 22.09.2019 do private work for handwerkermesse design
+
 23.09.2019 23:33 finished 1. version Design
+
 24.09.2019 design
+
 25.09.2019 til 01:30 landingpage finish
+
 26.09.2019 baisc layout of form fileds
+
 05.10.2019 back from vacation and ajust frontend styles
+
 06.10.2019 Shopping, coding
+
 06.10.2019 骑上我心爱的小摩托，她永远都不会堵车
+
 07.10.2019 Image swapping
+
 08.10.2019 调解员
-09.10.2019 nothing to do
-整理行李准备出发
+
+09.10.2019 nothing to do 整理行李准备出发
+
 15.10.2019 back from niederland
+
 16.10.2019 worksday one learning forge on laracast
+
 18.10.2019 work new design
+
 20.10.2019 go cologne
+
 21.10.2019 Monday no private work
+
 22.10.2019 sick
+
 23.10.2019 still sick, but do some private works
+
 25.10.2019 prepare to barcelona
+
 3.11.2019 back from barcelona, go to benrath and coding private work
+
 9.11.2019 last day only play in the night
+
 3.12.2019 装显示器。玩守望先锋哇哈哈哈
+
 5.12.2019 overwatch
+
 7.12.2019 形式主义
+
 05.03.2020 新冠流行，在办公室突感发热，提前回家。回家仍然不适，有是有低热。卧床喝水今天不学习。
+
 18.03.2020 明天开始Home office, 病仍然没好透
+
 21.03.2020 宅家一天。有好转，仍然没好。打动物森林
+
 22.03.2020 宅家第二天，打国服魔兽，有好转，晚上又有反复
+
 23.03.2020 Home Office und Kurz Arbeit, 还是有反复
+
 24.03.2020 靠游戏康复中
+
 25.03.2020 还是没好，比昨天好。康复中，怀疑可能是严重花粉过敏
+
 26.03.2020 last day 滑水。。康复差不多了。
+
 09.04 玩一天，机器给老婆
+
 11.04 玩一天again
+
 12.04 玩一天again again
+
+13.04 Format this note
+
+
