@@ -81,3 +81,5 @@
 19.04 打守望
 
 20.04 macBook config
+
+21.04 finish installing git and ssh key
