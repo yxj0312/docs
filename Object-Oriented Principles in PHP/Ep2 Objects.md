@@ -7,19 +7,27 @@
 
 class Team
 {
+    protected $name;
+    protected $members;
+
+    public function __construct($name, $members)
+    {
+        $this->name = $name;
+    }
+
     public function name()
     {
-        
+        return $this->name;
     }
 
     public function members()
     {
-        
+        return $this->members;
     }
 
-    public function add()
+    public function add($name)
     {
-        
+        $this->members[] = $name;
     }
 
     public function cancel()
@@ -27,4 +35,8 @@ class Team
         
     }
 }
+
+$acme = new Team('Acme');
+
+$acme->add('John Doe');
 ```
