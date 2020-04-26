@@ -37,6 +37,12 @@ class Team
 }
 
 $acme = new Team('Acme');
+$acme = new Team('Acme', [
+    'John Doe',
+    'Jane Doe'
+]);
+
+// a static method
 
 $acme->add('John Doe');
 ```
