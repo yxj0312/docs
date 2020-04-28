@@ -44,17 +44,39 @@ class Team
     }
 }
 
+class Member
+{
+    protected $name;
+
+    public function __construct($name)
+    {
+        $this->name = $name;
+    }
+
+    public function lastViewed()
+    {
+        
+    }
+
+}
+
 // $acme = new Team('Acme');
 // $acme = new Team('Acme', [
 //     'John Doe',
 //     'Jane Doe'
 // ]);
+// $acme = Team::start('Acme', [
+//     'John Doe',
+//     'Jane Doe'
+// ]);
 $acme = Team::start('Acme', [
-    'John Doe',
-    'Jane Doe'
+    new Member('John Doe'),
+    new Member('Jane Doe')
 ]);
 
-// a static method
+$laracasts = new Team('Laracasts');
 
-$acme->add('John Doe');
+$foo = new Team('Foo');
+
+// a static method
 ```
