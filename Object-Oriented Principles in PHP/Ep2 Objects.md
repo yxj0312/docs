@@ -8,11 +8,19 @@
 class Team
 {
     protected $name;
-    protected $members;
 
-    public function __construct($name, $members)
+    protected $members = [];
+
+    public function __construct($name, $members = [])
     {
         $this->name = $name;
+        $this->members = $members;
+    }
+
+    // public static function start($name, $members = [])
+    public static function start(...$params)
+    {
+        return new static(...$params);
     }
 
     public function name()
@@ -36,8 +44,12 @@ class Team
     }
 }
 
-$acme = new Team('Acme');
-$acme = new Team('Acme', [
+// $acme = new Team('Acme');
+// $acme = new Team('Acme', [
+//     'John Doe',
+//     'Jane Doe'
+// ]);
+$acme = Team::start('Acme', [
     'John Doe',
     'Jane Doe'
 ]);
