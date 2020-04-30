@@ -95,3 +95,12 @@ $videos = new VideosCollection([
 $videos->length();
 
 ```
+
+- Example 3
+
+```php
+class Post extends Model
+{
+    
+}
+```
