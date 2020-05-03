@@ -99,8 +99,43 @@ $videos->length();
 - Example 3
 
 ```php
+// Example from Laravel
 class Post extends Model
 {
     
 }
+
+class AchievementType
+{
+    public function name()
+    {
+        // Achievement Type
+    }
+
+    public function difficulty()
+    {
+        return 'intermediate';
+    }
+
+    public function icon()
+    {
+        return ...;
+    }
+}
+
+class FirstThousandPoints extends AchievementType
+{
+    
+
+    public function qualifier($user)
+    {
+        
+    }
+
+    public function name()
+    {
+        return 'Welcome Aboard!'
+    }
+}
+
 ```
