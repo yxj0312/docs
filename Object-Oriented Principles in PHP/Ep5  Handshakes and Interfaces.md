@@ -5,17 +5,37 @@
 ```php
 class CampaignMonitor
 {
+    protected $apiKey;
+
+    public function __construct($apiKey)
+    {
+        $this->apiKey = $apiKey;
+    }
+
     public function subscribe($email)
     {
 
     }
 }
 
+
 class NewsletterSubscriptionsController
 {
-    public function store()
+    public function store(CampaignMonitor $newsletter)
     {
-        // 
+        $newsletter->subscribe(auth()->user()->email);
+    }
+}
+```
+
+```php
+
+// Let's make sure drip does the same thing as above
+class Drip
+{
+    public function subscribe($email)
+    {
+
     }
 }
 ```
