@@ -5,16 +5,16 @@
 ```php
 class CampaignMonitor
 {
-    protected $apiKey;
+    // protected $apiKey;
 
-    public function __construct($apiKey)
-    {
-        $this->apiKey = $apiKey;
-    }
+    // public function __construct($apiKey)
+    // {
+    //     $this->apiKey = $apiKey;
+    // }
 
     public function subscribe($email)
     {
-
+        die('subscribing with Campaign Monitor');
     }
 }
 
@@ -23,6 +23,8 @@ class NewsletterSubscriptionsController
 {
     public function store(CampaignMonitor $newsletter)
     {
+        $email = 'joe@example.com';
+
         $newsletter->subscribe(auth()->user()->email);
     }
 }
@@ -35,7 +37,22 @@ class Drip
 {
     public function subscribe($email)
     {
-
+        die('subscribing with Drip');
     }
 }
+
+
+class NewsletterSubscriptionsController
+{
+    public function store(Drip $newsletter)
+    {
+        $newsletter->subscribe(auth()->user()->email);
+    }
+}
+```
+
+```
+$controller = new NewsletterSusbcriptionsController();
+
+$controller->store(new Drip())
 ```
