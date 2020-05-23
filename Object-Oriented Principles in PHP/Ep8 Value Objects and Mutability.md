@@ -147,16 +147,16 @@ class Age
 
 ### Real world cautions
 
-1. Too many value object:
+- Too many value object:
 
 ```php
 public function register(FirstName $first, LastName $last, Age $age,EmailAddress $email, Password $password)
 {
-    
+    // #codes
 }
 ```
 
-2. Two different sets of data are joined or connected.
+- Two different sets of data are joined or connected.
 
 ```php
 class Coordinates
@@ -173,9 +173,9 @@ class Coordinates
 
 // public function pin($x, $y)
 // {
-    
+    // #codes
 // }
-// refactor to 
+// refactor to
 
 public function pin(Coordinates $coordinates)
 {
@@ -186,7 +186,7 @@ public function pin(Coordinates $coordinates)
 // coordinate
 // public function distance($x1, $y1, $x2, $y2)
 // {
-    
+    // #codes
 // }
 // refactor to
 public function distance(Coordinates $begin, Coordinates $end)
@@ -205,6 +205,6 @@ Another example of connected data
 
     public function scheduleVacation($arrive, $depart)
     {
-        
+        // #codes
     }
 ```
