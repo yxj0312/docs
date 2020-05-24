@@ -5,18 +5,67 @@
 ## Example
 
 ```php
+// #1
     public function add($one, $two)
     {
         if (!is_float($one) || ! is_float($two)) {
-            throw new Exception('Please provide a float.');
+            throw new InvalidArgumentException('Please provide a float.');
         }
         return $one + $two;
     }
 
     try {
         echo add(2, []);
-    } catch (Exception $e) {
+    } catch (InvalidArgumentException $e) {
         echo 'Oh well.';
     }
-    
+
+    // #2
+    class Video
+    {
+        //# Codes
+    }
+
+    class User
+    {
+        public function download(Video $video)
+        {
+            if (! this->subscribed()) {
+                throw new Logic();
+            }
+        }
+
+        public function subscribed()
+        {
+            return false;
+        }
+    }
+
+    class UserDownloadController
+    {
+        public function show()
+        {
+            try {
+                (new User)->download(new Video);
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+        }
+    }
+
+    // #3
+    class Member
+    {
+        // #Codes
+    }
+
+    class Team
+    {
+        protected $members = [];
+
+        public function add(Member $member)
+        {
+            // #codes
+        }
+    }
 ```
