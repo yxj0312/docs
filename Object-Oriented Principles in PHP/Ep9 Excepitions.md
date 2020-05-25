@@ -54,6 +54,21 @@
     }
 
     // #3
+    class MaximumMembersReached extends Exception
+    {
+        # Codes
+        protected $message = 'You may not add more than 3 team members.';
+    }
+
+    // Or: you can make a more generic exception.
+    class TeamException extends Exception
+    {
+        public function static fromTooManyMembers()
+        {
+            return new static('You may not add more than 3 team members.');
+        }
+    }
+
     class Member
     {
         // #Codes
@@ -71,9 +86,40 @@
 
         public function add(Member $member)
         {
+            if (count($this->members) === 3) {
+                throw new MaximumMembersReached;
+                // or
+                throw TeamException::fromTooManyMembers();
+            }
             // #codes
+            $this->members() = $members;
+        }
+
+        public function members()
+        {
+            return $this->members;
         }
     }
 
-    $team = new Team;
+    class TeamMembersController
+    {
+        public function store()
+        {
+            $team = new Team;
+
+            try {
+                 $team->add(new Member('Jane Doe'));
+                $team->add(new Member('John Doe'));
+                $team->add(new Member('Frank Doe'));
+                $team->add(new Member('Susan Doe'));
+
+                var_dump($team->members());
+            } catch (MaximumMembersReached $e) {
+               var_dump($e)
+            }
+        }
+    }
+
+    (new TeamMembersController())->store();
+
 ```
