@@ -57,6 +57,12 @@
     class Member
     {
         // #Codes
+        public $name;
+
+        public function __construct($name)
+        {
+            $this->name = $name;
+        }
     }
 
     class Team
@@ -68,4 +74,6 @@
             // #codes
         }
     }
+
+    $team = new Team;
 ```
