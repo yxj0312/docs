@@ -14,3 +14,34 @@ JavaScript 函数作用域: 作用域在函数内修改。
 
 > 除了函数中定义的变量之外，都是全局作用域。
 
+
+```JavaScript
+var a = 10;
+function bar(){
+    console.log(a);
+    var a = 20;
+}
+bar();//undefined
+```
+
+[变量提升（预解析）](https://juejin.im/post/5e0e97b76fb9a0481d28b1b4)
+
+Why?
+
+```JavaScript
+// 预编译
+var a = undefined
+var a = undefined
+function bar(){
+    console.log(a);
+    var a = 20;
+}
+bar(); 
+
+----
+// 在bar（）里预编译
+var a =  undefined
+console.log(a) //undefined
+
+// 如果没有这个var a = 20, 他就会在bar里调用全局变量 a = 10, 然后得到10
+```
