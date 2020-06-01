@@ -55,4 +55,9 @@ console.log(a) //undefined
 - 块级作用域 (Block scoping)
 
 [ES6之块级作用域](https://www.cnblogs.com/giggle/p/5572006.html)
-[es6 let块级作用域了解知多少](https://zhuanlan.zhihu.com/p/53349326)
+
+[Es6 let块级作用域了解知多少](https://zhuanlan.zhihu.com/p/53349326)
+
+- 作用域链
+
+[Scope Chain in Javascript](https://stackoverflow.com/questions/1484143/scope-chain-in-javascript)
