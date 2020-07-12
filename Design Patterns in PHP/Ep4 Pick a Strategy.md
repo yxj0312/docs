@@ -33,7 +33,7 @@ class LogToXWebService {
 interface Logger {
     public function log($data)
     {
-        
+
     }
 }
 

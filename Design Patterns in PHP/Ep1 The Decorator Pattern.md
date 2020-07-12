@@ -29,10 +29,11 @@ class BasicInspectionAndOilChange
 
 
 // If the customer want to know how much is the inspection, call the function, and get 19 + 19
-echo(new BasicInspectionAndOilChange())->getCost(); 
+echo(new BasicInspectionAndOilChange())->getCost();
 ```
 
 And how about a tire rotation
+
 ```php
 class BasicInspectionAndOilChangeAndTireRotation
 {
@@ -53,9 +54,8 @@ echo(new BasicInspectionAndOilChangeAndTireRotation())->getCost();
 2. Hard coding here, if the  basic inspection changes to 25, you will have to change it in multiple place
 3. There is no way to decorator or extend the behavior of our basicInspection without hard coding or creating these new classes
 
-
-
 > So we can begin with a contract called CarService
+
 ```php
 interface CarService {
     public function getCost();
@@ -67,9 +67,11 @@ class BasicInspection implements CarService
     {
         return 25;
     }
-} 
+}
 ```
+
 > Now if we want to stack on responsibilities, we could had a decorator
+
 ```php
 class OilChange implements CarService
 {
@@ -83,6 +85,7 @@ class OilChange implements CarService
 > How can we add these cost?
 
 For a decorator we could inject it.
+
 ```php
 class OilChange implements CarService
 {
@@ -90,23 +93,24 @@ class OilChange implements CarService
 
     function __construct(CarService $carService)
     {
-        $this->carService = $carService;    
+        $this->carService = $carService;
     }
 
     public function getCost()
     {
         return 29 + $this->carService->getCost();
     }
-} 
+}
 ```
+
 ```php
 // 25
-echo(new BasicInspection())->getCost(); 
+echo(new BasicInspection())->getCost();
 
 // Now we want to decorator this
 // Wrapper our core services with any number of decorators
 
-echo(new OilChange(new BasicInspection()))->getCost(); 
+echo(new OilChange(new BasicInspection()))->getCost();
 ```
 
 > Tips: 
@@ -124,7 +128,7 @@ class TireRotation implements CarService
 
     function __construct(CarService $carService)
     {
-        $this->carService = $carService;    
+        $this->carService = $carService;
     }
 
     public function getCost()
@@ -145,7 +149,7 @@ echo(new TireRotation(new OilChange(new BasicInspection())))->getCost();
 interface CarService {
     public function getCost();
 
-    public function getDescription();        
+    public function getDescription();
 }
 
 class BasicInspection implements CarService
@@ -167,7 +171,7 @@ class OilChange implements CarService
 
     function __construct(CarService $carService)
     {
-        $this->carService = $carService;    
+        $this->carService = $carService;
     }
 
     public function getCost()

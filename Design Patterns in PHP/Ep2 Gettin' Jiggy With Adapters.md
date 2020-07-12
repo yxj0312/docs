@@ -1,5 +1,7 @@
-## Two Quick Examples
-### First Example
+# Two Quick Examples
+
+## First Example
+
 > Image that you have a digital camera. Now, the problem is you wanna get the pictures off that memory card and onto your computer, however there's no interface to do that. what we do in this situation?
 
 > Use an Adapter, plug your memory card into it, An adapter offers you an USB port, that you can plug into your computer!
@@ -40,7 +42,7 @@ class Book {
         public function read($book)
         {
             $book->open();
-            $book->turnPage();   
+            $book->turnPage();
         }
     }
 
@@ -50,7 +52,9 @@ class Book {
 > And now, more and more people start to read a e-book, which is different with a paper book.
 
 > An Adapter can take care of this.
+
 1. We extract an interface here:
+
     ```php
         interface BookInterface {
             public function open();
@@ -61,6 +65,7 @@ class Book {
     ```
 
     For paper book
+
     ```php
         class Book implements BookInterface{
             public function open()
@@ -88,7 +93,8 @@ class Book {
         (new Person)->read(new Book);
     ```
 
-2.  For o,  also extract an interface
+2. For o,  also extract an interface
+
     ```php
         interface eReaderInterface {
             public function turnOn();
@@ -109,17 +115,20 @@ class Book {
             }
         }    
     ```
+
 3. If person try to read Kindle now
+
     ```php
     (new Person)->read(new Kindle);
     ```
+
     it's not going to work, because the interface that will use here does not match the interface that we wish to use.
 
 4. We create a class to allow two different interfaces to communicate to each
 
     ```php
     class KindleAdapter implements BookInterface{
-        
+
         private $kindle;
         // We need to inject our actual kindle here
         public function __construct(Kindle $kindle)
@@ -138,15 +147,17 @@ class Book {
         }
     }
     ```
+
 5. The key component is:
 
     5.1. Create an Adapter
-    
+
     5.2. Then you inject your class and translate the original interface method over to the new one.
 
     ```php
     (new Person)->read(new KindleAdapter(new Kindle));
     ```
+
     We didn't have to change our Person class one bit.
 
     Once again for understanding:
@@ -156,7 +167,7 @@ class Book {
 
     ```php
     class eReaderAdapter implements BookInterface{
-        
+
         private $reader;
         // We need to inject our actual kindle here
         public function __construct(eReaderInterface $reader)
@@ -175,6 +186,7 @@ class Book {
         }
     }
     ```
+
     ```php
         class Nook {
 
@@ -187,7 +199,7 @@ class Book {
             {
                 var_dump('press the next button on the Nook');
             }
-        }    
+        }
     ```
 
     ```php
@@ -195,10 +207,11 @@ class Book {
     ```
 
 ### Seconde Example
+
 FilesystemAdapter of Laravel: It's wrapping the popular Flysystem api into an interface that laravel users will be familiar with.
 
 As an example, let's see get()
-    
+
 ```php
 public function get($path)
 {
