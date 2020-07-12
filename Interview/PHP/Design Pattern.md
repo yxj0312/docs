@@ -24,4 +24,4 @@ Laravel Observer: it is used to make clusters of event listeners for a model.(cr
 
 ## Factory
 
-DB Factory
+DB Factory: make an instance, instead of new
