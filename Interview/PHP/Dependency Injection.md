@@ -195,6 +195,8 @@ $c->mailer = function() {
 // Fetch, boy
 $mailer = $c->mailer; // mailer instance
 
-```
+````
 
 ## Why is used
+
+This is an important aspect of writing maintainable (and testable) code.
