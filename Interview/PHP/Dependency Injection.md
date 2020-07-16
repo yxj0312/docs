@@ -10,8 +10,6 @@ These other objects are called dependencies. In the typical "using" relationship
 
 "Dependency Injection is where components are given their dependencies through their constructors, methods, or directly into fields."
 
-
-
 ````php
 // Instead hardcoding
 class Photo {
@@ -19,7 +17,6 @@ class Photo {
      * @var PDO The connection to the database
      */
     protected $db;
- 
     /**
      * Construct.
      */
@@ -36,7 +33,6 @@ class Photo {
      * @var PDO The connection to the database
      */
     protected $db;
- 
     /**
      * Construct.
      * @param PDO $db_conn The database connection
@@ -46,7 +42,6 @@ class Photo {
         $this->db = $dbConn;
     }
 }
- 
 $photo = new Photo($dbConn);
 
 // Or with a set injection
@@ -56,9 +51,7 @@ class Photo {
      * @var PDO The connection to the database
      */
     protected $db;
- 
     public function __construct() {}
- 
     /**
      * Sets the database connection
      * @param PDO $dbConn The connection to the database.
@@ -68,7 +61,6 @@ class Photo {
         $this->db = $dbConn;
     }
 }
- 
 $photo = new Photo;
 $photo->setDB($dbConn);
 
@@ -87,7 +79,6 @@ class IoC {
      * @var PDO The connection to the database
      */
     protected $db;
- 
     /**
      * Create a new instance of Photo and set dependencies.
      */
@@ -100,7 +91,6 @@ class IoC {
         return $photo;
     }
 }
- 
 $photo = IoC::newPhoto();
 
 // Second options: to write a generic registry container, like so:
@@ -109,7 +99,6 @@ class IoC {
      * @var PDO The connection to the database
      */
     protected static $registry = array();
- 
     /**
      * Add a new resolver to the registry array.
      * @param  string $name The id
@@ -120,7 +109,6 @@ class IoC {
     {
         static::$registry[$name] = $resolve;
     }
- 
     /**
      * Create the instance
      * @param  string $name The id
@@ -133,10 +121,8 @@ class IoC {
             $name = static::$registry[$name];
             return $name();
         }
- 
         throw new Exception('Nothing registered with that name, fool.');
     }
- 
     /**
      * Determine whether the id is registered
      * @param  string $name The id
@@ -155,28 +141,23 @@ IoC::register('photo', function() {
     $photo = new Photo;
     $photo->setDB('...');
     $photo->setConfig('...');
- 
     return $photo;
 });
- 
 // Fetch new photo instance with dependencies set
 $photo = IoC::resolve('photo');
 
 // Before
 $photo = new Photo;
- 
 // After
 $photo = IoC::resolve('photo');
 
 // Magic Methods: If we want to reduce the length of the IoC class even further, we can take advantage of magic methods - namely __set() and __get(), which will be triggered if the user calls a method that does not exist in the class.
 class IoC {
     protected $registry = array();
- 
     public function __set($name, $resolver)
     {
         $this->registry[$name] = $resolver;
     }
- 
     public function __get($name)
     {
         return $this->registry[$name]();
@@ -188,10 +169,9 @@ $c = new IoC;
 $c->mailer = function() {
   $m = new Mailer;
   // create new instance of mailer
-  // set creds, etc.   
+  // set creds, etc.
   return $m;
 };
- 
 // Fetch, boy
 $mailer = $c->mailer; // mailer instance
 
