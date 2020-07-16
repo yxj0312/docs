@@ -19,6 +19,10 @@ self::$member;
 
 it call a function without an instance of the class.
 
+#### What is a class via :: means
+
+:: is used to access static methods that do not require object initialization
+
 #### When use it
 
 - use them when they are independently related to a class
@@ -43,7 +47,11 @@ protected: can be accessed only within the class itself and by inheriting and pa
 
 ### Difference between single-quoted('') and double-quoted("") in PHP
 
-double-quoted: variables in the strings will be evaluated.
+double-quoted: 
+
+- variables in the strings will be evaluated.
+
+- display escape characters
 
 ### const vs define()
 
@@ -69,7 +77,7 @@ define():
 
 - two variables refer to the same content.
 
-- pass variables bey reference
+- pass variables by reference
 
 - return by reference
 
@@ -89,7 +97,7 @@ Principle:
 
 - Liskovsches Substitutions
 
-    Ersetzbarkeitsprinzip fordert, dass eine Instanz einer abgeleiteten Klasse sich so verhalten muss, dass jemand, der meint, ein Objekt der Basisklasse vor sich zu haben, nicht durch unerwartetes Verhalten überrascht wird, wenn es sich dabei tatsächlich um ein Objekt eines Subtyps handelt. 
+    Ersetzbarkeitsprinzip fordert, dass eine Instanz einer abgeleiteten Klasse sich so verhalten muss, dass jemand, der meint, ein Objekt der Basisklasse vor sich zu haben, nicht durch unerwartetes Verhalten überrascht wird, wenn es sich dabei tatsächlich um ein Objekt eines Subtyps handelt.
 
 - Interface-Segregation
   
@@ -115,11 +123,21 @@ Principle:
 
   dependency injection is a technique in which an object receives other objects that it depends on.
 
-  set Injection instead of hard-cording
+#### Three types
 
-  Inversion of Control
+- Constructor injection
 
-  Container
+- setter injection
+
+- interface injection
+
+### Inversion of Control
+
+- Container
+
+### Example in Laravel
+
+Service container in Laravel
 
 #### Why is used
 
@@ -192,3 +210,140 @@ Real world example: Event Observer of laravel, observe serval events like create
 
 ### Differnce get and post
 
+get: parameter can be seen in url, post can't
+
+get allows you to send a limited amount of data in the header, post sends a large amount of data in the body
+
+get request can be cached, post can't
+
+get request send header and data, with 200 response, post send header first, with 100 response then send data with 200 response
+
+### Magic Methods
+
+#### __construct()
+
+the constructor of a class
+
+#### ````__set()````
+
+The __set() method will be called when setting a member variable of a class.
+
+The __set() is run when writing data to inaccessible properties.
+
+#### ````__get()````
+
+The __get() method will be called when getting a member variable of a class.
+
+The __get() magic method reads data from inaccessible properties.
+
+#### ````__sleep()````
+
+The __sleep() method will be called first when executing serialize().
+
+serialize() checks if the class has a function with the magic name __sleep(). If so, that function is executed prior to any serialization. It can clean up the object and is supposed to return an array with the names of all variables of that object that should be serialized. If the method doesn't return anything then NULL is serialized and E_NOTICE is issued.
+
+#### ````__wakeup()````
+
+The __wakeup() method will be called first when deserialization() is executed.
+
+The intended use of __wakeup() is to reestablish any database connections that may have been lost during serialization and perform other reinitialization tasks.
+
+#### ````__invoke()````
+
+The __invoke() method will be called when trying to call an object in a way of calling function.
+
+### Hashing method
+
+crypt() and hash() are better than md5() sha1() or sha256()
+
+password with these algorithms can create vulnerability.
+
+### Type casting in PHP
+
+- (int) - cast to integer
+
+- (bool) - cast to  boolean
+
+- (float) - cast to float
+
+- (array)
+
+- (object)
+
+- (string)
+
+### Session and Cookie
+
+A session is a logical object enabling us to preserve temporary data across multiple PHP pages.
+
+session save at server, while cookie save at client. sessionID save at cookie or could send via the url
+
+### require, require_once, include
+
+### final method, classes
+
+the class cannot be extended or the method cannot be overridden.
+
+### for and foreach
+
+foreach is only used by array and object
+
+### MVC
+
+Model-View-Controller architecture
+
+### ORM
+
+Object Relational Mapping, in Laravel Eloquent
+
+provide simple active recode implementation working with the database.
+
+### Laravel Facades
+
+### Laravel traits
+
+A group of functions that you include within another class. A trait is like an abstract class. You cannot instantiate directly, but its method can be used in concreate class.
+
+### Laravel Advantages
+
+- blade template engine
+  
+- a version control system that helps with simplified management of migrations
+
+- auto-loading features
+
+- IOC Inversion of Control container
+
+### Session in Laravel
+
+Session is used to pass user information from one web page to another. Laravel provides various drivers like a cookie, array, file Memcached, and Redis to handle session data.
+
+#### How to access session data
+
+Session data be access by creating an instance of the session in HTTP request. Once you get the instance, use get() method with a "Key" as a parameter to get the session details.
+
+### Authentication and authorization
+
+Authentication: confirming user identities through credentials
+Authorization refers to gathering access to the system.
+
+### CSRF
+
+helps defend against form-based mmalicious attacks and hacks
+
+### PHP type-hinting,  why we should have that
+
+function mySuperFunction(): int
+{
+    return "hello world";
+}
+
+No problem with this code. The type declaration indicate that the method should return an int. Instead, it returns a string. It is not astonishing that PHP throw an error:
+
+Fatal error: Uncaught TypeError: Return value of mySuperFunction() must be of the type integer, string returned.
+
+### PSR
+
+PHP Standards Recommendations.
+PSR-2 which is a coding style guide
+PSR-4: Autoloader
