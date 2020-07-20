@@ -300,6 +300,8 @@ provide simple active recode implementation working with the database.
 
 ### Laravel Facades
 
+Facades provide a "static" interface to classes that are available in the application's service container. like (Route::get())
+
 ### Laravel traits
 
 A group of functions that you include within another class. A trait is like an abstract class. You cannot instantiate directly, but its method can be used in concreate class.
@@ -347,3 +349,13 @@ Fatal error: Uncaught TypeError: Return value of mySuperFunction() must be of th
 PHP Standards Recommendations.
 PSR-2 which is a coding style guide
 PSR-4: Autoloader
+
+### Abstract class and interface
+
+#### Abstract class
+
+provide some functionality and leave the rest for derived class
+
+#### Interface
+
+cannot contain any functionality, it only contains definitions of the methods.
