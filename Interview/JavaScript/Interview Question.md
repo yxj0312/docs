@@ -116,3 +116,57 @@ ES8: async and await
 Man kann nun Methoden oder Funktionen als async deklarieren. Diese Funktionen müssen dann ein Promise zurückgeben.
 
 Mit dem await-Schlüsselwort kann man nun darauf warten, dass das Promise fertig wird.
+
+### What is the difference between == and ===
+
+The way JS engine understands it, == allows type coercion(强制类型转换) and === disallows. Type coercion is the automatic type conversion by the interpreter. This is the source of most confusion in JS (like [] == ![] being true). You can observe the difference in this snippet:
+
+```JavaScript
+/* Here, '5' will be converted to 5 */
+5 == '5'; // true
+5 === '5'; // false
+
+/* Here, true will be converted to 1 */
+1 == true; // true
+1 > false; // true
+0 === false; // false
+
+// Here, JS will try to convert both of these to number
+// Number('true') = NaN (Not a Number), but Number(true) = 1
+'true' == true; // false
+'true' === true; // false
+```
+
+### What does ‘this’ keyword mean
+
+this keyword is available in any function and points to the object that contains this function.
+
+```JavaScript
+const myObject = {
+  a: 'b',
+  b: 'c',
+  doStuff: function() {
+    // Here, this refers to myObject
+    console.log(this.a + this.b);
+  }
+}
+
+myObject.doStuff(); // bc
+
+// BUT:
+const anotherObject = {
+  a: 'abacaba',
+  b: '!'
+};
+anotherObject.doStuff = myObject.doStuff;
+anotherObject.doStuff(); // abacaba!
+
+// Arrow functions do not have their own this and refer to the outer one:
+const arrowObject = {
+  a: 'b',
+  // here, this refers to the root function (file itself), which has no idea about a
+  doMoreStuff: () => console.log(this.a)
+};
+
+arrowObject.doMoreStuff(); // undefined
+```
