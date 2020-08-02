@@ -141,6 +141,8 @@ The way JS engine understands it, == allows type coercion(强制类型转换) an
 
 this keyword is available in any function and points to the object that contains this function.
 
+The JavaScript this keyword refers to the object it belongs to. This has different values depending on where it is used. In a method, this refers to the owner object and in a function, this refers to the global object.
+
 ```JavaScript
 const myObject = {
   a: 'b',
@@ -258,3 +260,148 @@ delete x; // deleting variables is also not allowed
 
 function(x1, x1) {} // duplicating argument names is not allowed
 ```
+
+### How can you create an object in JavaScript
+
+```JavaScript
+var emp = {
+name: "Daniel",
+age: 23
+};
+```
+
+### How can you create an Array in JavaScript
+
+```JavaScript
+var x = [];
+var y = [1, 2, 3, 4, 5];
+```
+
+### What is argument objects in JavaScript & how to get the type of arguments passed to a function
+
+```JavaScript
+function func(x){
+console.log(typeof x, arguments.length);
+}
+func(); //==> "undefined", 0
+func(7); //==> "number", 1
+func("1", "2", "3"); //==> "string", 3
+```
+
+### What is Callback
+
+A callback is a plain JavaScript function passed to some method as an argument or option. It is a function that is to be executed after another function has finished executing, hence the name ‘call back‘. In JavaScript, functions are objects. Because of this, functions can take functions as arguments, and can be returned by other functions.
+
+### What is Closure? Give an example
+
+Closures are created whenever a variable that is defined outside the current scope is accessed from within some inner scope. It gives you access to an outer function’s scope from an inner function. In JavaScript, closures are created every time a function is created. To use a closure, simply define a function inside another function and expose it.
+
+```JavaScript
+function init() {
+    var name = "Mozilla"; // name is a local variable created by init
+    function displayName() { // displayName() is the inner function, a closure
+        alert (name); // displayName() uses variable declared in the parent function
+    }
+    displayName();
+}
+init();
+```
+
+### What is the difference between Attributes and Property
+
+Attributes-  provide more details on an element like id, type, value etc.
+
+Property-  is the value assigned to the property like type=”text”, value=’Name’ etc.
+
+### What is the difference between Local storage & Session storage
+
+Local Storage – The data is not sent back to the server for every HTTP request (HTML, images, JavaScript, CSS, etc) – reducing the amount of traffic between client and server. It will stay until it is manually cleared through settings or program.
+
+Session Storage – It is similar to local storage; the only difference is while data stored in local storage has no expiration time, data stored in session storage gets cleared when the page session ends. Session Storage will leave when the browser is closed.
+
+### What is the difference between null & undefined
+
+Undefined means a variable has been declared but has not yet been assigned a value. On the other hand, null is an assignment value. It can be assigned to a variable as a representation of no value. Also, undefined and null are two distinct types: undefined is a type itself (undefined) while null is an object.
+
+### What is the difference between undeclared & undefined
+
+Undeclared variables are those that do not exist in a program and are not declared. If the program tries to read the value of an undeclared variable, then a runtime error is encountered. Undefined variables are those that are declared in the program but have not been given any value. If the program tries to read the value of an undefined variable, an undefined value is returned.
+
+### What is NaN in JavaScript
+
+NaN is a short form of Not a Number. Since NaN always compares unequal to any number, including NaN, it is usually used to indicate an error condition for a function that should return a valid number. When a string or something else is being converted into a number and that cannot be done, then we get to see NaN.
+
+### How do JavaScript primitive/object types passed in functions
+
+One of the differences between the two is that Primitive Data Types are passed By Value and Objects are passed By Reference.
+
+By Value means creating a COPY of the original. Picture it like twins: they are born exactly the same, but the first twin doesn’t lose a leg when the second twin loses his in the war.
+ By Reference means creating an ALIAS to the original. When your Mom calls you “Pumpkin Pie” although your name is Margaret, this doesn’t suddenly give birth to a clone of yourself: you are still one, but you can be called by these two very different names.
+
+### How can you convert the string of any base to integer in JavaScript
+
+ The parseInt() function is used to convert numbers between different bases. It takes the string to be converted as its first parameter, and the second parameter is the base of the given string.
+
+### What are Exports & Imports
+
+ Imports and exports help us to write modular JavaScript code. Using Imports and exports we can split our code into multiple files.
+
+### What are some advantages/disadvantages to testing your code
+
+Advantages:
+
+- The tests give you confidence that you haven't broken anything, when you refactor or add new code.
+  
+- You can test your code before it's deployed, this gives you quick feedback.
+
+- Having unit tests will allow you to test your classes in isolation, thereby helping you pinpoint which class has a problem when trying to debug.
+
+- If you drive your code through tests, you will endup in writing testable code, which is clean.
+
+Disadvantages:
+
+- If u don't write your test properly, it will give u a misdirection.
+
+### What tools would you use to test your code's functionality
+
+Jest, Mocha, Jesmine, Pupperteer(libaray, mock resources, wriiten and maintained by the google chrome devs)
+
+### What is the difference between a unit test and a functional/integration test
+
+Unit: Testing smallest units or modules individually.
+
+Integration: Testing integration of two or more units/modules combined for performing tasks.
+
+Functional: Testing the behavior of the application as per the requirement
+
+### What is the purpose of a code style linting tool
+
+Linting is a process by a linter program that analyzes source code in a particular programming language and flag potential problems like syntax errors, deviations from a prescribed coding style or using constructs known to be unsafe.
+
+### What are some of the testing best practices
+
+- Rely Only on a Controlled Security Environment for Testing
+
+- Carry Tests Throughout the Software Development Cycle
+
+- Break Tests in Small Fractions
+
+- Write Tests for Maximum Coverage
+
+- Carry Regression Tests
+
+- Programmers Should Not Write Tests
+
+- Note and Report All Tests
+
+- Clean the Test Code Prior to Final Release of Software Product
+
+- Isolate the Application from Developers
+
+- Customize Testing
+
+- Accumulated Skilled Testers
+
+- Build a Target Operating Model for Testing
+
+- Have a Mix of In-house and Offshore Teams
