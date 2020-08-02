@@ -170,3 +170,91 @@ const arrowObject = {
 
 arrowObject.doMoreStuff(); // undefined
 ```
+
+### What is a constructor function
+
+A constructor function is called with new keyword and returns whatever the value of this is. Note that in constructor functions this does not point to the outer object, but instead used as a placeholder object:
+
+```JavaScript
+function Car(name, make) {
+  // Here, this is not a reference to outer object
+  // But a placeheloder object you can use to construct the
+  // desired value
+  this.name = name;
+  this.make = make;
+  // you do not have to return anything, as this is automatically returned
+}
+
+const myCar = new Car('Outback', 'Subaru');
+console.log(myCar.name); // Outback
+```
+
+### Convert this callback-based call to a Promise-based one
+
+```JavaScript
+// the function itself
+function getData(callback, errorCallback) {
+  try {
+    // Do some network/api stuff...
+    callback(result)
+  } catch (e) {
+    errorCallback(e);
+  }
+}
+
+// Here is how you would use it:
+getData(result => console.log(result), error => console.error(error));
+
+// Here is how to create a Promise-based function from it:
+
+function getDataAsync() {
+  return new Promise((resolve, reject) => {
+    getData(resolve, reject);
+  });
+}
+
+getDataAsync()
+  .then(result => console.log(result))
+  .catch(error => console.error(error));
+
+// OR
+
+async function main() {
+  const result = await getDataAsync();
+  console.log(result);
+}
+```
+
+The Promise constructor function accepts a callback, which receives two functions: resolve and reject. Inside the callback, you perform your time-consuming tasks and call resolve or reject, based on the outcome.
+
+### NaN === NaN?
+
+False. This is an endless source of debate and one of the most confusing parts about JS. In a nutshell, NaN stands for Not a Number, and just because one value is not a number and another one is not a number does not imply they are equal. The downside is you cannot really check if a variable is NaN using myVariable === NaN. You can use the Number.isNaN function or myVariable !== myVariable to check for it.
+
+### 0.1 + 0.2 === 0.3?
+
+False. This trick does not apply only to JS: it is common among floating-point operations in any language. It has to do with the way the CPU processes floating-point numbers. The actual value of 0.1 + 0.2 will be something like 0.300000001 and to check for equality you would write Math.abs(0.3 - (0.2 + 0.1)) <= EPS, where EPS is an arbitrary small value (0.00001, for example).
+
+### What are the primitive data types in JS
+
+A primitive data type in JS is data that is not an object and that has no methods. Here is the list of primitive data types in JS:
+
+- Boolean
+- Null
+- Undefined
+- Number
+- BigInt
+- String
+- Symbol
+
+### What is “strict” mode
+
+In JS, you enable strict mode by putting "use strict"; at the beginning of the file. Strict mode enables more rigorous error-checking in your code and makes debugging easier. For example, this snippet will work in regular JS, but not strict:
+
+```JavaScript
+x = 'abacaba'; // using an undeclared variable is not allowed in strict mode
+
+delete x; // deleting variables is also not allowed
+
+function(x1, x1) {} // duplicating argument names is not allowed
+```
