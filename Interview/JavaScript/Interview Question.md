@@ -253,6 +253,8 @@ A primitive data type in JS is data that is not an object and that has no method
 
 In JS, you enable strict mode by putting "use strict"; at the beginning of the file. Strict mode enables more rigorous error-checking in your code and makes debugging easier. For example, this snippet will work in regular JS, but not strict:
 
+Strict mode is a way to introduce better error-checking into your code.
+
 ```JavaScript
 x = 'abacaba'; // using an undeclared variable is not allowed in strict mode
 
@@ -336,7 +338,7 @@ NaN is a short form of Not a Number. Since NaN always compares unequal to any nu
 One of the differences between the two is that Primitive Data Types are passed By Value and Objects are passed By Reference.
 
 By Value means creating a COPY of the original. Picture it like twins: they are born exactly the same, but the first twin doesn’t lose a leg when the second twin loses his in the war.
- By Reference means creating an ALIAS to the original. When your Mom calls you “Pumpkin Pie” although your name is Margaret, this doesn’t suddenly give birth to a clone of yourself: you are still one, but you can be called by these two very different names.
+By Reference means creating an ALIAS to the original. When your Mom calls you “Pumpkin Pie” although your name is Margaret, this doesn’t suddenly give birth to a clone of yourself: you are still one, but you can be called by these two very different names.
 
 ### How can you convert the string of any base to integer in JavaScript
 
@@ -405,3 +407,68 @@ Linting is a process by a linter program that analyzes source code in a particul
 - Build a Target Operating Model for Testing
 
 - Have a Mix of In-house and Offshore Teams
+
+### What is an event bubbling in JavaScript
+
+Event bubbling is a way of event propagation in the HTML DOM API, when an event occurs in an element inside another element, and both elements have registered a handle for that event. With bubbling, the event is first captured and handled by the innermost element and then propagated to outer elements. The execution starts from that event and goes to its parent element. Then the execution passes to its parent element and so on till the body element.
+
+### What is the difference between Call & Apply
+
+The call() method calls a function with a given this value and arguments provided individually.
+
+```JavaScript
+fun.call(thisArg[, arg1[, arg2[, ...]]])
+```
+
+The apply() method calls a function with a given this value, and arguments provided as an array.
+
+```JavaScript
+fun.apply(thisArg, [argsArray])
+```
+
+### How to empty an Array in JavaScript
+
+Method 1: 
+
+```JavaScript
+arrayList = [];
+```
+
+Above code will set the variable arrayList to a new empty array. This is recommended if you don’t have references to the original array arrayList anywhere else, because it will actually create a new, empty array. You should be careful with this method of emptying the array, because if you have referenced this array from another variable, then the original reference array will remain unchanged.
+
+Method 2: 
+
+```JavaScript
+arrayList.length = 0; 
+```
+
+The code above will clear the existing array by setting its length to 0.
+This way of emptying the array also updates all the reference variables that point to the original array.
+
+Method 3:
+
+```JavaScript
+arrayList.splice(0, arrayList.length);
+```
+
+Method 4:
+
+```JavaScript
+while(arrayList.length)
+{
+arrayList.pop();
+}
+```
+
+### Delete operator
+
+The delete operator is used to delete properties from an object.
+
+### What is the reason for wrapping the entire content of a JavaScript source file in a function book
+
+This is an increasingly common practice, employed by many popular JavaScript libraries. This technique creates a closure around the entire contents of the file which, perhaps most importantly, creates a private namespace and thereby helps avoid potential name clashes between different JavaScript modules and libraries.
+Another feature of this technique is to allow for an easy alias for a global variable. This is often used in jQuery plugins.
+
+### What are escape characters in JavaScript
+
+JavaScript escape characters enable you to write special characters without breaking your application. Escape characters (Backslash) is used when working with special characters like single quotes, double quotes, apostrophes and ampersands. Place backslash before the characters to make it display.
