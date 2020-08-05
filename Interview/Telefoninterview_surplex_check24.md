@@ -164,3 +164,5 @@ display:none not rendered, both exist in DOM
     the LIKE with only a suffix wildcard is much faster
 
 2. What's view, what's index
+
+3. What's transaction

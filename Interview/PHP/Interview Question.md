@@ -359,3 +359,7 @@ provide some functionality and leave the rest for derived class
 #### Interface
 
 cannot contain any functionality, it only contains definitions of the methods.
+
+### REST
+
+### SOAP
