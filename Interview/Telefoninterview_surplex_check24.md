@@ -59,7 +59,7 @@ Wollen Sie in der Pro-arbeit Zeit, eine PHP-Zertifizierung zu erhalten?
 
 display:none not rendered, both exist in DOM
 
-## JavaScript
+### JavaScript
 
 1. What's closure
 
