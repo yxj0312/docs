@@ -35,9 +35,9 @@ Wollen Sie in der Pro-arbeit Zeit, eine PHP-Zertifizierung zu erhalten?
 
 4. What is Web Components
 
-5. <ol> and <ul> when to use them
+5. ```<ol>``` and ```<ul>``` when to use them
 
-6. Can <div> be written in <span> 
+6. Can ```<div>``` be written in ```<span>``` 
 
 ### CSS
 
