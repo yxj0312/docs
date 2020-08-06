@@ -157,6 +157,12 @@ display:none not rendered, both exist in DOM
 
 9. What is SQL injection, how to prevent in PHP, give some example
 
+10. What's JSON, when should be used
+
+    JavaScript Object Notation. Es ist ein kompaktes Datenformat in einer einfach lesbaren Textform und dient dem Zweck des Datenaustausches zwischen Anwendungen. JSON ist von der Programmiersprache unabhängig. Parser und Generatoren existieren in allen verbreiteten Sprachen.
+
+    JSON can be used to send data from the server to the browser, for example, because it is easy for JavaScript to parse into a normal JavaScript data structure.
+
 ### MySQL
 
 1. Speed of LIKE. when it will be faster?
@@ -166,3 +172,5 @@ display:none not rendered, both exist in DOM
 2. What's view, what's index
 
 3. What's transaction
+
+   A transaction is a logical unit of work that contains one or more SQL statements. A transaction is an atomic unit. The effects of all the SQL statements in a transaction can be either all committed (applied to the database) or all rolled back (undone from the database).

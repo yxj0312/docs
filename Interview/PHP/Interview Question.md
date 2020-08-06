@@ -361,5 +361,34 @@ provide some functionality and leave the rest for derived class
 cannot contain any functionality, it only contains definitions of the methods.
 
 ### REST
+  
+- Reley on a simple URL
+  
+- You can find REST-based web services that ouptut the data in CSV, JSON and RSS
 
 ### SOAP
+
+- Reley on XML to provide messaging services
+
+### SOAP vs. REST
+
+#### Soap Advantages
+
+SOAP provides the following advantages when compared to REST:
+
+- Language, platform, and transport independent (REST requires use of HTTP) 
+- Works well in distributed enterprise environments (REST assumes direct point-to-point communication)
+- Standardized
+- Provides significant pre-build extensibility in the form of the WS* standards
+- Built-in error handling
+- Automation when used with certain language products
+
+REST Advantages
+
+REST is easier to use for the most part and is more flexible. It has the following advantages over SOAP:
+
+- No expensive tools require to interact with the web service
+- Smaller learning curve
+- Efficient (SOAP uses XML for all messages, REST can use smaller message formats)
+- Fast (no extensive processing required)
+- Closer to other web technologies in design philosophy
