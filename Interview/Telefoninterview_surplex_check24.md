@@ -163,6 +163,12 @@ display:none not rendered, both exist in DOM
 
     JSON can be used to send data from the server to the browser, for example, because it is easy for JavaScript to parse into a normal JavaScript data structure.
 
+11. What is trait
+
+    A group of functions that you include within another class. A trait is like an Abstract class. You cannot instantiate directly, but its method can be used in concreted class
+
+12. What's autoloading, give example
+
 ### MySQL
 
 1. Speed of LIKE. when it will be faster?
