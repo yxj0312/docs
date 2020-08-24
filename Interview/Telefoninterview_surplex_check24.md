@@ -169,6 +169,12 @@ display:none not rendered, both exist in DOM
 
 12. What's autoloading, give example
 
+13. What's cross-site-Scripting
+
+    XSS: bezeichnet das Ausnutzen einer Computersicherheitslücke in Webanwendungen, indem Informationen aus einem Kontext, in dem sie nicht vertrauenswürdig sind, in einen anderen Kontext eingefügt werden, in dem sie als vertrauenswürdig eingestuft werden. Aus diesem vertrauenswürdigen Kontext kann dann ein Angriff gestartet werden.
+
+    Ziel ist es meist, an sensible Daten des Benutzers zu gelangen, um beispielsweise seine Benutzerkonten zu übernehmen (Identitätsdiebstahl).
+
 ### MySQL
 
 1. Speed of LIKE. when it will be faster?
