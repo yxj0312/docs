@@ -1,6 +1,6 @@
 # REST vs. GraphQL
 
-## GraphQl is better than REST
+## GraphQL is better than REST
 
 ### Over/under Fetching
 
