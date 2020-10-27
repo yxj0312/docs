@@ -23,3 +23,14 @@ console.log(add('2', '3'));
 ```
 
 This is a unwanted behavior at runtime, we have a mitigation strategies in JS, that to add if check to add function validate & sanitize user input, but developers can still write invalid code. With TS we have a 'tool' that helps developer write better code.
+
+### TypeScript Overview
+
+TypeScipt adds...
+
+- Types
+- Next-gen JS Features(compiled down for older Browsers)
+- Non-JS Features like Interfaces or Generics
+- Meta-Programming Features like Decorators
+- Rich Configuration Options
+- Modern Tooling that helps even in non-TS Projects
