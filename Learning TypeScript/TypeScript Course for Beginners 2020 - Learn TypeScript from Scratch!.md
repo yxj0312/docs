@@ -34,3 +34,19 @@ TypeScipt adds...
 - Meta-Programming Features like Decorators
 - Rich Configuration Options
 - Modern Tooling that helps even in non-TS Projects
+
+## Working with Types
+
+### Core Syntax & Features
+
+#### Core Types
+
+- number: 1, 5.3, -10
+  
+  All numbers, no differentiation between integers or floats
+
+- string: 'Hi', 'Hi'
+  
+  All test values
+
+- boolean: true, false
