@@ -50,3 +50,9 @@ TypeScipt adds...
   All test values
 
 - boolean: true, false
+
+- object: {age: 30}
+
+- array: [1,2,3]
+
+The key difference: JS uses "dynamic types" (resolved at runtime), TS uses "static types" (set during development)
