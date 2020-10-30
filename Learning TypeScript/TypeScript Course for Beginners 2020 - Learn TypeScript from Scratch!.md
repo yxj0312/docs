@@ -61,4 +61,8 @@ TypeScipt adds...
   
   Fixed-length array
 
+- Enum enum { NEW, OLD }
+  
+  Automatically enumerated global constant identifiers
+
 The key difference: JS uses "dynamic types" (resolved at runtime), TS uses "static types" (set during development)
