@@ -55,4 +55,10 @@ TypeScipt adds...
 
 - array: [1,2,3]
 
+#### Types Added by TS
+
+- Tuple [1,2]
+  
+  Fixed-length array
+
 The key difference: JS uses "dynamic types" (resolved at runtime), TS uses "static types" (set during development)
