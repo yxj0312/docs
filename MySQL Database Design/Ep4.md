@@ -7,6 +7,7 @@
 - Normally you can create a foreign key with type unsignedBigInteger. Up laravel 5.8 all new migrations hat the primary key set to a bigInteger(bigIncrements), make sure that the fk also has the exact same type with pk.
 
 - Set up a fk constraint:
+
 ```php
 $table->foreign('post_id')
     ->references('id')
