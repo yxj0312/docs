@@ -78,3 +78,7 @@ const object = backpack.get();
 backpack.add(23);
 Argument of type 'number' is not assignable to parameter of type 'string'.
 ```
+
+### Structural Type System
+
+One of TypeScript’s core principles is that type checking focuses on the shape that values have. This is sometimes called “duck typing” or “structural typing”.
