@@ -58,3 +58,9 @@ let mySquare = createSquare({ color: "black" });
 ### Readonly properties
 
 Some properties should only be modifiable when an object is first created. You can specify this by putting readonly before the name of the property:
+
+readonly vs const
+
+The easiest way to remember whether to use readonly or const is to ask whether you’re using it on a variable or a property. Variables use const whereas properties use readonly.
+
+### Excess Property Checks
