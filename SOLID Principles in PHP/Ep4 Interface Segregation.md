@@ -159,6 +159,46 @@ class Captain {
     }
 }
 
-
-
 ```
+
+Some real world example:
+
+PasswordBroker.php of Laravel (old version)
+
+```php
+class PasswordBroker {
+    public function sendReminder(RemindableInterface $user, $token, Closuer $callback = null)
+    {
+        
+    }
+}
+```
+
+Why RemindableInterface is used here, not just User Model?
+
+Because User is extends from Eloquent, which means, if we use User here, PasswordBroker is depend upon user/Eloqquent.
+
+You make one small change in one part of the application, it influence the other part of the application, that depend on it.
+
+And Why/Does the passwordBroker need the knowledge of Eloquent?
+
+The answer is no. it just need to access some kind of object to provide the necessary methods.
+
+So let's take a look at RemindableInterface
+
+```php
+interface RemindableInterface {
+    /**
+    * Get the e-mail address where password reminders are sent.
+    * @return string
+    */
+    public function getReminderEmail()
+    {
+        
+    }
+}
+```
+
+we just call getReminderEmail in the sendReminder()
+
+we go back to User object, it implements RemindableInterface, which get the e-mail address in the user object. That's the only thing we need.
