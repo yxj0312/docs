@@ -34,3 +34,29 @@ item.textContent = "New Heading";
 ```
 
 This would update our h1 heading.
+
+## The Problem with the DOM
+
+The underlying problem with using and manipulating the DOM is that some pages have thousands of nodes. This is why some frameworks (like Vue) have something called the Virtual DOM.
+
+The Virtual DOM is a way of representing the actual DOM with JavaScript Objects.
+
+```javaScript
+<div>Hello</div>
+
+->
+
+{
+    tag: "div",
+    children: [
+        {
+            text: "Hello"
+        }
+    ]
+}
+
+->
+Element: <div>
+
+Text: "Hello"
+```
