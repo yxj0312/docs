@@ -55,8 +55,40 @@ The Virtual DOM is a way of representing the actual DOM with JavaScript Objects.
     ]
 }
 
-->
+-> mount it onto the dom
 Element: <div>
 
 Text: "Hello"
 ```
+
+## What is a Render Function?
+
+When Vue receives a template, before creating a Virtual Node, it first compiles it into a render function. You can see this below
+
+```javaScript
+<div>Hello</div>
+
+->render function
+
+render(h) {
+    return h('div', 'hello')
+}
+
+->
+
+{
+    tag: "div",
+    children: [
+        {
+            text: "Hello"
+        }
+    ]
+}
+
+-> mount it onto the dom
+Element: <div>
+
+Text: "Hello"
+```
+
+The render function is what creates the virtual node, which gets sent to Vue to update the DOM. Later, if the data used by the render function changes, the render function will get run again producing a new Virtual DOM Node. Then Vue takes the old and the new node, compares the two, and makes the appropriate DOM calls to change the webpage.
