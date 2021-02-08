@@ -130,3 +130,17 @@ The renderer takes the Virtual DOM object and makes actual DOM JavaScript calls 
 #### Patch (or Update) Phase
 
 The renderer takes the two Virtual DOM objects, an old and a new one, and update only the parts of the webpage that have changed using DOM JavaScript calls.
+
+## Walking through a simple Vue app
+
+Suppose we have a vue component:
+
+Vue component
+
+- HTML Template (Reactivity Object is used inside the template)
+- First, the template compiler changes the HTML into a render function
+- Then the reactive objects are initialized using the reactivity module
+- Next, inside the render module, we enter the render phase. This invokes the render function, which references the reactive object.
+- We now watch this reactive object for changes, and render function returns a virtual DOM node.
+- Next, in the mount phase, the mount function is called, using the virtual DOM node to create the webpage
+- Lastly, if any changes happen to our reactive object, which is being watched, the render invokes the render function again, creating a new virtual DOM node. Both the new and the old one Virtual DOM node get sent into the patch function, which then makes updates to our webpage as needed
