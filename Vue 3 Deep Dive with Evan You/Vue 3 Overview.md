@@ -102,3 +102,31 @@ If I make changes to the 29th floor of the building, such as changing the layout
 1. I can demolish everything on the 29th floor and start from scratch.
 2. I can create new blueprints, compare the differences, and make updates to the minimal amount of work.
 Obviously, the second option is going to be faster.
+
+## What is the Anatomy of Vue 3?
+
+Vue 3’s core engine is made up of multiple parts.
+
+### Reactivity Module
+
+This allows for creating JavaScript reactive objects that can be watched for changes. When code which use these objects are run, they are tracked to be run later if the reactive object changes. If you haven’t played through my Vue 3 Reactivity course, I highly recommend you take it before moving on.
+
+### Compiler Module
+
+This knows how to take HTML templates and compile them into render functions. This can happen in the browser at runtime, but more often happens when a Vue project is built, so that a browser only ever receives render functions.
+
+### Renderer Module
+
+The renderer contains the code for 3 different phases of rendering out a component onto a webpage
+
+#### Render Phase
+
+When the render function is called and returns a representation of the actual DOM called the Virtual DOM. The Virtual DOM is a JavaScript object representation of what will be rendered into the browser.
+
+#### Mount (or Create) Phase
+
+The renderer takes the Virtual DOM object and makes actual DOM JavaScript calls to create a webpage.
+
+#### Patch (or Update) Phase
+
+The renderer takes the two Virtual DOM objects, an old and a new one, and update only the parts of the webpage that have changed using DOM JavaScript calls.
