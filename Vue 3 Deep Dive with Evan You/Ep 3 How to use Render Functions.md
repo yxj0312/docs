@@ -86,7 +86,7 @@ you have a Stack component:
 Inside the template, there's no chance programmatically walk through each item inside the slot and then transform them into something else, but you can do that in the render function.
 
 ```JavaScript
-const App = {
+const Stack = {
     // slots
     render() {
        const slot = this.$slots.default 
