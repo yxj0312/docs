@@ -103,3 +103,5 @@ const Stack = {
 ```
 
 So we are using a slot of map to generate the new slot of vnode, where the original slot child is wrapped inside.
+
+<https://developpaper.com/vue-3-deep-dive-with-evan-you/>
