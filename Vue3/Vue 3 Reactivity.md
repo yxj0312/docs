@@ -82,10 +82,20 @@ let effect = function () {
 
 track() // Remember this in case we want to run it later
 effect() // Also go ahead and run it
+...
+trigger() // Run all the code I've saved
 ```
 
 Notice that we store an anonymous function inside the effect variable, and then call a track function. Using the ES6 arrow syntax I could also write this as:
 
+> BTW, the names used here are same in the vue2/3 Reactivity
+
 ```javaScript
 let effect = () => { total = product.price * product.quantity }
+```
+
+In order to define track, we need a place to store our effects, we may have many of them. We’ll create a variable called dep, as in dependency. We call it dependency because typically with the Observer design pattern a dependency has subscribers (in our case effects) which will get notified when an object changes state. We might make dependency a class with an array of subscribers, like we did in the Vue 2 version of this tutorial. However, since all it needs to store is a set of effects, we can simply create a Set.
+
+```javaScript
+let dep = new Set() // Our object tracking a list of effects
 ```
