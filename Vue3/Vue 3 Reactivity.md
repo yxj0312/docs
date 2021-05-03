@@ -136,3 +136,5 @@ let product = { price: 5, quantity: 2 }
 ```
 
 Our price property needs it’s own dep (set of effects) and our quantity needs it’s own dep (set of effects). Let’s build out our solution to properly record these.
+
+### Solution: depsMap
