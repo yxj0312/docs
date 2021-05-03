@@ -114,7 +114,7 @@ Let’s write a trigger function that runs all the things we’ve recorded.
 
 ```javaScript
 function trigger() { 
-  dep.forEach(effect => effect()) 
+  dep.forEach(effect => effect()) // Re-run all the code in storage
 }
 ```
 
@@ -126,3 +126,13 @@ console.log(total) // => 10
 trigger()
 console.log(total) // => 40
 ```
+
+### Problem: Multiple Properties
+
+We could go on tracking effects as needed, but our reactive objects are going to have different properties, and those properties each need their own dep (which is a set of effects). Take a look at our object here:
+
+```javaScript
+let product = { price: 5, quantity: 2 }
+```
+
+Our price property needs it’s own dep (set of effects) and our quantity needs it’s own dep (set of effects). Let’s build out our solution to properly record these.
