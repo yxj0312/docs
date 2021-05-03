@@ -99,3 +99,30 @@ In order to define track, we need a place to store our effects, we may have many
 ```javaScript
 let dep = new Set() // Our object tracking a list of effects
 ```
+
+Then our track function can simply add our effects to this collection:
+
+```javaScript
+function track () {
+  dep.add(effect) // Store the current effect
+}
+```
+
+We’re storing the effect (in our case the { total = price * quantity }) so we can run it later.
+
+Let’s write a trigger function that runs all the things we’ve recorded.
+
+```javaScript
+function trigger() { 
+  dep.forEach(effect => effect()) 
+}
+```
+
+This goes through all the anonymous functions we have stored inside the dep Set and executes each of them. Then in our code, we can just:
+
+```javaScript
+product.price = 20
+console.log(total) // => 10
+trigger()
+console.log(total) // => 40
+```
