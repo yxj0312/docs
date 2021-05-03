@@ -69,3 +69,23 @@ Unfortunately, JavaScript is procedural, not reactive, so this doesn’t work in
 ### Solution: Build a Reactivity engine from scratch
 
 1. First off, we need some way to tell our application, “Store the code (effect) I’m about to run, I may need you to run it at another time.” Then we’ll want to run the code, and if price or quantity variables get updated, run the stored code again.
+
+We might do this by recording the function (effect) so we can run it again.
+
+```javaScript
+let product = { price: 5, quantity: 2 }
+let total = 0
+
+let effect = function () { 
+  total = product.price * product.quantity
+})
+
+track() // Remember this in case we want to run it later
+effect() // Also go ahead and run it
+```
+
+Notice that we store an anonymous function inside the effect variable, and then call a track function. Using the ES6 arrow syntax I could also write this as:
+
+```javaScript
+let effect = () => { total = product.price * product.quantity }
+```
