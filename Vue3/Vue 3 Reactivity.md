@@ -184,3 +184,69 @@ product.quantity = 3
 trigger('quantity')
 console.log(total) // --> 40
 ```
+
+### Problem: Multiple Reactive Objects
+
+This works great, until we have multiple reactive objects (more than just product) which need to track effects. Now we need a way of storing a depsMap for each object (ex. product). We need another Map, one for each object, but what would be the key? If we use a WeakMap we can actually use the objects themselves as the key. WeakMap is a JavaScript Map that uses only objects as the key. For example:
+
+```javaScript
+let product = { price: 5, quantity: 2 }
+const targetMap = new WeakMap()
+targetMap.set(product, "example code to test")
+console.log(targetMap.get(product)) // ---> "example code to test"
+```
+
+Obviously this isn’t the code we’re going to use, but I wanted to show you how our targetMap uses our product object as the key. We call our WeakMap targetMap because we’ll consider target the object we’re targeting. There’s another reason it’s called target which will become more obvious in the next lesson.
+
+When we call track or trigger we now need to know which object we’re targeting. So, we’ll send in both the target and the key when we call it.
+
+```javaScript
+const targetMap = new WeakMap() // targetMap stores the effects that each object should re-run when it's updated
+
+function track(target, key) {
+  // We need to make sure this effect is being tracked.
+  let depsMap = targetMap.get(target) // Get the current depsMap for this target
+
+  if (!depsMap) {
+    // There is no map.
+    targetMap.set(target, (depsMap = new Map())) // Create one
+  }
+
+  let dep = depsMap.get(key) // Get the current dependencies (effects) that need to be run when this is set
+  if (!dep) {
+    // There is no dependencies (effects)
+    depsMap.set(key, (dep = new Set())) // Create a new Set
+  }
+
+  dep.add(effect) // Add effect to dependency map
+}
+
+function trigger(target, key) {
+  const depsMap = targetMap.get(target) // Does this object have any properties that have dependencies (effects)
+  if (!depsMap) {
+    return
+  }
+
+  let dep = depsMap.get(key) // If there are dependencies (effects) associated with this
+  if (dep) {
+    dep.forEach(effect => {
+      // run them all
+      effect()
+    })
+  }
+}
+
+let product = { price: 5, quantity: 2 }
+let total = 0
+let effect = () => {
+  total = product.price * product.quantity
+}
+
+track(product, 'quantity')
+effect()
+console.log(total) // --> 10
+
+product.quantity = 3
+trigger(product, 'quantity')
+console.log(total) // --> 15
+```
