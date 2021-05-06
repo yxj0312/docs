@@ -137,4 +137,50 @@ let product = { price: 5, quantity: 2 }
 
 Our price property needs it’s own dep (set of effects) and our quantity needs it’s own dep (set of effects). Let’s build out our solution to properly record these.
 
+> dep: A dependency which is a set of effects that should get re-run when values change
+
 ### Solution: depsMap
+
+When we call track or trigger we now need to know which property in our object we’re targeting (price or quantity). To do this we’ll create a depsMap, which is of type Map (think keys and values).
+
+depsMap: A map where we store the dependency object for each property
+
+Notice how the depsMap has a key which will be the property name we want to add (or track) a new effect on. So we’ll need to send in this key to the track function.
+
+```javaScript
+const depsMap = new Map()
+function track(key) {
+  // Make sure this effect is being tracked.
+  let dep = depsMap.get(key) // Get the current dep (effects) that need to be run when this key (property) is set
+  if (!dep) {
+    // There is no dep (effects) on this key yet
+    depsMap.set(key, (dep = new Set())) // Create a new Set
+  }
+  dep.add(effect) // Add effect to dep
+}
+  }
+function trigger(key) {
+  let dep = depsMap.get(key) // Get the dep (effects) associated with this key
+  if (dep) { // If they exist
+    dep.forEach(effect => {
+      // run them all
+      effect()
+    })
+  }
+}
+
+let product = { price: 5, quantity: 2 }
+let total = 0
+
+let effect = () => {
+  total = product.price * product.quantity
+}
+
+track('quantity')
+effect()
+console.log(total) // --> 10
+
+product.quantity = 3
+trigger('quantity')
+console.log(total) // --> 40
+```
