@@ -250,3 +250,7 @@ product.quantity = 3
 trigger(product, 'quantity')
 console.log(total) // --> 15
 ```
+
+## Lesson 2 Proxy and Reflect
+
+> In our last lesson we learned how Vue 3 keeps track of effects to re-run them when needed. However, we’re still having to manually call track and trigger. In this lesson we’ll learn how to use Reflect and Proxy to call them automatically.
