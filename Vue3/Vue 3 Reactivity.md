@@ -254,3 +254,15 @@ console.log(total) // --> 15
 ## Lesson 2 Proxy and Reflect
 
 > In our last lesson we learned how Vue 3 keeps track of effects to re-run them when needed. However, we’re still having to manually call track and trigger. In this lesson we’ll learn how to use Reflect and Proxy to call them automatically.
+
+### How to intercept Get and Set
+
+- In Vue 2
+  We used ES5 Object.defineProperty()
+
+- In Vue 3
+  We will use ES6 Reflect and Proxy
+
+### Solution: Hooking onto Get and Set
+
+#### Understanding ES6 Reflect
