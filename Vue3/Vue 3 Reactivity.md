@@ -283,3 +283,28 @@ console.log('quantity is ' + product['quantity'])
 // Reflect
 console.log('quantity is ' + Reflect.get(product, 'quantity'))
 ```
+
+### Understanding ES6 Proxy
+
+A Proxy is a placeholder for another object, which by default delegates to the object. So if I run the following code:
+
+```javaScript
+let product = { price: 5, quantity: 2 }
+let proxiedProduct = new Proxy(product, {})
+console.log(proxiedProduct.quantity)
+```
+
+The proxiedProduct delegates to the product which returns 2 as the quantity. Notice the second argument on Proxy with {}? This is called a handler and can be used to define custom behavior on the proxy object, like intercepting get and set calls. These interceptor methods are called traps and here’s how we would set a get trap on our handler:
+
+```javaScript
+let product = { price: 5, quantity: 2 }
+
+let proxiedProduct = new Proxy(product, {
+  get() {
+    console.log('Get was called')
+    return 'Not the value'
+  }
+})
+
+console.log(proxiedProduct.quantity)
+```
