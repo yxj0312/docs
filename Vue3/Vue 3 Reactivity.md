@@ -266,3 +266,20 @@ console.log(total) // --> 15
 ### Solution: Hooking onto Get and Set
 
 #### Understanding ES6 Reflect
+
+```javaScript
+let product = { price: 5, quantity: 2}
+```
+
+There are three ways to print out a property on an object
+
+```javaScript
+// Dot notation
+console.log('quantity is ' + product.quantity)
+
+// Bracket notation
+console.log('quantity is ' + product['quantity'])
+
+// Reflect
+console.log('quantity is ' + Reflect.get(product, 'quantity'))
+```
