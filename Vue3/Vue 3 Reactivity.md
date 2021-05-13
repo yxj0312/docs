@@ -379,3 +379,27 @@ Set was called with key = quantity and value = 4
 Get was called with key = quantity
 
 4
+
+There’s another way we can encapsulate this code, which is what you see in the Vue 3 source code. First, we’ll wrap this proxying code in a reactive function which returns the proxy, which should look familiar if you’ve played with the Vue 3 Composition API. Then we’ll declare our handler with it’s traps separately and send them into our proxy.
+
+```javaScript
+function reactive(target) {
+  const handler = {
+    get(target, key, receiver) {
+      console.log('Get was called with key = ' + key)
+      return Reflect.get(target, key, receiver)
+    },
+    set(target, key, value, receiver) {
+      console.log('Set was called with key = ' + key + ' and value = ' + value)
+      return Reflect.set(target, key, value, receiver)
+    }
+  }
+  return new Proxy(target, handler)
+}
+
+let product = reactive({ price: 5, quantity: 2 }) // <-- Returns a proxy object
+product.quantity = 4
+console.log(product.quantity)
+```
+
+This would return the same as above, but now we can easily create multiple reactive objects.
