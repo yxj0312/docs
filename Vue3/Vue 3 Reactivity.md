@@ -351,3 +351,30 @@ let proxiedProduct = new Proxy(product, {
 ```
 
 Notice our get has an additional parameter called receiver which we’re sending as an argument into Reflect.get. This ensures that the proper value of this is used when our object has inherited values / functions from another object. This is why we always use Reflect inside of a Proxy, so we can keep the original behavior we are customizing.
+
+Now let’s add a setter method, there shouldn’t be any big surprises here:
+
+```javaScript
+let product = { price: 5, quantity: 2 }
+
+let proxiedProduct = new Proxy(product, {
+  get(target, key, receiver) {  
+    console.log('Get was called with key = ' + key)
+    return Reflect.get(target, key, receiver) 
+  }
+  set(target, key, value, receiver) {
+    console.log('Set was called with key = ' + key + ' and value = ' + value)
+    return Reflect.set(target, key, value, receiver)
+  }
+})
+
+proxiedProduct.quantity = 4
+console.log(proxiedProduct.quantity)
+```
+Notice that set looks very similar to get except that it’s using Reflect.set which receives the value to set the target (product). Our output as expected is:
+
+Set was called with key = quantity and value = 4
+
+Get was called with key = quantity
+
+4
