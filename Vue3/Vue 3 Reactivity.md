@@ -310,3 +310,32 @@ console.log(proxiedProduct.quantity)
 ```
 
 A trap allows us to intercept fundamental operations (property lookup, Enumeration, Function invocation)
+
+In the console I’d see:
+
+Get was called
+
+Not the value
+
+We’ve re-written what get returns when the property value is accessed. We should probably return the actual value, which we can do like:
+
+```javaScript
+let product = { price: 5, quantity: 2 }
+
+let proxiedProduct = new Proxy(product, {
+  get(target, key) {  // <--- The target (our object) and key (the property name)
+    console.log('Get was called with key = ' + key)
+    return target[key]
+  }
+})
+
+console.log(proxiedProduct.quantity)
+```
+
+Notice that the get function has two parameters, both the target which is our object (product) and the key we are trying to get, which in this case is quantity. Now we see:
+
+Get was called with key = quantity
+
+2
+
+This is also where we can use Reflect and add an additional argument to it.
