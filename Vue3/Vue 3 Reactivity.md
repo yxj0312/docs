@@ -294,7 +294,7 @@ let proxiedProduct = new Proxy(product, {})
 console.log(proxiedProduct.quantity)
 ```
 
-The proxiedProduct delegates to the product which returns 2 as the quantity. Notice the second argument on Proxy with {}? This is called a handler and can be used to define custom behavior on the proxy object, like intercepting get and set calls. These interceptor methods are called traps and here’s how we would set a get trap on our handler:
+The proxiedProduct delegates to the product which returns 2 as the quantity. Notice the second argument on Proxy with {}? This is called a handler and can be used to define custom behavior on the proxy object, like intercepting get and set calls. These interceptor methods are called **traps** and here’s how we would set a get trap on our handler:
 
 ```javaScript
 let product = { price: 5, quantity: 2 }
@@ -308,3 +308,5 @@ let proxiedProduct = new Proxy(product, {
 
 console.log(proxiedProduct.quantity)
 ```
+
+A trap allows us to intercept fundamental operations (property lookup, Enumeration, Function invocation)
