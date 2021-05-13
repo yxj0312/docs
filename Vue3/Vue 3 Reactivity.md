@@ -339,3 +339,15 @@ Get was called with key = quantity
 2
 
 This is also where we can use Reflect and add an additional argument to it.
+
+```javaScript
+let product = { price: 5, quantity: 2 }
+let proxiedProduct = new Proxy(product, {
+  get(target, key, receiver) {  // <--- notice the receiver
+    console.log('Get was called with key = ' + key)
+    return Reflect.get(target, key, receiver) // <----
+  }
+})
+```
+
+Notice our get has an additional parameter called receiver which we’re sending as an argument into Reflect.get. This ensures that the proper value of this is used when our object has inherited values / functions from another object. This is why we always use Reflect inside of a Proxy, so we can keep the original behavior we are customizing.
