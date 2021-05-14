@@ -403,3 +403,34 @@ console.log(product.quantity)
 ```
 
 This would return the same as above, but now we can easily create multiple reactive objects.
+
+### Combining Proxy + Effect Storage
+
+If we take the code we have for creating reactive objects, and remember:
+
+GET property => We need to track the current effect
+
+SET property => We need to trigger any tracked dependencies (effects) for this property
+
+We can start to imagine where we need to call track and trigger with the code above:
+
+```javaScript
+function reactive(target) {
+  const handler = {
+    get(target, key, receiver) {
+      let result = Reflect.get(target, key, receiver)
+        // Track
+      return result
+    },
+    set(target, key, value, receiver) {
+      let oldValue = target[key]
+      let result = Reflect.set(target, key, value, receiver)
+      if (result && oldValue != value) { // Only if the value changes 
+        // Trigger
+      } 
+      return result
+    }
+  }
+  return new Proxy(target, handler)
+}
+```
