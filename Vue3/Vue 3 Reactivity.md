@@ -434,3 +434,74 @@ function reactive(target) {
   return new Proxy(target, handler)
 }
 ```
+
+Now let’s put the two pieces of code together:
+
+```javaScript
+const targetMap = new WeakMap() // targetMap stores the effects that each object should re-run when it's updated
+function track(target, key) {
+  // We need to make sure this effect is being tracked.
+  let depsMap = targetMap.get(target) // Get the current depsMap for this target
+  if (!depsMap) {
+    // There is no map.
+    targetMap.set(target, (depsMap = new Map())) // Create one
+  }
+  let dep = depsMap.get(key) // Get the current dependencies (effects) that need to be run when this is set
+  if (!dep) {
+    // There is no dependencies (effects)
+    depsMap.set(key, (dep = new Set())) // Create a new Set
+  }
+  dep.add(effect) // Add effect to dependency map
+}
+function trigger(target, key) {
+  const depsMap = targetMap.get(target) // Does this object have any properties that have dependencies (effects)
+  if (!depsMap) {
+    return
+  }
+  let dep = depsMap.get(key) // If there are dependencies (effects) associated with this
+  if (dep) {
+    dep.forEach(effect => {
+      // run them all
+      effect()
+    })
+  }
+}
+
+function reactive(target) {
+  const handler = {
+    get(target, key, receiver) {
+      let result = Reflect.get(target, key, receiver)
+      track(target, key) // If this reactive property (target) is GET inside then track the effect to rerun on SET
+      return result
+    },
+    set(target, key, value, receiver) {
+      let oldValue = target[key]
+      let result = Reflect.set(target, key, value, receiver)
+      if (result && oldValue != value) {
+        trigger(target, key) // If this reactive property (target) has effects to rerun on SET, trigger them.
+      }
+      return result
+    }
+  }
+  return new Proxy(target, handler)
+}
+
+let product = reactive({ price: 5, quantity: 2 })
+let total = 0
+
+let effect = () => {
+  total = product.price * product.quantity
+}
+effect()
+
+console.log('before updated quantity total = ' + total)
+product.quantity = 3
+console.log('after updated quantity total = ' + total)
+```
+Notice how we no longer need to call trigger and track because these are getting properly called inside our get and set methods. Running this code gives us:
+
+before updated quantity total = 10
+
+after updated quantity total = 15
+
+Wow, we’ve come a long way! There’s only one bug to fix before this code is solid. Specifically, that we only want track to be called on a reactive object if it’s inside an effect. Right now track will be called whenever a reactive object property is get. We’ll polish this up in the next lesson.
