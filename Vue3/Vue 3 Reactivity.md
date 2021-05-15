@@ -486,18 +486,34 @@ function reactive(target) {
   return new Proxy(target, handler)
 }
 
+// Walk through the codes
+// 1. Our reactive function returns a proxy into our product object.
 let product = reactive({ price: 5, quantity: 2 })
 let total = 0
 
+// 3. it will run track(product, 'price')
+// 4. And inside the targetMap, it will create new mapping
+// for product with the value of being a new depsMap
+// and this will map the price property to a new dep,
+// which is a set of effects,adding our total effect to the set.
+
+// 5. Then we'll call product.quantity, which is another get request, we call the track(product, 'quantity')
+//  This will access the dep map for our product, and map our quantity product, to a new dep set with our effect.
 let effect = () => {
   total = product.price * product.quantity
 }
+
+// 2. When we here  try to get price
 effect()
 
+// 6. Then we'll print out our total to the console which is ten, 
 console.log('before updated quantity total = ' + total)
+// 7. Then we'll set quantity equal to 3. which we'll call trigger(product, 'quantity'), which then runs the stored effect.
 product.quantity = 3
+// 8. Then we run console.log(total) and it comes out to 15! 
 console.log('after updated quantity total = ' + total)
 ```
+
 Notice how we no longer need to call trigger and track because these are getting properly called inside our get and set methods. Running this code gives us:
 
 before updated quantity total = 10
