@@ -521,3 +521,7 @@ before updated quantity total = 10
 after updated quantity total = 15
 
 Wow, we’ve come a long way! There’s only one bug to fix before this code is solid. Specifically, that we only want track to be called on a reactive object if it’s inside an effect. Right now track will be called whenever a reactive object property is get. We’ll polish this up in the next lesson.
+
+## Lesson 3 activeEffect & ref
+
+In this lesson we’ll continue to build out our reactivity code by fixing a small bug and then implementing reactive references, much like you might have seen in Vue 3. The bottom of our current code from the last lesson looks like this:
