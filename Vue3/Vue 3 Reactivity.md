@@ -592,3 +592,21 @@ console.log(
   `After updated total (should be 30) = ${total} salePrice (should be 9) = ${salePrice}`
 )
 ```
+
+There’s one more change we need to make, and that’s inside the track function. It needs to use our new activeEffect.
+
+```javaScript
+function track(target, key) {
+  if (activeEffect) { // <------ Check to see if we have an activeEffect
+    let depsMap = targetMap.get(target)
+    if (!depsMap) {
+      targetMap.set(target, (depsMap = new Map())) 
+    }
+    let dep = depsMap.get(key) 
+    if (!dep) {
+      depsMap.set(key, (dep = new Set())) // Create a new Set
+    }
+    dep.add(activeEffect) // <----- Add activeEffect to dependency map
+  }
+}
+```
