@@ -550,3 +550,44 @@ console.log('Updated quantity to = ' + product.quantity)
 ```
 
 The issue here is that track and all of it’s function will get called, even if we’re not inside an effect. We only want to look up and record the effect if get is called inside the active effect.
+
+### Solution: activeEffect
+
+To solve this problem, we’ll first create an activeEffect, a global variable we’ll store the currently running effect in. We’ll then set this inside a new function called effect.
+
+```javaScript
+let activeEffect = null // The active effect running
+...
+function effect(eff) {
+  activeEffect = eff  // Set this as the activeEffect
+  activeEffect()      // Run it
+  activeEffect = null // Unset it
+}
+
+let product = reactive({ price: 5, quantity: 2 })
+let total = 0
+
+effect(() => {
+  total = product.price * product.quantity
+})
+
+effect(() => {
+  salePrice = product.price * 0.9
+})
+
+console.log(
+  `Before updated total (should be 10) = ${total} salePrice (should be 4.5) = ${salePrice}`
+)
+
+product.quantity = 3
+
+console.log(
+  `After updated total (should be 15) = ${total} salePrice (should be 4.5) = ${salePrice}`
+)
+
+product.price = 10
+
+console.log(
+  `After updated total (should be 30) = ${total} salePrice (should be 9) = ${salePrice}`
+)
+```
