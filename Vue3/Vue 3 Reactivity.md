@@ -525,3 +525,28 @@ Wow, we’ve come a long way! There’s only one bug to fix before this code is 
 ## Lesson 3 activeEffect & ref
 
 In this lesson we’ll continue to build out our reactivity code by fixing a small bug and then implementing reactive references, much like you might have seen in Vue 3. The bottom of our current code from the last lesson looks like this:
+
+```javaScript
+...
+let product = reactive({ price: 5, quantity: 2 })
+let total = 0
+
+let effect = () => {
+  total = product.price * product.quantity
+}
+effect()
+
+console.log(total)
+
+product.quantity = 3
+
+console.log(total)
+```
+
+The problem arrives when we add code which GETs a property from our reactive object, like so:
+
+```javaScript
+console.log('Updated quantity to = ' + product.quantity)
+```
+
+The issue here is that track and all of it’s function will get called, even if we’re not inside an effect. We only want to look up and record the effect if get is called inside the active effect.
