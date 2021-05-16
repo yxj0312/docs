@@ -571,6 +571,7 @@ effect(() => {
   total = product.price * product.quantity
 })
 
+// We no longer need to call the effect. It's getting called we send our function in.
 effect(() => {
   salePrice = product.price * 0.9
 })
