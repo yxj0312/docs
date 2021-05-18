@@ -667,3 +667,13 @@ effect(() => {
 ```
 
 Our code should work now, properly updating the total when salePrice is updated. However, we still need to define ref. There’s two ways we could do it.
+
+1. Defining Ref with Reactive
+
+   First, we could simply use reactive as we’ve defined it:
+
+   ```javaScript
+    function ref(intialValue) {
+      return reactive({ value: initialValue })
+      }
+   ```
