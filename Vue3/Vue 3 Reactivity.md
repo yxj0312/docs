@@ -627,3 +627,43 @@ After updated total (should be 30) = 30 salePrice (should be 9) = 9
 ```
 
 If you want to walk through this code executing line by line, definitely check out the video.
+
+### The Need for Ref
+
+When I was coding up this challenge I realized that the way I was calculating total might make a little more sense if it used the salePrice rather than price, like so:
+
+```javaScript
+effect(() => {
+  total = salePrice * product.quantity
+})
+```
+
+If we were creating a real store, we’d probably calculate the total based on the salePrice. However, this code wouldn’t work reactively. Specifically, when product.price is updated, it will reactively recalculate the salePrice with this effect:
+
+```javaScript
+effect(() => {
+  salePrice = product.price * 0.9
+})
+```
+
+But since salePrice isn’t reactive, the effect with total won’t get recalculated. Our first effect above won’t get re-run. We need some way to make salePrice reactive, and it’d be nice if we didn’t have to wrap it in another reactive object. If you’re familiar with the Composition API, which I teach in the Vue 3 Essentials Course, you might be thinking that I should use ref to create a Reactive Reference. Let’s do this:
+
+```javaScript
+let product = reactive({ price: 5, quantity: 2 })
+let salePrice = ref(0)
+let total = 0
+```
+
+According to the Vue documentation, a reactive reference takes an inner value and returns a reactive and mutable ref object. The ref object has a single property .value that points to the inner value. So we’d need to change around our effects a little to use .value.
+
+```javaScript
+effect(() => {
+  salePrice.value = product.price * 0.9
+})
+
+effect(() => {
+  total = salePrice.value * product.quantity
+})
+```
+
+Our code should work now, properly updating the total when salePrice is updated. However, we still need to define ref. There’s two ways we could do it.
