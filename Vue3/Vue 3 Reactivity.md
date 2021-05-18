@@ -567,11 +567,13 @@ function effect(eff) {
 let product = reactive({ price: 5, quantity: 2 })
 let total = 0
 
+// 5
 effect(() => {
   total = product.price * product.quantity
 })
 
 // We no longer need to call the effect. It's getting called we send our function in.
+// 2.
 effect(() => {
   salePrice = product.price * 0.9
 })
@@ -580,14 +582,19 @@ console.log(
   `Before updated total (should be 10) = ${total} salePrice (should be 4.5) = ${salePrice}`
 )
 
+// 1. when we update the quantity, that's going to rerun the total at 2.
 product.quantity = 3
 
+// 3. Then it prints out the updated total, sale price is still the same.
 console.log(
   `After updated total (should be 15) = ${total} salePrice (should be 4.5) = ${salePrice}`
 )
 
+// 4. When we set the price though, that should run both the above effects( 2 and 5)
 product.price = 10
 
+// 6. We see that total is now 30 and sale price is now 9
+// Our code is working and now track is only gonna be run, when we have an active effect.
 console.log(
   `After updated total (should be 30) = ${total} salePrice (should be 9) = ${salePrice}`
 )
