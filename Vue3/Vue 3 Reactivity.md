@@ -610,3 +610,13 @@ function track(target, key) {
   }
 }
 ```
+
+now if we run our code we properly get:
+
+```javaScript
+Before updated total (should be 10) = 10 salePrice (should be 4.5) = 4.5
+After updated total (should be 15) = 15 salePrice (should be 4.5) = 4.5
+After updated total (should be 30) = 30 salePrice (should be 9) = 9
+```
+
+If you want to walk through this code executing line by line, definitely check out the video.
