@@ -654,7 +654,7 @@ let salePrice = ref(0)
 let total = 0
 ```
 
-According to the Vue documentation, a reactive reference takes an inner value and returns a reactive and mutable ref object. The ref object has a single property .value that points to the inner value. So we’d need to change around our effects a little to use .value.
+According to the Vue documentation, __a reactive reference takes an inner value and returns a reactive and mutable ref object. The ref object has a single property .value that points to the inner value. So we’d need to change around our effects a little to use .value.__
 
 ```javaScript
 effect(() => {
