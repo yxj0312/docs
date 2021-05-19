@@ -680,4 +680,26 @@ Our code should work now, properly updating the total when salePrice is updated.
 
 However, this isn’t how Vue 3 defines ref with primitives, so let’s implement it differently.
 
-### Understanding JavaScript Object Accessors
+### Understanding JavaScript Object Accessors (aka. computed properties)
+
+In order to understand how Vue 3 defines ref, we first need to make sure we are familiar with object accessors. These are sometimes also known as JavaScript computed properties (not to be confused with Vue computed properties). Below you can see a simple example which uses Object Accessors:
+
+```javaScript
+let user = {
+  firstName: 'Gregg',
+  lastName: 'Pollack',
+
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`
+  },
+
+  set fullName(value) {
+    [this.firstName, this.lastName] = value.split(' ')
+  },
+}
+
+console.log(`Name is ${user.fullName}`)
+user.fullName = 'Adam Jahr'
+console.log(`Name is ${user.fullName}`)
+```
+The get and set lines are object accessors to get fullName and set fullName accordingly. This is plain JavaScript, and is not a feature of Vue.
