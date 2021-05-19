@@ -702,4 +702,84 @@ console.log(`Name is ${user.fullName}`)
 user.fullName = 'Adam Jahr'
 console.log(`Name is ${user.fullName}`)
 ```
+
 The get and set lines are object accessors to get fullName and set fullName accordingly. This is plain JavaScript, and is not a feature of Vue.
+
+2. Defining Ref with Object Accessors
+
+Using Object Accessors, along with our track and trigger actions, we can now define ref using:
+
+```javaScript
+function ref(raw) {
+  const r = {
+    get value() {
+      track(r, 'value')
+      return raw
+    },
+    set value(newVal) {
+      raw = newVal
+      trigger(r, 'value')
+    },
+  }
+  return r
+}
+```
+
+That’s all there is to it. Now when we run the following code:
+
+```javaScript
+...
+function ref(raw) {
+  const r = {
+    get value() {
+      track(r, 'value')
+      return raw
+    },
+    set value(newVal) {
+      raw = newVal
+      trigger(r, 'value')
+    },
+  }
+  return r
+}
+
+function effect(eff) {
+  activeEffect = eff
+  activeEffect()
+  activeEffect = null
+}
+
+let product = reactive({ price: 5, quantity: 2 })
+let salePrice = ref(0)
+let total = 0
+
+effect(() => {
+  salePrice.value = product.price * 0.9
+})
+
+effect(() => {
+  total = salePrice.value * product.quantity
+})
+
+console.log(
+  `Before updated quantity total (should be 9) = ${total} salePrice (should be 4.5) = ${salePrice.value}`
+)
+product.quantity = 3
+console.log(
+  `After updated quantity total (should be 13.5) = ${total} salePrice (should be 4.5) = ${salePrice.value}`
+)
+product.price = 10
+console.log(
+  `After updated price total (should be 27) = ${total} salePrice (should be 9) = ${salePrice.value}`
+)
+```
+
+We get what we would expect:
+
+```javaScript
+Before updated total (should be 10) = 10 salePrice (should be 4.5) = 4.5
+After updated total (should be 13.5) = 13.5 salePrice (should be 4.5) = 4.5
+After updated total (should be 27) = 27 salePrice (should be 9) = 9
+```
+
+Our salePrice is now reactive and total gets updated when it changes!
