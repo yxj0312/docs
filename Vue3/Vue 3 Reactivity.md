@@ -677,3 +677,7 @@ Our code should work now, properly updating the total when salePrice is updated.
       return reactive({ value: initialValue })
       }
    ```
+
+However, this isn’t how Vue 3 defines ref with primitives, so let’s implement it differently.
+
+### Understanding JavaScript Object Accessors
