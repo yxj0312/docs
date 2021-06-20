@@ -4,7 +4,7 @@
 
 Good
 
-```
+```javaScript
 <!-- In single-file components and string templates -->
 <MyComponent/>
 <!-- In DOM templates -->
@@ -13,7 +13,7 @@ Good
 
 OR
 
-```
+```javaScript
 <!-- Everywhere -->
 <my-component></my-component>
 ```
