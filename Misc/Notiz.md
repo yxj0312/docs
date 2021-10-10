@@ -109,3 +109,5 @@
 18.05 overwatch
 
 07.07.21 工作到10点看欧洲杯半决赛，忘记学习了。
+
+01.10.21 WBAA Launch Day at 04.10, got the new appartment key at 9:00, get back at 10:30, still working now(11:36)
