@@ -35,6 +35,45 @@ function its_a_toy_chest()
         }
     ];
 
-    var_dump($container['foo']);
+    var_dump($container['foo']());
 }
+```
+
+It might be nice, if our container would smart enough to know this is closure.
+
+To do this, We wrap this out with a class
+
+```php
+/** @test */
+function its_a_toy_chest()
+{
+    $container = new Container();
+
+    $container->bind('foo', 'bar');
+
+    $this->assertEquals('bar', $container->get('foo'));
+}
+
+
+// with creating a class
+
+// Container.php
+   <?php
+
+    namespace App;
+
+    class Container 
+    {
+        protected array $bindings = [];
+
+        public function bind($key, $value)
+        {
+            $this->bindings[$key] = $value;
+        }
+
+        public function get($key)
+        {
+            return $this->bindings[$key];
+        }
+    }
 ```
