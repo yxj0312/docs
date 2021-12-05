@@ -77,3 +77,5 @@ function its_a_toy_chest()
         }
     }
 ```
+
+## Level 2 It can register functions and singletons
