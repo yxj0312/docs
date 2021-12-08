@@ -79,3 +79,25 @@ function its_a_toy_chest()
 ```
 
 ## Level 2 It can register functions and singletons
+
+Instead of binding foo to the string 'bar', now we bind it with a closure.
+
+Maybe within that closure, we will do something like: time consuming, configuration...
+
+In this case, we return a Newsletter class
+
+```php
+/** @test */
+   function LEVEL_TWO_it_can_lazily_resolve_functions()
+   {
+        $container = new Newsletter();
+
+        $container->bind('newsletter', function() {
+            return new Newsletter();
+        });
+        
+        $this->assertInstanceOf(Newsletter::class, $container->get('newsletter'));
+   }
+```
+
+let's work an the Newsletter class
