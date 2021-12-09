@@ -101,3 +101,9 @@ In this case, we return a Newsletter class
 ```
 
 let's work on the Newsletter class
+
+```php
+class Newsletter
+{
+}
+```
