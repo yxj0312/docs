@@ -107,3 +107,21 @@ class Newsletter
 {
 }
 ```
+
+notice, if i can $container->get('newsletter') 3 times, i get three new instances.
+
+but in some case, you don't want that. instead, you want a singleton, or a single instance, that can be shared globally.
+
+```php
+/** @test */
+   function LEVEL_TWO_it_can_lazily_resolve_functions()
+   {
+        $container = new Container();
+
+        $container->singleton('newsletter', function() {
+            return new Newsletter();
+        });
+
+        $this->assertInstanceOf(Newsletter::class, $container->get('newsletter'));
+   }
+```
