@@ -125,3 +125,12 @@ but in some case, you don't want that. instead, you want a singleton, or a singl
         $this->assertInstanceOf(Newsletter::class, $container->get('newsletter'));
    }
 ```
+
+Then we create a singleton method in container, we give it a shared state.
+
+```php
+   public function singleton($key, $concrete)
+    {
+        $this->bind($key, $concrete, true);
+    }
+```
