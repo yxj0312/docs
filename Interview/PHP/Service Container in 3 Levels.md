@@ -129,7 +129,15 @@ but in some case, you don't want that. instead, you want a singleton, or a singl
 Then we create a singleton method in container, we give it a shared state.
 
 ```php
-   public function singleton($key, $concrete)
+    public function bind($key, $concrete, $shared = false)
+    {
+        $this->bindings[$key] = [
+            'concrete' => $concrete,
+            'shared' => $shared
+        ];
+    }
+    
+    public function singleton($key, $concrete)
     {
         $this->bind($key, $concrete, true);
     }
