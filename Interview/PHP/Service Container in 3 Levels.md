@@ -142,3 +142,27 @@ Then we create a singleton method in container, we give it a shared state.
         $this->bind($key, $concrete, true);
     }
 ```
+
+we need to rewrite get method to make the test pass
+
+```php
+    public function get($key)
+    {
+        $concrete =  $this->bindings[$key]['concrete'];
+
+        if ($this->bindings[$key]['shared'] && isset($this->singletons[$key])) {
+            return $this->singletons[$key];
+        }
+
+        if ($concrete instanceof Closure) {
+            $concrete = $concrete();
+
+            if ($this->bindings[$key]['shared']) {
+                $this->singletons[$key] = $concrete;
+            }
+            return $concrete;
+        }
+
+        return $concrete;
+    }
+```
