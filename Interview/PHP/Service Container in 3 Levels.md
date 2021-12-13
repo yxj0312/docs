@@ -166,3 +166,28 @@ we need to rewrite get method to make the test pass
         return $concrete;
     }
 ```
+
+```php
+/** @test */
+   function LEVEL_TWO_it_can_lazily_resolve_functions()
+   {
+        $container = new Container();
+
+        // $container->bind('newsletter', function() {
+        //     return new Newsletter();
+        // });
+        
+
+        $container->singleton('newsletter', function() {
+            return new Newsletter(uniqid());
+        });
+
+        var_dump($container->get('newsletter'));
+        var_dump($container->get('newsletter'));
+        var_dump($container->get('newsletter'));
+
+        $this->assertInstanceOf(Newsletter::class, $container->get('newsletter'));
+   }
+```
+
+to test the instance only be called once
