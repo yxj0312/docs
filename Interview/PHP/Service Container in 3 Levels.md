@@ -191,3 +191,5 @@ we need to rewrite get method to make the test pass
 ```
 
 to test the instance only be called once
+
+## Level 3 It Can Do Magic
