@@ -195,3 +195,14 @@ to test the instance only be called once
 ## Level 3 It Can Do Magic
 
 let's no bind anything to the container. If i try to get something out of the container, and we follow certain conversion, maybe that container can make it.
+
+```php
+function LEVEL_THREE_it_can_do_magic()
+   {
+       $container = new Container();
+
+       $this->assertInstanceOf(Newsletter::class, $container->get(NewsLetter::class));
+   }
+```
+
+if we remove the consturct method in newsletter, this test will pass.
