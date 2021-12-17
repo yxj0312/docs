@@ -205,4 +205,16 @@ function LEVEL_THREE_it_can_do_magic()
    }
 ```
 
-if we remove the consturct method in newsletter, this test will pass.
+```php
+ if (!isset($this->bindings[$key])) {
+            // can we do some magic??
+
+            if (class_exists($key)) {
+                return new $key();
+            } 
+
+            throw new Exception('No binding was registered for ' . $key);
+        }
+```
+
+if we remove the consturct method in newsletter, add the above to the get method,  this test will pass.
