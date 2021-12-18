@@ -253,3 +253,7 @@ $r->getConstructor()->getParameters()[0]->getType()
    }
 
 ```
+
+Then we refactor our container
+
+we can get the type, that we try to inject by loop the constructor
