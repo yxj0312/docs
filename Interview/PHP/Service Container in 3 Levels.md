@@ -217,4 +217,10 @@ function LEVEL_THREE_it_can_do_magic()
         }
 ```
 
-if we remove the consturct method in newsletter, add the above to the get method,  this test will pass.
+if we remove the construct method in newsletter, add the above to the get method,  this test will pass.
+
+if we added the construct method back, how about our Newsletter has dependency of its own?
+
+The answer is no. Because we have no clue how ist the parameter type, maybe a string or a int.
+
+but how about a third party API, like mailchimp?
