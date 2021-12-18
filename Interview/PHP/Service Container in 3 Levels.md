@@ -224,3 +224,32 @@ if we added the construct method back, how about our Newsletter has dependency o
 The answer is no. Because we have no clue how ist the parameter type, maybe a string or a int.
 
 but how about a third party API, like mailchimp?
+
+```php
+class Newsletter
+{
+
+    public function __construct(Mailchimp $api)
+    {
+        
+    }
+}
+```
+
+Let's use php reflection API to peek into this class and figure out what needs.
+
+```php
+// in tinker we run:
+$r = new \ReflectionClass("App\Newsletter")
+
+$r->getConstructor()->getParameters()[0]->getType()
+
+// add we get:
+
+=> ReflectionNamedType {#3536
+     name: "App\Mailchimp",
+     allowsNull: false,
+     isBuiltin: false,
+   }
+
+```
