@@ -257,3 +257,25 @@ $r->getConstructor()->getParameters()[0]->getType()
 Then we refactor our container
 
 we can get the type, that we try to inject by loop the constructor
+
+```php
+if (class_exists($key)) {
+                $reflector = new ReflectionClass($key);
+
+                $constructor = $reflector->getConstructor();
+
+                if (!$constructor) {
+                    return new $key();
+                }
+
+                $dependencies = [];
+
+                foreach ($constructor->getParameters() as $parameter) {
+                    $dependency = $parameter->getType()->getName();
+
+                    $dependencies[] = new $dependency();
+                }
+
+                $reflector->newInstanceArgs($dependencies);
+            } 
+```
