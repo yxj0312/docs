@@ -279,3 +279,19 @@ if (class_exists($key)) {
                 return $reflector->newInstanceArgs($dependencies);
             } 
 ```
+
+let's say Mailchimp has its own dependency, like a http class
+
+```php
+<?php
+
+namespace App;
+
+class Mailchimp
+{
+    public function __construct(protected Http $http)
+    {
+        
+    }
+}
+```
