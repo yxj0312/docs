@@ -276,6 +276,6 @@ if (class_exists($key)) {
                     $dependencies[] = new $dependency();
                 }
 
-                $reflector->newInstanceArgs($dependencies);
+                return $reflector->newInstanceArgs($dependencies);
             } 
 ```
