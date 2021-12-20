@@ -295,3 +295,28 @@ class Mailchimp
     }
 }
 ```
+
+we can do a wild loop to accomplish this.
+
+```php
+protected function make(string $key): mixed
+    {
+        $reflector = new \ReflectionClass($key);
+
+        $constructor = $reflector->getConstructor();
+
+        if (!$constructor) {
+            return new $key();
+        }
+
+        $dependencies = [];
+
+        foreach ($constructor->getParameters() as $parameter) {
+            $dependency = $parameter->getType()->getName();
+
+            $dependencies[] = $this->make($dependency);
+        }
+
+        return $reflector->newInstanceArgs($dependencies);
+    }
+```
