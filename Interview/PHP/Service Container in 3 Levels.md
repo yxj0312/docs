@@ -319,4 +319,38 @@ protected function make(string $key): mixed
 
         return $reflector->newInstanceArgs($dependencies);
     }
+
+
+```
+
+```php
+public function get($key)
+    {
+        if (!isset($this->bindings[$key])) {
+            // can we do some magic??
+
+            if (class_exists($key)) {
+                return $this->make($key);
+            } 
+
+            throw new Exception('No binding was registered for ' . $key);
+        }
+
+        $binding = $this->bindings[$key];
+
+
+        if ($binding['shared'] && isset($this->singletons[$key])) {
+            return $this->singletons[$key];
+        }
+
+        if ($binding['concrete'] instanceof Closure) {
+        
+            if ($binding['shared']) {
+                $this->singletons[$key] = $binding['concrete'];
+            }
+            return $binding['concrete']();
+        }
+
+        return $binding['concrete'];
+    }
 ```
