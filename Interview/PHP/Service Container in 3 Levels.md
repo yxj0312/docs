@@ -354,3 +354,7 @@ public function get($key)
         return $binding['concrete'];
     }
 ```
+
+Something needs also to be checked:
+
+- if there's an Interface
