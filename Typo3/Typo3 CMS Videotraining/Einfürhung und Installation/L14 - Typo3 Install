@@ -3,3 +3,5 @@
 go to https://get.typo3.org/misc/composer/helper
 
 can choose typo3/full or customize
+
+copy and parse them to console with ddev at begining....
