@@ -1,6 +1,6 @@
 # Install
 
-1. go to <https://get.typo3.org/misc/composer/helper>
+1. cd public go to <https://get.typo3.org/misc/composer/helper>
 
     can choose typo3/full or customize
 
