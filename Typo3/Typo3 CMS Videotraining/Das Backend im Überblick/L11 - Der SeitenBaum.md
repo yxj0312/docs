@@ -7,3 +7,5 @@
 3. create multiply pages...
 
 4. mount as tree
+
+5. Definition: Edit->Behaviour->"user as Root Page" etc.
