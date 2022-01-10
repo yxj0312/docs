@@ -3,3 +3,5 @@
 TypoScript: nicht Programmierung Sprach sonder ein Config Sprache
 
 [TypoScript template reference](tsref.de)
+
+TSConfig: ist im Prinzip auch TypoScript, aber nicht im Frontend sondern kann backend konfigurien
