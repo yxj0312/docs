@@ -4,8 +4,4 @@
 2. Create a extension template
 3. title, description..
 4. go setup
-5.
-
-   ```
-   page.10.value = ich bin auf Seite 1
-   ```
+5. ```page.10.value = ich bin auf Seite 1```
