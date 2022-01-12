@@ -19,3 +19,16 @@ page {
 ## Reihenfolge von Objekten
 
 Reihenfolge spielt kein Rolle, nur 10, 20 zählt
+
+## CObjects
+
+CObjects:Content Object
+
+```php
+...
+ 30 = IMAGE
+    30 {
+      file = fileadmin/ein-neu-ordner/1.jpg
+      file.width = 200
+    }
+```
