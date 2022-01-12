@@ -29,6 +29,10 @@ CObjects:Content Object
  30 = IMAGE
     30 {
       file = fileadmin/ein-neu-ordner/1.jpg
-      file.width = 200
+      file {
+          width = 120c
+          height = 80c
+      }
+      altText = Das ist ein alternativer Text.
     }
 ```
