@@ -49,6 +49,10 @@ CObjects:Content Object
       <p>Text im Div</p>
      </div>
   )
+
+  /*
+123
+*/
 ```
 
 Kommentar muss im einen einzeln Zeile stehen.
