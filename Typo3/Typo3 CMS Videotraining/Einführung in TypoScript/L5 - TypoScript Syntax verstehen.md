@@ -56,3 +56,9 @@ CObjects:Content Object
 ```
 
 Kommentar muss im einen einzeln Zeile stehen.
+
+## Was ist der "stdWrap"
+
+[stdWrap](https://docs.typo3.org/m/typo3/reference-typoscript/main/en-us/Functions/Stdwrap.html#stdwrap)
+
+When a data type is set to “type /stdWrap” it means that the value is parsed through the stdWrap function with the properties of the value as parameters.
