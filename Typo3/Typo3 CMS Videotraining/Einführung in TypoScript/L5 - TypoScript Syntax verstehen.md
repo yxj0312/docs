@@ -114,3 +114,7 @@ im Setup
 
 ...
 ```
+
+## Der Konstanteneditor
+
+choose ganz Top: constant editor
