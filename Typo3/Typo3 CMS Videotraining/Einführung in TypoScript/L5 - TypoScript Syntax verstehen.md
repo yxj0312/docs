@@ -77,3 +77,40 @@ When a data type is set to “type /stdWrap” it means that the value is parsed
   page.20.value = Ich bin ein Kindelement auf Seite ID 7
   [END]
   ```
+
+## Werte In Konstanten Speichern Und Wiederverwenden
+
+im Constants:
+
+```php
+namespace {
+  meinKonstante = das ist meine Konstante
+  weitereKonstante = 120
+}
+
+```
+
+im Setup
+
+```php
+...
+
+ 
+    20 = TEXT
+    20 {
+        value = {$namespace.meinKonstante}
+        wrap = <h2><em>|</em><h2>
+    }
+
+    30 = IMAGE
+    30 {
+        file = fileadmin/ein-neu-ordner/1.jpg
+        file {
+          width = {$namespace.weitereKonstante}c
+          height = 80c
+      }
+      altText = Das ist ein alternativer Text.
+    }
+
+...
+```
