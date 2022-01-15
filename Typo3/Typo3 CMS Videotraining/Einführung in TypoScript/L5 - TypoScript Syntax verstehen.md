@@ -118,3 +118,7 @@ im Setup
 ## Der Konstanteneditor
 
 choose ganz Top: constant editor
+
+choose storage->user storage page->edit 40
+
+then styles.content.loginform.pid = 40
