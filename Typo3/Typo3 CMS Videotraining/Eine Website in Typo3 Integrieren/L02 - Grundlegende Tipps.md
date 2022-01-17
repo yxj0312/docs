@@ -28,3 +28,9 @@
   - TS wird in der DB gespeichert->Backups schwieriger, keine Versionierung möglich
   - Änderungen durch "normale" BE-Benutzer (Redakteure) theoretisch möglich
   - Weitergabe/Widerverwendung des Template schwieriger
+
+## Vorteile einer Template-Extension (moderne Methode)
+
+- Alle benötigten Dateien liegen gesammelt in einem Verzeichnis
+- Diesese Verzeichnis liegt unterhalb von typo3conf/ext/->normale BE-User haben darauf keinen Zugriff
+- Versionierung einfacher, dadurch auch Arbeit im Team einfacher
