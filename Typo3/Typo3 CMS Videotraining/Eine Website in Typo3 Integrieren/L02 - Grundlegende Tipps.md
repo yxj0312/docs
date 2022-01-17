@@ -34,3 +34,10 @@
 - Alle benötigten Dateien liegen gesammelt in einem Verzeichnis
 - Diesese Verzeichnis liegt unterhalb von typo3conf/ext/->normale BE-User haben darauf keinen Zugriff
 - Versionierung einfacher, dadurch auch Arbeit im Team einfacher
+- Weitergabe der Template-Extension sehr einfach
+- Kann als Basis für mehrere Projekte genutzt werden
+- "Nachteil": ein externer Editor ist notwendig
+
+## Welche Methode sollte man verwenden?
+
+- moderene Methode
