@@ -13,3 +13,18 @@
 - Fluidtemplate: aus dem HTML-Template entwickelt, enthält Funktionen zum Ausgeben der Inhalte (Variablen, Bedingungen etc.)
   
 ## Methoden der Integration
+
+- Alt: Template-Dateien leigen in einem Verzeichnis unterhalb von fileadmin/, oft fileadmin/templates
+- Alt: TypoScript wird im Backend geschrieben und in der Datenbank gespeichert
+- Aktuell: Template-Dateien werden in einer eigenen Template-Extension abgeleget
+- Aktuell: TypoScript wird in Dateien ausgelagert und nicht in der DB gespeichert.
+
+## Vorteile/Nachteile der alten Methode
+
+- Vorteile:
+  - Änderungen in Dateien und TypoScript sehr schnell direkt im BE möglich
+  - Kein externer Editor notwendig
+- Nachteile
+  - TS wird in der DB gespeichert->Backups schwieriger, keine Versionierung möglich
+  - Änderungen durch "normale" BE-Benutzer (Redakteure) theoretisch möglich
+  - Weitergabe/Widerverwendung des Template schwieriger
