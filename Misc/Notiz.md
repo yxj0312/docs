@@ -111,3 +111,5 @@
 07.07.21 工作到10点看欧洲杯半决赛，忘记学习了。
 
 01.10.21 WBAA Launch Day at 04.10, got the new appartment key at 9:00, get back at 10:30, still working now(11:36)
+
+03.02.22 Umzug,打包整理箱子到十一点四十五。用掉四十九个箱子。四卷打包带，四卷大小薄膜。Keller等还没完全收拾好
