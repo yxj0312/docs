@@ -287,3 +287,248 @@ But if we remove an id from the mutation result, there will be no cache update (
 ```
 
 As you can see, the mutation is sent and returns a response, but the cache is not updating because Apollo Client does not recognize what book was updated. Understanding the logic of this cache update is crucial for working with Apollo. Let’s return id back to the mutation and improve our EditRating component logic a bit.
+
+### Aliasing
+
+When looking at the updateRating method, we can notice two issues:
+
+- It doesn’t do much except the mutation call and emitting an event
+- The closeForm event id fires synchronously while it should wait for the mutation to resolve
+To fix the first issue, we will remove the updateRating method altogether and we will alias a mutate as updateRating:
+
+📃 components/EditRating.vue
+
+```javaScript
+const { mutate: updateRating } = useMutation(UPDATE_BOOK_MUTATION, () => ({
+  variables: {
+    id: props.bookId,
+    rating: parseFloat(rating.value),
+  },
+}))
+```
+
+Now, when we call updateRating from the component template, it will call mutate under the hood.
+
+We also need to wait for this mutation to be resolved to emit closeForm. To do so, we will return one more property from useMutation called onDone.
+
+📃 components/EditRating.vue
+
+```javaScript
+const { mutate: updateRating, onDone } = useMutation(
+  UPDATE_BOOK_MUTATION,
+  () => ({
+    variables: {
+      id: props.bookId,
+      rating: parseFloat(rating.value),
+    },
+  })
+)
+```
+
+onDone is a hook that is triggered when the mutation is resolved. In its callback, we can specify any logic we want to be executed after the mutation has returned a response. In our case, we want to call closeForm there:
+
+```javaScript
+const { mutate: updateRating, onDone } = useMutation(
+  UPDATE_BOOK_MUTATION,
+  () => ({
+    variables: {
+      id: props.bookId,
+      rating: parseFloat(rating.value),
+    },
+  })
+)
+
+onDone(() => {
+  emit('closeForm')
+})
+```
+
+Note
+
+Now the form waits to close until we have a response from our GraphQL API.
+
+## Handling loading and error states
+
+It would be nice to also somehow indicate that there is a mutation in progress. Let’s display a text “Updating” right below the input field and disable the input when we are waiting for the mutation response.
+
+In order to do so, we need to return loading property first from the useMutation call:
+
+```javaScript
+const { mutate: updateRating, onDone, loading } = useMutation(
+  UPDATE_BOOK_MUTATION,
+  () => ({
+    variables: {
+      id: props.bookId,
+      rating: parseFloat(rating.value),
+    },
+  })
+)
+```
+
+In order to use this new property in the template, we need to remember to return it from the setup()
+
+```javaScript
+setup(props, { emit }) {
+  const rating = ref(props.initialRating)
+
+  const { mutate: updateRating, onDone, loading } = useMutation(
+    UPDATE_BOOK_MUTATION,
+    () => ({
+      variables: {
+        id: props.bookId,
+        rating: +rating.value,
+      },
+    })
+  )
+
+  onDone(() => {
+    emit('closeForm')
+  })
+
+  return { rating, updateRating, loading }
+},
+```
+
+As you probably noticed, we are not returning onDone. This is because we don’t call it elsewhere outside of the setup.
+
+Now, let’s modify our template to display that loading message:
+
+```javaScript
+<template>
+  <input
+    type="text"
+    v-model="rating"
+    :disabled="loading"
+    @keyup.enter="updateRating"
+    @keyup.esc="$emit('closeForm')"
+  />
+  <p v-if="loading">Updating...</p>
+</template>
+```
+
+Now the UI reflects when our mutation is loading:
+
+### Handling Errors
+
+The last (but very important!) change is handling an error. Similarly to loading, useMutation returns an error property:
+
+```javaScript
+const { mutate: updateRating, onDone, loading, error } = useMutation(
+  UPDATE_BOOK_MUTATION,
+  () => ({
+    variables: {
+      id: props.bookId,
+      rating: +rating.value,
+    },
+  })
+)
+```
+
+After returning it from the setup , we can use this property to render an error message for the user:
+
+```javaScript
+<template>
+  <input
+    type="text"
+    v-model="rating"
+    :disabled="loading"
+    @keyup.enter="updateRating"
+    @keyup.esc="$emit('closeForm')"
+  />
+  <p v-if="loading">Updating...</p>
+  <p v-if="error">{{ error }}</p>
+</template>
+```
+
+Now, in the updateBook mutation let’s change the mutation name to trigger an error:
+
+📃 graphql/updateBook.mutation.gql
+
+```javaScript
+mutation UpdateBook($id: ID!, $rating: Float) {
+  randomName(input: { id: $id, rating: $rating }) {
+    id
+    title
+    rating
+  }
+}
+```
+
+After editing rating and pressing Enter we will be able to see an error message:
+
+## Using fragments
+
+If we take a look at our query and mutation, we can see they both share the same fields:no
+
+Query:
+
+```javaScript
+query AllBooks($search: String) {
+  allBooks(search: $search) {
+    id
+    title
+    rating
+  }
+}
+```
+
+```javaScript
+mutation UpdateBook($id: ID!, $rating: Float) {
+  updateBook(input: { id: $id, rating: $rating }) {
+    id
+    title
+    rating
+  }
+```
+
+Of course, in our case it’s only three lines, but imagine if there were 30. Is there any way to reuse the same set of fields across different queries?
+
+Yes! And it’s called GraphQL fragments. Fragments let you construct sets of fields, and then include them in queries where you need to.
+
+Let’s create a new file called book.fragment.gql and add a new fragment to it:
+
+📃 book.fragment.gql
+
+```javaScript
+fragment BookFragment on Book {
+  id
+  title
+  rating
+}
+```
+
+Here BookFragment is a fragment name. It’s defined by the developer so you can choose whatever name you prefer. Book is a type on which we create a fragment. This must be a valid GraphQL type specified in your schema, and your fragment can only include fields that exist on this type.
+
+Now, let’s make use of this fragment. In our allBooks query, we will import the fragment and replace the mentioned three fields with it.
+
+📃 allBooks.query.gql
+
+```javaScript
+#import './book.fragment.gql'
+
+query AllBooks($search: String) {
+  allBooks(search: $search) {
+    ...BookFragment
+  }
+}
+
+```
+
+Remember to use spread operator when using a fragment!
+
+Let’s do the same for the mutation:
+
+📃 updateBook.mutation.gql
+
+```javaScript
+#import './book.fragment.gql'
+
+mutation UpdateBook($id: ID!, $rating: Float) {
+  updateBook(input: { id: $id, rating: $rating }) {
+    ...BookFragment
+  }
+}
+
+```
+
+Now, if we decide to change the set of the fields we are working with, we can make these changes on the fragment and they will apply to both the query and mutation
