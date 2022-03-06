@@ -15,7 +15,7 @@ Route::get('/users/{user}/posts/{post}', function(User $user, Post $post){
 
 when u visit: /users/1/posts/1
 
-```
+```json
 {
 "id": 1,
 "user_id": 1,
@@ -28,7 +28,7 @@ when u visit: /users/1/posts/1
 
 /users/1/posts/9
 
-```
+```json
 
 "id": 9,
 "user_id": 9,
