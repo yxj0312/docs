@@ -6,6 +6,9 @@ Recently, Laravel added a new php artisan test command to trigger suite. This fu
 
 php artisan test --coverage
 
+//set an environment variable for windows
+set XDEBUG_MODE=debug& set XDEBUG_SESSION=1
+
 // set xdebug as driver
 XDEBUG_MODE=coverage php artisan test
 ```
