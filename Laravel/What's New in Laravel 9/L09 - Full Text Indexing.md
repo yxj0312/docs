@@ -15,3 +15,16 @@ Get FullText Search by WhereFullText()
 ```php
  Post::whereFullText('body', 'occaecati')->count()
 ```
+
+You can use php8 attributes:
+
+```php
+    #[SearchUsingFullText('body')]
+    public function toSearchableArray()
+    {
+        return [
+            'title' => $this->title,
+            'body' => $this->body
+        ];
+    }
+```
