@@ -33,3 +33,48 @@ $table->enum('state', PostState::class);
 ```
 
 Problem: work in different team, and some one changed the class.
+
+Attribute castings is a two way casting. we got add some values to:
+
+```php
+<?php
+
+namespace App\Enums;
+
+enum PostState: string
+{
+    case Draft = "draft";
+    case Published = "published";
+    case Archived = "archived";
+}
+```
+
+now PostState is an object, we can get its value by:
+
+```php
+return Post::first()->state->value;
+```
+
+We can set state like:
+
+```php
+$post = new Post;
+
+$post->user_id = 1;
+$post->title= 'My title';
+$post->body = 'My body';
+
+$post->state = PostState::Published;
+
+$post->save();
+
+return 'Done';
+```
+
+get State by uri wildcard binding
+
+```php
+Route::get('/posts/{state}', function(PostState $state){
+    dd($state);
+});
+```
