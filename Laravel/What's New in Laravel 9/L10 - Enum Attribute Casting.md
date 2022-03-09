@@ -2,7 +2,7 @@
 
 Now that PHP 8 offers first-class support for enums, Laravel 9 has been updated to include Eloquent attribute casting to and from an enum object.
 
-1. We can now create a enum class since php 8.1
+- We can now create a enum class since php 8.1
 
 ```php
 <?php
@@ -17,7 +17,7 @@ enum PostState
 }
 ```
 
-2. We should also in migration do:
+- We should also in migration do:
 
 ```php
 $table->enum('state', ['draft', 'archived', 'published']);
