@@ -4,6 +4,45 @@ Let's next move on to some potential security concerns that you might run into w
 
 ## Eloquent Serialization
 
+```php
+protected $visible = [
+    'name',
+    'email'
+];
+
+// or
+protected $visible = [
+    '*'
+];
+
+```
+
 ## Overriding toArray()
 
+override toArray method in the model
+
+for example
+
+```php
+public function show(User $user)
+{
+    return Inertia::render('Users/Show', [
+        'user' => $user->only(['id', 'name', 'email', 'created_at'])
+    ]);
+}
+
+
+public function toArray()
+{
+    return [];
+}
+```
+
 ## Hiding Attributes
+
+```php
+protected $hidden = [
+    'password',
+    'stripe_token'
+];
+```
