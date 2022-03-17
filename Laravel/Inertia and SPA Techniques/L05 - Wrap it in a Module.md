@@ -5,6 +5,7 @@ Let's now move on to some suggestions and guidelines for how to structure and or
 ## JavaScript Modules
 
 - Install highlight.js
+- Import modules
 
 ## Limiting the Surface Area
 
