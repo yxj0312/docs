@@ -4,4 +4,24 @@ Let's return to API resources and discuss situations where you may need to retur
 
 ## Multiple API Resources
 
+```php
+class ThreadResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     */
+    public function toArray($request)
+    {
+        return [
+            'author' => UserResource::make($this->author),
+            'title' => $this->title,
+            'body' => $this-> body,
+        ];
+    }
+}
+```
+
 ## Resource only() Method
