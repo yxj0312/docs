@@ -25,3 +25,23 @@ class ThreadResource extends JsonResource
 ```
 
 ## Resource only() Method
+
+make a share data
+
+```javaScript
+ public function share(Request $request)
+    {
+        return array_merge(parent::share($request), [
+            'auth' => Auth::user() ? [
+                'user' => [
+                    'username' => Auth::user()->name
+                ]
+            ]: null,
+            'latestThread' => ThreadResource::make(Thread::latest()->first())->only('title', 'author')
+        ]);
+    }
+
+    
+```
+
+instead, you could create a "threadSnapshotResource" for name only
