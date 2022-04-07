@@ -28,6 +28,26 @@
   
   The Laravel service container is a powerful tool for managing class dependencies and performing dependency injection. Dependency injection is a fancy phrase that essentially means this: class dependencies are "injected" into the class via the constructor or, in some cases, "setter" methods.
 
+### SOLID
+
+- Single Responsibility
+- Open-Closed
+- Liskov Substitution
+- Interface Segregation
+- Dependency Inversion
+
+### Design Pattern
+
+#### Decorator
+
+#### Adapter
+
+#### Template
+
+#### Strategy
+
+#### The Chain of Responsibility
+
 ### Laravel architecture Concepts
 
 #### Laravel Service Container
@@ -37,5 +57,3 @@
 #### Facades
 
 Facades provide a "static" interface to classes that are available in the application's service container.
-
--
