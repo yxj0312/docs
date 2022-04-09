@@ -38,6 +38,18 @@
 
 ### Design Pattern
 
+[Laravel Design Pattern](https://codesource.io/brief-overview-of-design-pattern-used-in-laravel/)
+
+#### Builder
+
+#### Factory
+
+#### Provider
+
+#### Repository
+
+#### Facade
+
 #### Decorator
 
 #### Adapter
