@@ -89,3 +89,14 @@ Facades provide a "static" interface to classes that are available in the applic
 #### Docker
 
 ### Database
+
+### Join
+
+- Inner join: identical with join in MySQL, only give the result where there are some matchers on both tables
+
+- With this query is saying: on the condition, that there is no match, what should I do?
+
+  - Inner join: forget it, discard entirely.
+  - Left join: on the condition there is no match, I want to favor the left side (in this query, it is store table): So if there is no match, favor the store table, I alway want to see every records of the store table.
+  - Right join: we switch it, if there is no match favor the right side of the joined table, which is address here.
+  - Left join and left outer join are the same thing
