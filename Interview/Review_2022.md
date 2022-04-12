@@ -100,3 +100,18 @@ Facades provide a "static" interface to classes that are available in the applic
   - Left join: on the condition there is no match, I want to favor the left side (in this query, it is store table): So if there is no match, favor the store table, I alway want to see every records of the store table.
   - Right join: we switch it, if there is no match favor the right side of the joined table, which is address here.
   - Left join and left outer join are the same thing
+
+- COALESCE takes any number of arguments and returns the first value that is not null.
+
+```
+  COALESCE(x,y,z) = x if x is not NULL
+  COALESCE(x,y,z) = y if x is NULL and y is not NULL
+  COALESCE(x,y,z) = z if x and y are NULL but z is not NULL
+  COALESCE(x,y,z) = NULL if x and y and z are all NULL
+```
+
+COALESCE can be useful when you want to replace a NULL value with some other value. In this example you show the name of the party for each MSP that has a party. For the MSP with no party (such as Canavan, Dennis) you show the string Non
+
+- CASE allows you to return different values under different conditions.
+
+If none of the conditions match (and there is not ELSE) then NULL is returned.
