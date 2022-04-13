@@ -199,7 +199,7 @@ The way JS engine understands it, == allows type coercion(强制类型转换) an
 'true' === true; // false
 ```
 
-### What does ‘this’ keyword mean
+#### What does ‘this’ keyword mean
 
 this keyword is available in any function and points to the object that contains this function.
 
@@ -234,3 +234,21 @@ const arrowObject = {
 
 arrowObject.doMoreStuff(); // undefined
 ```
+
+#### What is the difference between Attributes and Property
+
+Attributes-  provide more details on an element like id, type, value etc.
+
+Property-  is the value assigned to the property like type=”text”, value=’Name’ etc.
+
+#### What are the primitive data types in JS
+
+A primitive data type in JS is data that is not an object and that has no methods. Here is the list of primitive data types in JS:
+
+- Boolean
+- Null
+- Undefined
+- Number
+- BigInt
+- String
+- Symbol
