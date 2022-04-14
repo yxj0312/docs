@@ -392,3 +392,18 @@ REST is easier to use for the most part and is more flexible. It has the followi
 - Efficient (SOAP uses XML for all messages, REST can use smaller message formats)
 - Fast (no extensive processing required)
 - Closer to other web technologies in design philosophy
+
+### SASS Placeholder
+
+Sass has a special kind of selector known as a “placeholder”. It looks and acts a lot like a class selector, but it starts with a % and it's not included in the CSS output. In fact, any complex selector (the ones between the commas) that even contains a placeholder selector isn't included in the CSS, nor is any style rule whose selectors all contain placeholders.
+
+```css
+.alert:hover, %strong-alert
+  font-weight: bold
+
+
+%strong-alert:hover 
+  color: red
+
+```
+### SASS Placeholder
