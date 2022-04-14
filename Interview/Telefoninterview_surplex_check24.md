@@ -138,16 +138,31 @@ display:none not rendered, both exist in DOM
 ### PHP
 
 1. What's abstract class
+    abstract class contains at least one abstract method
+    an abstract method is a method that is declared, but not implmented
+    begin with abstract keyword
 
 2. Difference abstract class and interface
+    Interface are similar to abstract class
+    Interfaces cannot have properties, while abstract class can
+    Interfaces methods must be public, abstrace class methods is public or protected
+    
+    a class can implements multiple interfaces, but extends only one class
+    interface can also extends another interface
 
-3. When should we use interface
+3. When/why should we use interface
+    - By implementing an interface, the object’s caller needs to care only about the object’s interface, not implementations of the object’s methods. Therefore you can change the implementations without affecting the caller of the interface.
+    - An interface allows unrelated classes to implement the same set of methods, regardless of their positions in the class inheritance hierarchy.
+    - An interface enables you to model multiple inheritances because a class can implement more than one interface.
+
 
 4. Static class
+    A static class in PHP is a type of class which is instantiated only once in a program. It must contain a static member (variable) or a static member function (method) or both. The variables and methods are accessed without the creation of an object, using the scope resolution operator(::).
 
 5. Twig
 
 6. Dependency injection
+   Dependency injection is a technique in which an object receives other objects that it depends on.
 
 7. Factory
 
@@ -156,6 +171,17 @@ display:none not rendered, both exist in DOM
    Parent::
 
 9. What is SQL injection, how to prevent in PHP, give some example
+
+    SQL injection is a code injection technique that might destroy your database.
+
+    SQL injection is one of the most common web hacking techniques.
+
+    SQL injection is the placement of malicious code in SQL statements, via web page input.
+    
+    ```php
+    txtUserId = getRequestString("UserId");
+    txtSQL = "SELECT * FROM Users WHERE UserId = " + txtUserId;
+    ```
 
 10. What's JSON, when should be used
 
@@ -182,6 +208,21 @@ display:none not rendered, both exist in DOM
     the LIKE with only a suffix wildcard is much faster
 
 2. What's view, what's index
+    In SQL, a view is a virtual table based on the result-set of an SQL statement
+    
+    ```sql
+    CREATE VIEW view_name AS
+    SELECT column1, column2, ...
+    FROM table_name
+    WHERE condition;
+    ```
+    
+    Indexes are used to retrieve data from the database more quickly than otherwise
+    
+    ```sql
+    CREATE INDEX index_name
+    ON table_name (column1, column2, ...);
+    ```
 
 3. What's transaction
 
