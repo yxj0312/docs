@@ -19,6 +19,8 @@ Fragen:
 3. MySQL, Unterschied zwischen InnoDB und MYISAM
 
 4. Erklären Sie EXPLAIN bei MySQL Query.
+    
+    The EXPLAIN keyword is used throughout various SQL databases and provides information about how your SQL database executes a query. In MySQL, EXPLAIN can be used in front of a query beginning with SELECT , INSERT , DELETE , REPLACE , and UPDATE .
 
 Zusätzlich Frage,
 Wollen Sie in der Pro-arbeit Zeit, eine PHP-Zertifizierung zu erhalten?
@@ -138,11 +140,13 @@ display:none not rendered, both exist in DOM
 ### PHP
 
 1. What's abstract class
+
     abstract class contains at least one abstract method
     an abstract method is a method that is declared, but not implmented
     begin with abstract keyword
 
 2. Difference abstract class and interface
+
     Interface are similar to abstract class
     Interfaces cannot have properties, while abstract class can
     Interfaces methods must be public, abstrace class methods is public or protected
@@ -151,6 +155,7 @@ display:none not rendered, both exist in DOM
     interface can also extends another interface
 
 3. When/why should we use interface
+
     - By implementing an interface, the object’s caller needs to care only about the object’s interface, not implementations of the object’s methods. Therefore you can change the implementations without affecting the caller of the interface.
     - An interface allows unrelated classes to implement the same set of methods, regardless of their positions in the class inheritance hierarchy.
     - An interface enables you to model multiple inheritances because a class can implement more than one interface.
