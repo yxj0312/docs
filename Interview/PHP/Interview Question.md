@@ -406,4 +406,6 @@ Sass has a special kind of selector known as a “placeholder”. It looks and a
   color: red
 
 ```
-### SASS Placeholder
+### Git Rebase vs Merge
+
+[links](https://stackoverflow.com/questions/804115/when-do-you-use-git-rebase-instead-of-git-merge)
