@@ -47,7 +47,7 @@ protected: can be accessed only within the class itself and by inheriting and pa
 
 ### Difference between single-quoted('') and double-quoted("") in PHP
 
-double-quoted: 
+double-quoted:
 
 - variables in the strings will be evaluated.
 
@@ -376,7 +376,7 @@ cannot contain any functionality, it only contains definitions of the methods.
 
 SOAP provides the following advantages when compared to REST:
 
-- Language, platform, and transport independent (REST requires use of HTTP) 
+- Language, platform, and transport independent (REST requires use of HTTP)
 - Works well in distributed enterprise environments (REST assumes direct point-to-point communication)
 - Standardized
 - Provides significant pre-build extensibility in the form of the WS* standards
@@ -406,6 +406,16 @@ Sass has a special kind of selector known as a “placeholder”. It looks and a
   color: red
 
 ```
+
 ### Git Rebase vs Merge
 
 [links](https://stackoverflow.com/questions/804115/when-do-you-use-git-rebase-instead-of-git-merge)
+
+### PHP namespace, autoloading, PSR-4, composer
+
+### namespace
+
+Namespaces are qualifiers that solve two different problems:
+
+- They allow for better organization by grouping classes that work together to perform a task
+- They allow the same name to be used for more than one class
