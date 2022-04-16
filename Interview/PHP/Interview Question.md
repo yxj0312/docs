@@ -419,3 +419,60 @@ Namespaces are qualifiers that solve two different problems:
 
 - They allow for better organization by grouping classes that work together to perform a task
 - They allow the same name to be used for more than one class
+
+### PHP Composer Autoload
+
+[PHP Composer Autoload](https://www.phptutorial.net/php-oop/php-composer-autoload/)
+
+- Composer is a dependency manager for PHP
+- In the composer.json, you add the following code:
+
+```php
+{
+    "autoload": {
+        "classmap":  ["app/models", "app/services"]
+    }
+}
+```
+
+This code means that Composer will autoload all class files defined the app/models folder.
+
+If you have classes from other folders that you want to load, you can specify them in classmap array
+
+Then, type the following command from the project directory:
+
+```php
+composer dump-autoload
+```
+
+Composer will generate a directory called vendor that contains a number of files like this:
+
+```php
+.
+├── app
+│   ├── bootstrap.php
+│   └── models
+│       └── User.php
+├── composer.json
+├── index.php
+└── vendor
+    ├── autoload.php
+    └── composer
+        ├── autoload_classmap.php
+        ├── autoload_namespaces.php
+        ├── autoload_psr4.php
+        ├── autoload_real.php
+        ├── autoload_static.php
+        ├── ClassLoader.php
+        └── LICENSE
+```
+
+The most important file to you for now is autoload.php file.
+
+After that, load the autoload.php file in the bootstrap.php file using the require_once construct:
+
+```php
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+```
