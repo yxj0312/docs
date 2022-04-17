@@ -413,14 +413,14 @@ Sass has a special kind of selector known as a “placeholder”. It looks and a
 
 ### PHP namespace, autoloading, PSR-4, composer
 
-### namespace
+#### namespace
 
 Namespaces are qualifiers that solve two different problems:
 
 - They allow for better organization by grouping classes that work together to perform a task
 - They allow the same name to be used for more than one class
 
-### PHP Composer Autoload
+#### PHP Composer Autoload
 
 [PHP Composer Autoload](https://www.phptutorial.net/php-oop/php-composer-autoload/)
 
@@ -488,3 +488,60 @@ $user = new User('admin', '$ecurePa$$w0rd1');
 ```
 
 From now, whenever you have a new class in the models directory, you need to run the command composer dump-autoload again to regenerate the autoload.php file
+
+#### Composer autoload with PSR-4
+
+PSR stands for PHP Standard Recommendation. PSR is a PHP specification published by the PHP Framework Interop Group or PHP-FIG.
+
+The goals of PSR are to enable interoperability of PHP components and to provide a common technical basis for the implementation of best practices in PHP programming.
+
+PHP-FIG has published a lot of PSR starting from PSR-0.
+
+PSR-4 is auto-loading standard that describes the specification for autoloading classes from file paths. <https://www.php-fig.org/psr/psr-4/>
+
+According to the PSR-4, a fully qualified class name has the following structure:
+
+```php
+ \<NamespaceName>(\<SubNamespaceNames>)*\<ClassName>
+```
+
+The structure starts with a namespace, followed by one or more sub namespaces, and the class name.
+
+To comply with PSR-4, you need to structure the previous application like this:
+
+```php
+.
+├── app
+│   ├── Acme
+│   │   ├── Auth
+│   │   │   └── User.php
+│   │   └── Blog
+│   │       └── Comment.php
+│   └── bootstrap.php
+├── composer.json
+└── index.php
+```
+
+The new structure has the following changes:
+
+First, the models directory is deleted.
+
+Second, the User.php is under the Acme/Auth folder. And the User class is namespaced with Acme/Auth. Notice how namespaces map to the directory structure. This also helps you find a class file more quickly by looking at its namespace.
+
+Third, the Comment.php is under the Acme/Blog folder. The Comment class has the namespace Acme\Blog:
+
+Fourth, the composer.json file looks like the following:
+
+```php
+{
+    "autoload": {
+        "psr-4": {
+            "Acme\\":"app/Acme"
+        }
+    }
+}
+```
+
+Instead using the classmap, the composer.json file now uses psr-4. The psr-4 maps the namespace "Acme\\" to the "app/Acme" folder.
+
+Fifth, to use the User and Comment classes in the index.php file, you need to run the composer dump-autoload command to generate the autoload.php file:
