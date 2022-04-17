@@ -476,3 +476,15 @@ After that, load the autoload.php file in the bootstrap.php file using the requi
 
 require_once __DIR__ . '/../vendor/autoload.php';
 ```
+
+Finally, you can use the User class in the index.php:
+
+```php
+<?php
+
+require './app/bootstrap.php';
+
+$user = new User('admin', '$ecurePa$$w0rd1');
+```
+
+From now, whenever you have a new class in the models directory, you need to run the command composer dump-autoload again to regenerate the autoload.php file
