@@ -545,3 +545,11 @@ Fourth, the composer.json file looks like the following:
 Instead using the classmap, the composer.json file now uses psr-4. The psr-4 maps the namespace "Acme\\" to the "app/Acme" folder.
 
 Fifth, to use the User and Comment classes in the index.php file, you need to run the composer dump-autoload command to generate the autoload.php file:
+
+Summary
+
+- Composer is a dependency management tool in PHP.
+
+- Use PSR-4 for organizing directory and class files.
+
+- Use the composer dump-autoload command to generate the autoload.php file.
