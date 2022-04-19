@@ -1,5 +1,7 @@
 # Repository pattern
 
+[Laravel Repository Pattern – PHP Design Pattern](https://asperbrothers.com/blog/implement-repository-pattern-in-laravel/)
+
 In simple words, the Repository pattern in a laravel application is a bond between models and controllers. In this process, the model should not be responsible for connecting with or retrieving data from the database. Therefore, to keep our code clean and safe, it is necessary to use the repository. It reduces the duplication and errors of our code.
 
 Let’s think of an example, we have a customer table in our database, where we can add, store, edit and delete customer data. We also have a Customer model. The idea is, we’re going to create an interface and define some methods. Like this-
