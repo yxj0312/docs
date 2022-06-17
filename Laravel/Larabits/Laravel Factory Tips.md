@@ -21,4 +21,4 @@ public function definition()
 ```
 
 - We could use optional and weight to make a null input
-- Use valid to limit the number
+- Use valid(), and callback function to limit the number
