@@ -13,7 +13,7 @@ public function definition()
         'email' => $this->faker->unique()->safEmail(),
         'email_verified_at' => now(),
         'bio' => $this->faker->optional($weight = 0.5)->sentence(12),
-        'experience' => $this->faker->randomNumber(),
+        'experience' => $this->faker->valid(fn ($exp) => $exp < 100)->randomNumber(),
         'password' => 'password',
         'remember_token' => Str::random(10),
     ];
@@ -21,3 +21,4 @@ public function definition()
 ```
 
 - We could use optional and weight to make a null input
+- Use valid to limit the number
