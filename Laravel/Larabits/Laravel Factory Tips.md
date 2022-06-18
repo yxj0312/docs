@@ -22,3 +22,15 @@ public function definition()
 
 - We could use optional and weight to make a null input
 - Use valid(), and callback function to limit the number
+- Set some state function in the Factory,and use it in test mockup
+
+```php
+public function pinned()
+{
+    return $this->state(function(array $attributes){
+        return [
+            'pinned' => true,
+        ]
+    })
+}
+```
