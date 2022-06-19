@@ -22,7 +22,7 @@ public function definition()
 
 - We could use optional and weight to make a null input
 - Use valid(), and callback function to limit the number
-- Set some state function in the Factory,and use it in test mockup
+- Set some state function in the Factory,and use it in test mockup <https://laravel.com/docs/9.x/database-testing#factory-states>
 
 ```php
 public function pinned()
@@ -33,4 +33,19 @@ public function pinned()
         ]
     })
 }
+```
+
+- Sequences <https://laravel.com/docs/9.x/database-testing#sequences>
+
+```php
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
+ 
+$users = User::factory()
+                ->count(10)
+                ->state(new Sequence(
+                    ['admin' => 'Y'],
+                    ['admin' => 'N'],
+                ))
+                ->create();
 ```
