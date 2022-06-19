@@ -49,3 +49,36 @@ $users = User::factory()
                 ))
                 ->create();
 ```
+
+- Relationships <https://laravel.com/docs/9.x/database-testing#factory-relationships>
+
+1. belongs to
+
+<https://laravel.com/docs/9.x/database-testing#belongs-to-relationships>
+
+```php
+use App\Models\Post;
+use App\Models\User;
+ 
+$posts = Post::factory()
+            ->count(3)
+            ->for(User::factory()->state([
+                'name' => 'Jessica Archer',
+            ]))
+            ->create();
+
+```
+
+2. Manytomany
+
+   <https://laravel.com/docs/9.x/database-testing#many-to-many-relationships>
+
+```php
+use App\Models\Role;
+use App\Models\User;
+ 
+$user = User::factory()
+            ->has(Role::factory()->count(3))
+            ->create();
+
+```
