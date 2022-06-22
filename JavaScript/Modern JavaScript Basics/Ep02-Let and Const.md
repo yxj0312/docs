@@ -57,4 +57,19 @@ init()
 
 It shows undefined, but the value really exists. And there's no error in the console.
 
-Because javaScript takes this variable(email)
+Because javaScript takes this variable(email), and puts it on the top of the code as undefined. It does reference a variable that is set, but has no defined value.
+
+but if we
+
+``` javaScript
+function init() {
+    document.getElementById('output').innerHTML = email
+    let email = 'andre@example.com' 
+}
+
+init()
+
+
+//  output:
+// error: Uncaught ReferenceError: Cannot access 'email' before initialization
+```
