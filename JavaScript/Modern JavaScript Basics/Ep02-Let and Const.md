@@ -1,5 +1,7 @@
 # Let and Const
 
+## Difference between var and "let and const"
+
 var: it scopes to the function level in the javaScript
 
 ``` javaScript
@@ -73,3 +75,44 @@ init()
 //  output:
 // error: Uncaught ReferenceError: Cannot access 'email' before initialization
 ```
+
+'var' set a global object/property under window
+
+``` javaScript
+var username = "Andrew"
+function init() {
+    document.getElementById('output').innerHTML = username
+    
+}
+
+init()
+
+
+//  output:
+// Andrew
+
+// You can call username by window.username and get "Andrew" in the console
+```
+
+but let and const do not.
+
+## Difference between let and const
+
+const variable can not be alerted.
+
+``` javaScript
+const username = "Andrew"
+username = "Ashley"
+
+function init() {
+    document.getElementById('output').innerHTML = username
+    
+}
+
+init()
+
+
+//  output:
+// Error: Assignment to constant variable.
+
+// Y
