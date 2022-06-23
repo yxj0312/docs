@@ -1,5 +1,5 @@
 'use strict'
-
+// Ep02
 // var name = 'Andrew'
 
 // function init() {
@@ -11,6 +11,19 @@
 //     document.getElementById('output').innerHTML = email
 // }
 
+// const username = {
+//     name: 'Andrew',
+//     email: 'andrew@example.com'
+// }
+// username.name = "Ashley"
+// username.email = 'ashley@example.com'
+
+// function init() {
+//     document.getElementById('output').innerHTML = `${username.name}(${username.email})` 
+// }
+
+// Ep03
+
 const username = {
     name: 'Andrew',
     email: 'andrew@example.com'
@@ -18,11 +31,12 @@ const username = {
 username.name = "Ashley"
 username.email = 'ashley@example.com'
 
-function init() {
-    document.getElementById('output').innerHTML = `${username.name}(${username.email})`
-    
-}
+// function init(name, isTrue) {
+//     document.getElementById('output').innerHTML = `${username.name}(${username.email})` 
+// }
 
-init()
+const init = (name, isTrue) => {
+    document.getElementById('output').innerHTML = `${username.name}(${username.email})`
+}
 
 init()
