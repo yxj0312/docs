@@ -115,4 +115,50 @@ init()
 //  output:
 // Error: Assignment to constant variable.
 
-// Y
+```
+
+But if we
+
+``` javaScript
+const username = {
+    name: 'Andrew',
+    email: 'andrew@example.com'
+}
+username.name = "Ashley"
+username.email = 'ashley@example.com'
+
+function init() {
+    document.getElementById('output').innerHTML = `${username.name}(${username.email})`
+    
+}
+
+init()
+
+
+//  output:
+// Ashley(ashley@example.com)
+// no error back
+```
+
+``` javaScript
+let username = {
+    name: 'Andrew',
+    email: 'andrew@example.com'
+}
+username = {
+    name: 'Ashley',
+    email: 'ashley@example.com'
+}
+
+function init() {
+    document.getElementById('output').innerHTML = `${username.name}(${username.email})`
+    
+}
+
+init()
+
+
+//  output:
+// Ashley(ashley@example.com)
+// no error back
+```
