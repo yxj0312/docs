@@ -34,3 +34,15 @@ function nameString() {
 // arrow function
 const nameString = () => `${username.name}(${username.email})`
 ```
+
+```JavaScript
+// traditional
+function nameString() {
+    return `${username.name}(${username.email})`
+}
+
+// arrow function
+const nameString = name => `${name}(${username.email})`
+
+document.getElementById('output').innerHTML = nameString('Andrew')
+```
