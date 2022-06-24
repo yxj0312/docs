@@ -24,19 +24,38 @@
 
 // Ep03
 
-const username = {
-    name: 'Andrew',
-    email: 'andrew@example.com'
-}
-username.name = "Ashley"
-username.email = 'ashley@example.com'
+// const username = {
+//     name: 'Andrew',
+//     email: 'andrew@example.com'
+// }
+// username.name = "Ashley"
+// username.email = 'ashley@example.com'
 
-// function init(name, isTrue) {
-//     document.getElementById('output').innerHTML = `${username.name}(${username.email})` 
+// // function init(name, isTrue) {
+// //     document.getElementById('output').innerHTML = `${username.name}(${username.email})` 
+// // }
+
+// const init = (name, isTrue) => {
+//     document.getElementById('output').innerHTML = `${username.name}(${username.email})`
 // }
 
-const init = (name, isTrue) => {
-    document.getElementById('output').innerHTML = `${username.name}(${username.email})`
-}
+let users = [
+    {
+        name: 'Andrew',
+        email: 'andrew@example.com'
+    },
+    {
+        name: 'Ashley',
+        email: 'ashley@example.com'
+    }
+]
+
+let names = [];
+
+// users.forEach(function(user) {
+//     names.push(user.name)
+// })
+
+users.forEach(user => names.push(user.name))
 
 init()

@@ -46,3 +46,27 @@ const nameString = name => `${name}(${username.email})`
 
 document.getElementById('output').innerHTML = nameString('Andrew')
 ```
+
+```JavaScript
+
+let users = [
+    {
+        name: 'Andrew',
+        email: 'andrew@example.com'
+    },
+    {
+        name: 'Ashley',
+        email: 'ashley@example.com'
+    }
+]
+
+let names = [];
+
+// users.forEach(function(user) {
+//     names.push(user.name)
+// })
+
+users.forEach(user => names.push(user.name))
+
+
+```
