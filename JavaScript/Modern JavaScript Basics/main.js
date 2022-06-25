@@ -60,4 +60,12 @@ users.forEach(user => names.push(user.name))
 
 document.getElementById('output').innerHTML = names.join(', ')
 
-init()
+// init()
+
+document.getElementById('btn').addEventListener('click', function() {
+    function getDetails() {
+        return `The button id is ${this.getAttribute('id')}`
+    }
+
+    document.getElementById('output').innerHTML = getDetails()
+})

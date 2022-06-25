@@ -76,3 +76,20 @@ document.getElementById('output').innerHTML = names.join(', ')
 ## One of the large difference between traditional function and arrow function
 
 How they treat "this" keyword in object
+
+```JavaScript
+
+document.getElementById('btn').addEventListener('click', function() {
+    function getDetails() {
+        return `The button id is ${this.getAttribute('id')}`
+    }
+
+    document.getElementById('output').innerHTML = getDetails()
+})
+
+
+// output
+// Uncaught TypeError: Cannot read properties of undefined (reading 'getAttribute')
+//     at getDetails (main.js:67:41)
+//     at HTMLButtonElement.<anonymous> (main.js:70:51)
+```
