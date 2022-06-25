@@ -58,4 +58,6 @@ let names = [];
 
 users.forEach(user => names.push(user.name))
 
+document.getElementById('output').innerHTML = names.join(', ')
+
 init()

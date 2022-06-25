@@ -68,5 +68,11 @@ let names = [];
 
 users.forEach(user => names.push(user.name))
 
+document.getElementById('output').innerHTML = names.join(', ')
 
+// output: Andrew, Ashley
 ```
+
+## One of the large difference between traditional function and arrow function
+
+How they treat "this" keyword in object
