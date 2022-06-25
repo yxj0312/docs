@@ -62,9 +62,33 @@ document.getElementById('output').innerHTML = names.join(', ')
 
 // init()
 
-document.getElementById('btn').addEventListener('click', function() {
-    function getDetails() {
-        return `The button id is ${this.getAttribute('id')}`
+// document.getElementById('btn').addEventListener('click', function() {
+//     function getDetails() {
+//         return `The button id is ${this.getAttribute('id')}`
+//     }
+
+//     document.getElementById('output').innerHTML = getDetails()
+// })
+
+// document.getElementById('btn').addEventListener('click', function() {
+//     const getDetails = () => {
+//         return `The button id is ${this.getAttribute('id')}`
+//     }
+
+//     document.getElementById('output').innerHTML = getDetails()
+// })
+
+// document.getElementById('btn').addEventListener('click', () => {
+//     const getDetails = () => {
+//         return `The button id is ${this.getAttribute('id')}`
+//     }
+
+//     document.getElementById('output').innerHTML = getDetails()
+// })
+
+document.getElementById('btn').addEventListener('click', (e) => {
+    const getDetails = () => {
+        return `The button id is ${e.currentTarget.getAttribute('id')}`
     }
 
     document.getElementById('output').innerHTML = getDetails()

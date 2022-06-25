@@ -93,3 +93,52 @@ document.getElementById('btn').addEventListener('click', function() {
 //     at getDetails (main.js:67:41)
 //     at HTMLButtonElement.<anonymous> (main.js:70:51)
 ```
+
+because in this code, this is init within function getDetail
+
+in arrow function
+
+```JavaScript
+document.getElementById('btn').addEventListener('click', function() {
+    const getDetails = () => {
+        return `The button id is ${this.getAttribute('id')}`
+    }
+
+    document.getElementById('output').innerHTML = getDetails()
+})
+```
+
+we get message when click button
+
+if we try to change the wrapper from function to arrow function, we got a slightly different TypeError
+
+```JavaScript
+document.getElementById('btn').addEventListener('click', () => {
+    const getDetails = () => {
+        return `The button id is ${this.getAttribute('id')}`
+    }
+
+    document.getElementById('output').innerHTML = getDetails()
+})
+
+// main.js:83 Uncaught TypeError: this.getAttribute is not a function
+//     at getDetails (main.js:83:41)
+//     at HTMLButtonElement.<anonymous> (main.js:86:51)
+
+```
+
+cause now this is the window object
+
+if u continue use this syntax in arrow function you can use event handler
+
+```JavaScript
+
+document.getElementById('btn').addEventListener('click', (e) => {
+    const getDetails = () => {
+        return `The button id is ${e.currentTarget.getAttribute('id')}`
+    }
+
+    document.getElementById('output').innerHTML = getDetails()
+})
+
+```
