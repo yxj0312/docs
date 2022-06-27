@@ -43,3 +43,19 @@
 
 // Ep04
 
+// Initialize an Item class
+function Item(name, category) {
+    this.name = name;
+    this.category = category
+}
+
+// Create a method called getDetails() for an Item
+Item.prototype.getDetails = function() {
+    return `${this.name} - ${this.category}`
+}
+
+// Initialize a PurchasedItem class, inherits the Item class
+function PurchasedItem(name, category, price) {
+    Item.call(this, name, category)
+    this.price = price
+}
