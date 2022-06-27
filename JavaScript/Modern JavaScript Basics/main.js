@@ -59,3 +59,12 @@ function PurchasedItem(name, category, price) {
     Item.call(this, name, category)
     this.price = price
 }
+
+// Sets the inherited methods and properties of the base class
+PurchasedItem.prototype = Object.create(Item.prototype)
+PurchasedItem.prototype.constructor = PurchasedItem
+
+// Creates a new method just for the extended PurchasedItem class
+PurchasedItem.prototype.getDetailsWithPrice = function() {
+    return `${this.name} - ${this.category} - $${this.price}`
+}
