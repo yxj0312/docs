@@ -113,3 +113,5 @@
 01.10.21 WBAA Launch Day at 04.10, got the new appartment key at 9:00, get back at 10:30, still working now(11:36)
 
 03.02.22 Umzug,打包整理箱子到十一点四十五。用掉四十九个箱子。四卷打包带，四卷大小薄膜。Keller等还没完全收拾好
+
+28.06.22 生日，来装修厕所，从早上十一点装到晚上十点，现在还没完事。生日蛋糕还没吃，点的烤鱼还没打开
