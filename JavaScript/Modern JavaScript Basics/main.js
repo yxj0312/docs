@@ -43,36 +43,36 @@
 
 // Ep04
 
-// Initialize an Item class
-function Item(name, category) {
-    this.name = name;
-    this.category = category
-}
+// // Initialize an Item class
+// function Item(name, category) {
+//     this.name = name;
+//     this.category = category
+// }
 
-// Create a method called getDetails() for an Item
-Item.prototype.getDetails = function() {
-    return `${this.name} - ${this.category}`
-}
+// // Create a method called getDetails() for an Item
+// Item.prototype.getDetails = function() {
+//     return `${this.name} - ${this.category}`
+// }
 
-// Initialize a PurchasedItem class, inherits the Item class
-function PurchasedItem(name, category, price) {
-    Item.call(this, name, category)
-    this.price = price
-}
+// // Initialize a PurchasedItem class, inherits the Item class
+// function PurchasedItem(name, category, price) {
+//     Item.call(this, name, category)
+//     this.price = price
+// }
 
-// Sets the inherited methods and properties of the base class
-PurchasedItem.prototype = Object.create(Item.prototype)
-PurchasedItem.prototype.constructor = PurchasedItem
+// // Sets the inherited methods and properties of the base class
+// PurchasedItem.prototype = Object.create(Item.prototype)
+// PurchasedItem.prototype.constructor = PurchasedItem
 
-// Creates a new method just for the extended PurchasedItem class
-PurchasedItem.prototype.getDetailsWithPrice = function() {
-    return `${this.name} - ${this.category} - $${this.price}`
-}
+// // Creates a new method just for the extended PurchasedItem class
+// PurchasedItem.prototype.getDetailsWithPrice = function() {
+//     return `${this.name} - ${this.category} - $${this.price}`
+// }
 
-var item = new Item('Coffee', 'Food')
+// var item = new Item('Coffee', 'Food')
 
-item.category = 'Drinks'
+// item.category = 'Drinks'
 
-var purchasedItem = new PurchasedItem('Sugar', 'Food', '2.49')
+// var purchasedItem = new PurchasedItem('Sugar', 'Food', '2.49')
 
-document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()
+// document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()
