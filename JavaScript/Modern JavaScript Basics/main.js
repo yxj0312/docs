@@ -68,3 +68,11 @@ PurchasedItem.prototype.constructor = PurchasedItem
 PurchasedItem.prototype.getDetailsWithPrice = function() {
     return `${this.name} - ${this.category} - $${this.price}`
 }
+
+var item = new Item('Coffee', 'Food')
+
+item.category = 'Drinks'
+
+var purchasedItem = new PurchasedItem('Sugar', 'Food', '2.49')
+
+document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()
