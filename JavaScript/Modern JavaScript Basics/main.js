@@ -104,4 +104,5 @@ item.category = 'Drinks'
 
 let purchasedItem = new PurchasedItem('Sugar', 'Food', '2.49')
 
-document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()
+document.getElementById('output').innerHTML = item.getDetails()
+// document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()

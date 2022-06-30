@@ -38,9 +38,12 @@ item.category = 'Drinks'
 
 var purchasedItem = new PurchasedItem('Sugar', 'Food', '2.49')
 
+
+document.getElementById('output').innerHTML = item.getDetails()
 document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()
 
 // output:
+// Coffee - Drinks
 // Sugar - Food - $2.49
 
 ```
@@ -76,6 +79,7 @@ item.category = 'Drinks'
 
 let purchasedItem = new PurchasedItem('Sugar', 'Food', '2.49')
 
+document.getElementById('output').innerHTML = item.getDetails()
 document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()
 
 ```
