@@ -109,3 +109,25 @@ class Item {
 document.getElementById('output').innerHTML = Item.getHelperText()
 
 ```
+
+by inherit
+
+```JavaScript
+class PurchasedItem extends Item {
+    constructor(name, category, price) {
+        super(name, category) 
+        this.price = price
+    }
+
+    getDetailsWithPrice() {
+        return `${this.name} - ${this.category} - $${this.price}`
+    }
+
+    static getNumberOfItems() {
+        return `3 / ${super.maxItems}`
+    }
+}
+
+document.getElementById('output').innerHTML = PurchasedItem.getNumberOfItems()
+
+```

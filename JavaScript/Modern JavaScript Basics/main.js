@@ -106,6 +106,10 @@ class PurchasedItem extends Item {
     getDetailsWithPrice() {
         return `${this.name} - ${this.category} - $${this.price}`
     }
+
+    static getNumberOfItems() {
+        return `3 / ${super.maxItems}`
+    }
 }
 
 let item = new Item('Coffee', 'Food')
@@ -115,4 +119,5 @@ let purchasedItem = new PurchasedItem('Sugar', 'Food', '2.49')
 
 // document.getElementById('output').innerHTML = item.getDetails()
 // document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()
-document.getElementById('output').innerHTML = Item.getHelperText()
+// document.getElementById('output').innerHTML = Item.getHelperText()
+document.getElementById('output').innerHTML = PurchasedItem.getNumberOfItems()
