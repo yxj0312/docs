@@ -83,3 +83,29 @@ document.getElementById('output').innerHTML = item.getDetails()
 document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()
 
 ```
+
+Call static function by:
+
+```JavaScript
+
+class Item {
+    constructor(name, category) {
+        this.name = name
+        this.category = category
+    } 
+
+    static maxItems = 10
+
+    static getHelperText() {
+        return 'Add some items to your grocery list'
+    }
+
+    getDetails() {
+        return `${this.name} - ${this.category}`
+    }
+
+}
+
+document.getElementById('output').innerHTML = Item.getHelperText()
+
+```

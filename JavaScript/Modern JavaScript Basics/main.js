@@ -83,10 +83,19 @@ class Item {
         this.category = category
     } 
 
+    static maxItems = 10
+
+    static getHelperText() {
+        return 'Add some items to your grocery list'
+    }
+
     getDetails() {
         return `${this.name} - ${this.category}`
     }
+
 }
+
+
 
 class PurchasedItem extends Item {
     constructor(name, category, price) {
@@ -104,5 +113,6 @@ item.category = 'Drinks'
 
 let purchasedItem = new PurchasedItem('Sugar', 'Food', '2.49')
 
-document.getElementById('output').innerHTML = item.getDetails()
+// document.getElementById('output').innerHTML = item.getDetails()
 // document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()
+document.getElementById('output').innerHTML = Item.getHelperText()
