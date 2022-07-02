@@ -77,47 +77,50 @@
 
 // document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()
 
-class Item {
-    constructor(name, category) {
-        this.name = name
-        this.category = category
-    } 
 
-    static maxItems = 10
+// Ep04
+// class Item {
+//     constructor(name, category) {
+//         this.name = name
+//         this.category = category
+//     } 
 
-    static getHelperText() {
-        return 'Add some items to your grocery list'
-    }
+//     static maxItems = 10
 
-    getDetails() {
-        return `${this.name} - ${this.category}`
-    }
+//     static getHelperText() {
+//         return 'Add some items to your grocery list'
+//     }
 
-}
+//     getDetails() {
+//         return `${this.name} - ${this.category}`
+//     }
+
+// }
 
 
 
-class PurchasedItem extends Item {
-    constructor(name, category, price) {
-        super(name, category) 
-        this.price = price
-    }
+// class PurchasedItem extends Item {
+//     constructor(name, category, price) {
+//         super(name, category) 
+//         this.price = price
+//     }
 
-    getDetailsWithPrice() {
-        return `${this.name} - ${this.category} - $${this.price}`
-    }
+//     getDetailsWithPrice() {
+//         return `${this.name} - ${this.category} - $${this.price}`
+//     }
 
-    static getNumberOfItems() {
-        return `3 / ${super.maxItems}`
-    }
-}
+//     static getNumberOfItems() {
+//         return `3 / ${super.maxItems}`
+//     }
+// }
 
-let item = new Item('Coffee', 'Food')
-item.category = 'Drinks'
+// let item = new Item('Coffee', 'Food')
+// item.category = 'Drinks'
 
-let purchasedItem = new PurchasedItem('Sugar', 'Food', '2.49')
+// let purchasedItem = new PurchasedItem('Sugar', 'Food', '2.49')
 
-// document.getElementById('output').innerHTML = item.getDetails()
-// document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()
-// document.getElementById('output').innerHTML = Item.getHelperText()
-document.getElementById('output').innerHTML = PurchasedItem.getNumberOfItems()
+// // document.getElementById('output').innerHTML = item.getDetails()
+// // document.getElementById('output').innerHTML = purchasedItem.getDetailsWithPrice()
+// // document.getElementById('output').innerHTML = Item.getHelperText()
+// document.getElementById('output').innerHTML = PurchasedItem.getNumberOfItems()
+
