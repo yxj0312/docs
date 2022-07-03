@@ -132,14 +132,33 @@ let myPromise = new Promise((resolve, reject) => {
     }
 
     setTimeout(() => {
-        // resolve(user);
-        reject('Sorry, could not  retrieve the user.')
+        resolve(user);
+        // reject('Sorry, could not  retrieve the user.')
     }, 2000)
 })
 
+const getAdditionalUserData = user => {
+    document.getElementById('output').innerHTML = `${user.name} (${user.email})`
+
+    return new Promise((resolve,reject) => {
+        // calling another api to get more user data
+        // let additionalData = {
+        //     favoriteColor: 'Blue',
+        //     currentDrink: 'La Croix'
+        // }
+        
+        user.favoriteColor = 'Blue'
+        user.currentDrink = 'La Croix'
+
+        setTimeout(() => {
+            resolve(user)
+        }, 2000);
+    })
+}
+
 // be executed after 2sec, because of setTimeOut
 myPromise.then((user) => {
-    document.getElementById('output').innerHTML = `${user.name} (${user.email})`
+    // document.getElementById('output').innerHTML = `${user.name} (${user.email})`
 }).catch((error) => {
     document.getElementById('output').innerHTML = error
 })

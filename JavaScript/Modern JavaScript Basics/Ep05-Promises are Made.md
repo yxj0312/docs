@@ -53,3 +53,5 @@ myPromise.then((user) => {
 // Sorry, could not retrieve the user.
 
 ```
+
+How chained function works
