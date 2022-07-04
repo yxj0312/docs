@@ -55,3 +55,41 @@ myPromise.then((user) => {
 ```
 
 How chained function works
+
+```JavaScript
+
+const getAdditionalUserData = user => {
+    document.getElementById('output').innerHTML = `${user.name} (${user.email})`
+
+    return new Promise((resolve,reject) => {
+        // calling another api to get more user data
+        // let additionalData = {
+        //     favoriteColor: 'Blue',
+        //     currentDrink: 'La Croix'
+        // }
+        
+        user.favoriteColor = 'Blue'
+        user.currentDrink = 'La Croix'
+
+        setTimeout(() => {
+            resolve(user)
+        }, 2000);
+    })
+}
+
+myPromise.then(getAdditionalUserData)
+.then((user) => {
+    document.getElementById('output').innerHTML = `${user.name} (${user.email}) - ${user.currentDrink}` 
+})
+.catch((error) => {
+    document.getElementById('output').innerHTML = error
+})
+
+//output
+// Look ma, no blocking!
+// 2sec
+// Andrew (andrew@example.com)
+// 2sec
+// Andrew (andrew@example.com) - La Croix
+
+```

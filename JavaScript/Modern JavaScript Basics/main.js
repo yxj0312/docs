@@ -157,9 +157,18 @@ const getAdditionalUserData = user => {
 }
 
 // be executed after 2sec, because of setTimeOut
-myPromise.then((user) => {
-    // document.getElementById('output').innerHTML = `${user.name} (${user.email})`
-}).catch((error) => {
+// myPromise.then((user) => {
+//     // document.getElementById('output').innerHTML = `${user.name} (${user.email})`
+// }).catch((error) => {
+//     document.getElementById('output').innerHTML = error
+// })
+
+
+myPromise.then(getAdditionalUserData)
+.then((user) => {
+    document.getElementById('output').innerHTML = `${user.name} (${user.email}) - ${user.currentDrink}` 
+})
+.catch((error) => {
     document.getElementById('output').innerHTML = error
 })
 
