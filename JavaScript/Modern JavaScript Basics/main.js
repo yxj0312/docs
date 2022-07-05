@@ -177,3 +177,14 @@
 
 // // be executed first
 // document.getElementById('output').innerHTML = 'Look ma, no blocking!'
+
+async function init() {
+    await 
+
+}
+
+function getUserData() {
+    return new Promise
+}
+
+console.log(init())
