@@ -179,12 +179,23 @@
 // document.getElementById('output').innerHTML = 'Look ma, no blocking!'
 
 async function init() {
-    await 
+    const start = Date.now()
+    document.getElementById('output').innerHTML = `0:init()`
 
+    const user = await getUserData()
+    document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${user.name} ${user.email}`
 }
 
 function getUserData() {
-    return new Promise
+    return new Promise((resolve,reject) => {
+        let user = {
+            name: 'Andrew',
+            email: 'andrew@example.com'
+        }
+        setTimeout(() => {
+            resolve(user)
+        }, 2000);
+    })
 }
 
-console.log(init())
+init()
