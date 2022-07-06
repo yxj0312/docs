@@ -184,6 +184,10 @@ async function init() {
 
     const user = await getUserData()
     document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${user.name} ${user.email}`
+
+
+    const welcomeString = await getWelcomeString()
+    document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${user.name} ${user.email}`
 }
 
 function getUserData() {
@@ -194,6 +198,14 @@ function getUserData() {
         }
         setTimeout(() => {
             resolve(user)
+        }, 2000);
+    })
+}
+
+function getWelcomeString() {
+    return new Promise((resolve,reject) => {
+        setTimeout(() => {
+            resolve('welcome to my asyncronous program ')
         }, 2000);
     })
 }
