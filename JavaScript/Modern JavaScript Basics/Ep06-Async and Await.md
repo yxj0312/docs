@@ -68,3 +68,24 @@ init()
 // 2005: Andrew andrew@example.com
 // 4015: Andrew andrew@example.com
 ```
+
+Problem: getWelcomeString() fires 2sec after first await promise
+To fix it, we instead of creating const for the await other function whose promise resolving, we create a const with Promise itself:
+
+```javaScript
+async function init() {
+    const start = Date.now()
+    document.getElementById('output').innerHTML = `0:init()`
+
+    const userPromise = getUserData()
+    const welcomeStringPromise = getWelcomeString()
+
+    // const user = await getUserData()
+    document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${user.name} ${user.email}`
+
+
+    // const welcomeString = await getWelcomeString()
+    document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${user.name} ${user.email}`
+}
+
+```

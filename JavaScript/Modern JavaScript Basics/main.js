@@ -182,11 +182,14 @@ async function init() {
     const start = Date.now()
     document.getElementById('output').innerHTML = `0:init()`
 
-    const user = await getUserData()
+    const userPromise = getUserData()
+    const welcomeStringPromise = getWelcomeString()
+
+    // const user = await getUserData()
     document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${user.name} ${user.email}`
 
 
-    const welcomeString = await getWelcomeString()
+    // const welcomeString = await getWelcomeString()
     document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${user.name} ${user.email}`
 }
 
