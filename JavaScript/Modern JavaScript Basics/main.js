@@ -178,38 +178,53 @@
 // // be executed first
 // document.getElementById('output').innerHTML = 'Look ma, no blocking!'
 
-async function init() {
-    const start = Date.now();
-    document.getElementById('output').innerHTML = `0: init()`;
+// Ep06
+// async function init() {
+//     const start = Date.now();
+//     document.getElementById('output').innerHTML = `0: init()`;
 
-    const userPromise = getUserData();
-    const welcomeStringPromise = getWelcomeString();
+//     const userPromise = getUserData();
+//     const welcomeStringPromise = getWelcomeString();
 
-    const user = await userPromise;
-    document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${user.name}`;
+//     const user = await userPromise;
+//     document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${user.name}`;
 
-    const welcomeString = await welcomeStringPromise;
-    document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${welcomeString}`;
-}
+//     const welcomeString = await welcomeStringPromise;
+//     document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${welcomeString}`;
+// }
 
-function getUserData() {
-    return new Promise((resolve,reject) => {
-        let user = {
-            name: 'Andrew',
-            email: 'andrew@example.com'
-        }
-        setTimeout(() => {
-            resolve(user)
-        }, 2000);
-    })
-}
+// function getUserData() {
+//     return new Promise((resolve,reject) => {
+//         let user = {
+//             name: 'Andrew',
+//             email: 'andrew@example.com'
+//         }
+//         setTimeout(() => {
+//             resolve(user)
+//         }, 2000);
+//     })
+// }
 
-function getWelcomeString() {
-    return new Promise((resolve,reject) => {
-        setTimeout(() => {
-            resolve('welcome to my asyncronous program ')
-        }, 2000);
-    })
-}
+// function getWelcomeString() {
+//     return new Promise((resolve,reject) => {
+//         setTimeout(() => {
+//             resolve('welcome to my asyncronous program ')
+//         }, 2000);
+//     })
+// }
 
-init()
+// init()
+
+// Ep07
+const fruit = new Map();
+
+fruit.set(1, 'Banana');
+fruit.set(2, 'Apple');
+fruit.set(3, 'Strawberry');
+
+document.getElementById('output').innerHTML = fruit.get(2)
+
+fruit.delete(2)
+fruit.forEach(item => {
+    document.getElementById('output').innerHTML += '<br>' + item
+})
