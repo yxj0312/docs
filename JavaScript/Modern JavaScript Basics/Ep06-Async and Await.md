@@ -90,3 +90,5 @@ async function init() {
 // 2001: Andrew
 // 2002: welcome to my asyncronous program
 ```
+
+We are waiting the resolve of both of the functions(userPromise, welcomeStringPromise), that fire off exactly same time.
