@@ -77,16 +77,16 @@ async function init() {
     const start = Date.now()
     document.getElementById('output').innerHTML = `0:init()`
 
-    const userPromise = getUserData()
-    const welcomeStringPromise = getWelcomeString()
+    const userPromise = getUserData();
+    const welcomeStringPromise = getWelcomeString();
 
-    const user = await userPromise
-    // const user = await getUserData()
-    document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${user.name} ${user.email}`
+    const user = await userPromise;
+    document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${user.name}`;
 
-    const welcomeString = await getWelcomeString
-    // const welcomeString = await getWelcomeString()
-    document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${user.name} ${user.email}`
+    const welcomeString = await welcomeStringPromise;
+    document.getElementById('output').innerHTML += `<br>${Date.now() - start}: ${welcomeString}`;
 }
-
+// 0: init()
+// 2001: Andrew
+// 2002: welcome to my asyncronous program
 ```
