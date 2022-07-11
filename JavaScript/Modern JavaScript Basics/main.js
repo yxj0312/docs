@@ -234,3 +234,5 @@ fruit.set(4, {
     color: 'orange',
     flavor: 'orangey'
 })
+
+document.getElementById('output').innerHTML = fruit.get(4).flavor

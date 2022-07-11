@@ -12,4 +12,13 @@ fruit.set(3, 'Strawberry');
 
 document.getElementById('output').innerHTML = fruit.get(2)
 
+
+fruit.set(4, {
+    type: 'Orange',
+    color: 'orange',
+    flavor: 'orangey'
+})
+
+document.getElementById('output').innerHTML = fruit.get(4).flavor
+
 ```
