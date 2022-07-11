@@ -257,3 +257,10 @@ users.set({
 users.forEach((value,key) => {
     value(key)
 })
+
+let userAshleyExists = users.has({
+    name: 'Ashley',
+    email: 'ashley@example.com'
+})
+
+console.log('userAshleyExists:', userAshleyExists)

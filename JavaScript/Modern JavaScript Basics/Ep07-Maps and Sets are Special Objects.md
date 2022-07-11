@@ -47,4 +47,12 @@ users.forEach((value,key) => {
 
 // Andrew (andrew@example.com)
 // (ashley@example.com)Ashley
+
+// has methods
+let userAshleyExists = users.has({
+    name: 'Ashley',
+    email: 'ashley@example.com'
+})
+
+console.log('userAshleyExists:', userAshleyExists)
 ```
