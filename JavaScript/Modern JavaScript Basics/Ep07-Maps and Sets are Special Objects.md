@@ -2,6 +2,8 @@
 
 > Usually when working with sets of data in JavaScript, you're either using arrays or objects. However, ES6 introduced two new special objects to use, maps and sets, both of which come with their own methods, use cases, and limitations.
 
+Map example:
+
 ```JavaScript
 
 const fruit = new Map();
@@ -21,4 +23,28 @@ fruit.set(4, {
 
 document.getElementById('output').innerHTML = fruit.get(4).flavor
 
+```
+
+```JavaScript
+// object could also be used as key, and function could also be used as value in map
+users.set({
+    name: 'Andrew',
+    email: 'andrew@example.com'
+}, function(user) {
+    document.getElementById('output').innerHTML += `${user.name} (${user.email}) <br>`
+})
+
+users.set({
+    name: 'Ashley',
+    email: 'ashley@example.com'
+}, function(user) {
+    document.getElementById('output').innerHTML += `(${user.email})${user.name} <br>`
+})
+
+users.forEach((value,key) => {
+    value(key)
+})
+
+// Andrew (andrew@example.com)
+// (ashley@example.com)Ashley
 ```

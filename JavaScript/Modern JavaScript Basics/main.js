@@ -216,11 +216,11 @@
 // init()
 
 // Ep07
-const fruit = new Map();
+// const fruit = new Map();
 
-fruit.set(1, 'Banana');
-fruit.set(2, 'Apple');
-fruit.set(3, 'Strawberry');
+// fruit.set(1, 'Banana');
+// fruit.set(2, 'Apple');
+// fruit.set(3, 'Strawberry');
 
 // document.getElementById('output').innerHTML = fruit.get(2)
 
@@ -229,10 +229,31 @@ fruit.set(3, 'Strawberry');
 //     document.getElementById('output').innerHTML += '<br>' + item
 // })
 
-fruit.set(4, {
-    type: 'Orange',
-    color: 'orange',
-    flavor: 'orangey'
+// fruit.set(4, {
+//     type: 'Orange',
+//     color: 'orange',
+//     flavor: 'orangey'
+// })
+
+// document.getElementById('output').innerHTML = fruit.get(4).flavor
+
+const users = new Map();
+
+// object could also be used as key, and function could also be used as value in map
+users.set({
+    name: 'Andrew',
+    email: 'andrew@example.com'
+}, function(user) {
+    document.getElementById('output').innerHTML += `${user.name} (${user.email}) <br>`
 })
 
-document.getElementById('output').innerHTML = fruit.get(4).flavor
+users.set({
+    name: 'Ashley',
+    email: 'ashley@example.com'
+}, function(user) {
+    document.getElementById('output').innerHTML += `(${user.email})${user.name} <br>`
+})
+
+users.forEach((value,key) => {
+    value(key)
+})
