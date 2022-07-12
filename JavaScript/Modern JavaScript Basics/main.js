@@ -247,10 +247,12 @@ users.set({
     document.getElementById('output').innerHTML += `${user.name} (${user.email}) <br>`
 })
 
-users.set({
+const userAshley = {
     name: 'Ashley',
     email: 'ashley@example.com'
-}, function(user) {
+}
+
+users.set(userAshley, function(user) {
     document.getElementById('output').innerHTML += `(${user.email})${user.name} <br>`
 })
 
@@ -258,9 +260,6 @@ users.forEach((value,key) => {
     value(key)
 })
 
-let userAshleyExists = users.has({
-    name: 'Ashley',
-    email: 'ashley@example.com'
-})
+let userAshleyExists = users.has(userAshley)
 
 console.log('userAshleyExists:', userAshleyExists)

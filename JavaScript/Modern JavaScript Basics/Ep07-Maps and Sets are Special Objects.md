@@ -56,3 +56,35 @@ let userAshleyExists = users.has({
 
 console.log('userAshleyExists:', userAshleyExists)
 ```
+
+we should get a true, but actually we get a false. Because they are not the same object.
+
+instead:
+
+```JavaScript
+users.set({
+    name: 'Andrew',
+    email: 'andrew@example.com'
+}, function(user) {
+    document.getElementById('output').innerHTML += `${user.name} (${user.email}) <br>`
+})
+
+const userAshley = {
+    name: 'Ashley',
+    email: 'ashley@example.com'
+}
+
+users.set(userAshley, function(user) {
+    document.getElementById('output').innerHTML += `(${user.email})${user.name} <br>`
+})
+
+users.forEach((value,key) => {
+    value(key)
+})
+
+let userAshleyExists = users.has(userAshley)
+
+console.log('userAshleyExists:', userAshleyExists)
+
+// true
+```
