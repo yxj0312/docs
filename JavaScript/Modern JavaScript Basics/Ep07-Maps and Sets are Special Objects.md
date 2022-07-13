@@ -88,3 +88,19 @@ console.log('userAshleyExists:', userAshleyExists)
 
 // true
 ```
+
+Difference between Set and Map
+
+Set only contains values, no keys
+
+```JavaScript
+const fruit = new Set()
+
+fruit.add('Banana');
+fruit.add('Apple');
+fruit.add('Strawberry');
+
+fruit.forEach(value => {
+    document.getElementById('output').innerHTML += `<br>` + value
+})
+```

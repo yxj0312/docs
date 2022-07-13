@@ -263,3 +263,13 @@ users.forEach((value,key) => {
 let userAshleyExists = users.has(userAshley)
 
 console.log('userAshleyExists:', userAshleyExists)
+
+const fruit = new Set()
+
+fruit.add('Banana');
+fruit.add('Apple');
+fruit.add('Strawberry');
+
+fruit.forEach(value => {
+    document.getElementById('output').innerHTML += `<br>` + value
+})
