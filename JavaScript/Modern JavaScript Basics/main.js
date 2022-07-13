@@ -237,41 +237,59 @@
 
 // document.getElementById('output').innerHTML = fruit.get(4).flavor
 
-const users = new Map();
+// const users = new Map();
 
-// object could also be used as key, and function could also be used as value in map
-users.set({
-    name: 'Andrew',
-    email: 'andrew@example.com'
-}, function(user) {
-    document.getElementById('output').innerHTML += `${user.name} (${user.email}) <br>`
+// // object could also be used as key, and function could also be used as value in map
+// users.set({
+//     name: 'Andrew',
+//     email: 'andrew@example.com'
+// }, function(user) {
+//     document.getElementById('output').innerHTML += `${user.name} (${user.email}) <br>`
+// })
+
+// const userAshley = {
+//     name: 'Ashley',
+//     email: 'ashley@example.com'
+// }
+
+// users.set(userAshley, function(user) {
+//     document.getElementById('output').innerHTML += `(${user.email})${user.name} <br>`
+// })
+
+// users.forEach((value,key) => {
+//     value(key)
+// })
+
+// let userAshleyExists = users.has(userAshley)
+
+// console.log('userAshleyExists:', userAshleyExists)
+
+// const fruit = new Set()
+
+// fruit.add('Banana');
+// fruit.add('Apple');
+// fruit.add('Strawberry');
+// fruit.add('Apple');
+// fruit.add('Apple');
+
+// fruit.forEach(value => {
+//     document.getElementById('output').innerHTML += `<br>` + value
+// })
+
+// Ep08
+
+// filter items that contains e
+
+// for each item, if it contains e, keep it, otherwise, discard it
+
+let fruit = ['Banana', 'Strawberry', 'Orange', 'Apple', 'Grape', 'Plum']
+
+let fruitsThatContainE = []
+
+fruit.forEach(function(fruit) {
+    if (fruit.includes('e')) {
+        fruitsThatContainE.push(fruit)
+    }
 })
 
-const userAshley = {
-    name: 'Ashley',
-    email: 'ashley@example.com'
-}
-
-users.set(userAshley, function(user) {
-    document.getElementById('output').innerHTML += `(${user.email})${user.name} <br>`
-})
-
-users.forEach((value,key) => {
-    value(key)
-})
-
-let userAshleyExists = users.has(userAshley)
-
-console.log('userAshleyExists:', userAshleyExists)
-
-const fruit = new Set()
-
-fruit.add('Banana');
-fruit.add('Apple');
-fruit.add('Strawberry');
-fruit.add('Apple');
-fruit.add('Apple');
-
-fruit.forEach(value => {
-    document.getElementById('output').innerHTML += `<br>` + value
-})
+document.getElementById('output').innerHTML = fruitsThatContainE.join(',')
