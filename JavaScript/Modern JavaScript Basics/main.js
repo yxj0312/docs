@@ -269,6 +269,8 @@ const fruit = new Set()
 fruit.add('Banana');
 fruit.add('Apple');
 fruit.add('Strawberry');
+fruit.add('Apple');
+fruit.add('Apple');
 
 fruit.forEach(value => {
     document.getElementById('output').innerHTML += `<br>` + value

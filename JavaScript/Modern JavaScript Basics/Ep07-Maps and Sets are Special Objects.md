@@ -92,6 +92,7 @@ console.log('userAshleyExists:', userAshleyExists)
 Difference between Set and Map
 
 Set only contains values, no keys
+Set only contains unique items
 
 ```JavaScript
 const fruit = new Set()
@@ -99,8 +100,14 @@ const fruit = new Set()
 fruit.add('Banana');
 fruit.add('Apple');
 fruit.add('Strawberry');
+fruit.add('Apple');
+fruit.add('Apple');
 
 fruit.forEach(value => {
     document.getElementById('output').innerHTML += `<br>` + value
 })
+
+// Banana
+// Apple
+// Strawberry
 ```
