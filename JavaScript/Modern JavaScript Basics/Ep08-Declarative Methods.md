@@ -18,3 +18,23 @@ document.getElementById('output').innerHTML = fruitsThatContainE.join(',')
 
 // Strawberry,Orange,Apple,Grape
 ```
+
+Declarative Methods of JavaScript could before
+
+```JavaScript
+let fruit = ['Banana', 'Strawberry', 'Orange', 'Apple', 'Grape', 'Plum']
+
+// let fruitsThatContainE = []
+
+// fruit.forEach(function(fruit) {
+//     if (fruit.includes('e')) {
+//         fruitsThatContainE.push(fruit)
+//     }
+// })
+
+let fruitsThatContainE = fruit.filter(f => f.includes('e'))
+
+document.getElementById('output').innerHTML = fruitsThatContainE.join(',')
+```
+
+other helpful array methods to declare the codes like above in es6
