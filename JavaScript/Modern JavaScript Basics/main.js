@@ -292,10 +292,12 @@ let fruit = ['Banana', 'Strawberry', 'Orange', 'Apple', 'Grape', 'Plum']
 //     }
 // })
 
+// filter example
 let fruitsThatContainE = fruit.filter(f => f.includes('e'))
 
 document.getElementById('output').innerHTML = fruitsThatContainE.join(',')
 
+//  reduce example
 let users = [
     {
         name: 'Andrew',
@@ -323,3 +325,8 @@ let users = [
 let totalStars = users.reduce((stars, user) => stars += user.stars, 0)
 
 document.getElementById('output').innerHTML = '<br>Total Stars: ' + totalStars
+
+// map example
+
+let userEmails = users.map(user => user.email)
+document.getElementById('output').innerHTML = '<br>Email: ' + userEmails
