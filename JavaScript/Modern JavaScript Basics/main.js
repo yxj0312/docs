@@ -333,5 +333,5 @@
 
 // Ep09
 
-import { users, currentUser} from 'users.js'
+import { users, currentUser} from './users.js'
 document.getElementById('output').innerHTML = users[currentUser].name
