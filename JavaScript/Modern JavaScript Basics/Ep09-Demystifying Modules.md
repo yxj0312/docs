@@ -37,3 +37,19 @@ export { users, currentUser }
 import { users, currentUser} from './users.js'
 document.getElementById('output').innerHTML = users[currentUser].name
 ```
+
+- export default example
+
+```JavaScript
+// helper.js
+const helper = (arr) => {
+    return arr.map(item => item.toUpperCase())
+}
+
+export default helper
+
+import helper from './helper.js'
+
+const userEmails = users.map(user => user.email)
+document.getElementById('output').innerHTML = helper(userEmails)
+```
