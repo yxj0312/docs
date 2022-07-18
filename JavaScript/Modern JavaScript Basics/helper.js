@@ -1,5 +1,3 @@
-const helper = (arr) => {
+export default (arr) => {
     return arr.map(item => item.toUpperCase())
 }
-
-export default helper

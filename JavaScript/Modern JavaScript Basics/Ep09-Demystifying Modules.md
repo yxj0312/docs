@@ -53,3 +53,11 @@ import helper from './helper.js'
 const userEmails = users.map(user => user.email)
 document.getElementById('output').innerHTML = helper(userEmails)
 ```
+
+shorthand:
+
+```JavaScript
+export default (arr) => {
+    return arr.map(item => item.toUpperCase())
+}
+```
