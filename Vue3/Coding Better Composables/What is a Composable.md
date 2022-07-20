@@ -111,3 +111,32 @@ export function useTitle(newTitle, options) {
 ```
 
 Here, we can accept newTitle (our required argument), and then the last argument is the options object. The next step is to destructure the options object. By destructuring, we can access all the values, and clearly provide defaults for each possible option.
+
+## Introducing VueUse
+
+Now we’ll look at how two different composables from VueUse apply this pattern. VueUse is an open source collection of composables for Vue 3, and is very well written. It’s a great resource to learn how to write great composables! To use VueUse composables in our application, we can install it in an existing Vue 3 project by running:
+
+```JavaScript
+npm i @vueuse/core
+```
+
+Now let’s try using a composable from VueUse. First, we’ll look at useTitle, and then we’ll see how useRefHistory works.
+
+## Using useTitle
+
+The useTitle composable is fairly straightforward. It let’s you update the page’s title:
+
+```JavaScript
+<script setup>
+import { useTitle } from '@vueuse/core'
+
+const title = useTitle('Green Socks', { titleTemplate: '%s | My Store' })
+</script>
+
+<template>
+    <h1>Title Composable</h1>
+    <input v-model="title" type="text">
+</template>
+```
+
+Now let’s look at a slightly more complicated composable that also uses this options object pattern.
