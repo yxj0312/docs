@@ -63,3 +63,51 @@ Here’s how we’d use this composable inside of a component:
 As you can see, using the useMouse composable allows us to easily reuse all of this logic. With very little extra code, we’re able to grab the mouse coordinates in our component.
 
 Now that we’re on the same page, let’s look at the first pattern that will help us to write better composables.
+
+## How to create composable inputs?
+
+There are a few ways we could do it. We could use an argument for each property:
+
+```JavaScript
+const title = useTitle('Product Page', true, '%s | My Socks Store')
+```
+
+We could also use an options argument:
+
+```JavaScript
+const title = useTitle({ title: 'Product Page', 
+                         observe: true, 
+                         titleTemplate: '%s | Socks Store' })
+```
+
+The benefit here is we don’t have to remember the correct ordering, we know what each option does, and easier to add new options.
+
+Or we could use a combination of both:
+
+```JavaScript
+const title = useTitle('Product Page', { observe: true, 
+                                         titleTemplate: '%s | Socks Store' })
+```
+
+Here we are putting the required arguments first and the other arguments are optional.
+
+It’ll also be much easier to add new options later on. This applies both to adding new options to the composable itself, and to adding options when using the composable.
+
+So, using an options object is great. But how do we implement that, and parse them out.
+
+## How to parse the options argument?
+
+Here’s how you would implement the options object pattern in a composable:
+
+```JavaScript
+export function useTitle(newTitle, options) {
+    const {
+      observe = false,
+      titleTemplate = '%s',
+    } = options;
+    
+    // ...
+  }
+```
+
+Here, we can accept newTitle (our required argument), and then the last argument is the options object. The next step is to destructure the options object. By destructuring, we can access all the values, and clearly provide defaults for each possible option.
