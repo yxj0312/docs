@@ -208,3 +208,24 @@ This is because useRefHistory relies on the useManualRefHistory composable inter
 ```
 
 This also shows something I mentioned earlier: composables can use other composables!
+
+## Bringing it all together
+
+This lesson was the first in our course, “Writing Better Composables”.
+
+We looked at how adding an options object as a parameter can make for much more configurable components. For example, you don’t need to worry about argument ordering or to remember what each argument does, and adding more options to an object is far easier than updating the arguments passed in.
+
+But we didn’t just look at the pattern itself. We also saw how the VueUse composables useTitle and useRefHistory implement this pattern. They do it in slightly different ways, but since this is a simple pattern, there’s not much variation that you can do.
+
+The next lesson in this course looks at how we can accept both refs and regular Javascript values as arguments:
+
+```JavaScript
+// Works if we give it a ref we already have
+const countRef = ref(2);
+useCount(countRef);
+
+// Also works if we give it just a number
+const countRef = useCount(2);
+```
+
+This adds flexibility, allowing us to use our composables in more situations in our application.
