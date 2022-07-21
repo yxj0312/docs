@@ -140,3 +140,71 @@ const title = useTitle('Green Socks', { titleTemplate: '%s | My Store' })
 ```
 
 Now let’s look at a slightly more complicated composable that also uses this options object pattern.
+
+## useRefHistory
+
+The useRefHistory composable is a bit more interesting. It let’s you track all of the changes made to a ref, allowing you to perform undo and redo operations fairly easily:
+
+```JavaScript
+import { useRefHistory } from '@vueuse/core'
+
+// Set up the count ref and track it
+const count = ref(0);
+const { undo } = useRefHistory(count);
+
+// Increment the count
+count.value++;
+
+// Log out the count, undo, and log again
+console.log(counter.value);
+// 1
+undo();
+console.log(counter.value);
+// 0
+```
+
+This composable can take a bunch of different options, we could call it like so:
+
+```JavaScript
+import { useRefHistory } from '@vueuse/core'
+
+const state = ref({});
+const { undo } = useRefHistory(state, {
+  deep: true,  // Track changes inside of arrays and objects
+  capacity: 15 // Limit how many steps we track
+});
+```
+
+If we look at the source code for this composable, we see it uses the exact same object destructuring pattern that useTitle does:
+
+```JavaScript
+export function useRefHistory(source, options) {
+  const {
+    deep = false,
+    flush = 'pre',
+    eventFilter,
+  } = options;
+
+// ...
+}
+```
+
+However, in this example we only pull out a few values from the options object here at the start.
+
+This is because useRefHistory relies on the useManualRefHistory composable internally. The rest of the options are passed as that composable’s options object later on in the composable:
+
+```JavaScript
+// ...const manualHistory = useManualRefHistory(
+  source,
+  {
+// Pass along the options object to another composable
+    ...options,
+    clone: options.clone || deep,
+    setSource,
+  },
+);
+
+// ...
+```
+
+This also shows something I mentioned earlier: composables can use other composables!
