@@ -18,7 +18,7 @@ Here’s what we’ll be covering:
 
 First, though, we need to make sure we’re on the same page. So let me take a bit to explain what, exactly, a composable is.
 
-## What is a Composable?
+## What is a Composable
 
 According to the Vue documentation, a composable is “a function that leverages Vue Composition API to encapsulate and reuse stateful logic”.
 
