@@ -115,3 +115,26 @@ const backgroundColor = useCssVar(cssVarRef);
 Looking at the [source code](https://github.com/vueuse/vueuse/blob/e484c4f8e4320ff58da95c2d18945beb83772b72/packages/core/useCssVar/index.ts#L22), we can see that it uses the unref function to accomplish this. Actually, it uses a helper function, called unrefElement, to ensure we’re getting a DOM element and not just a Vue instance.
 
 Most composables in VueUse implement this pattern, if you want to explore it further. So pick one that looks interesting and dive into the code!
+
+## Wrapping things up
+
+We just spent some time learning the second pattern in the series, where we can use arguments more flexibly by using ref and unref intelligently in our composables. The composable will still work whether you happen to have a ref or just the raw Javascript value. It adapts to how you use it!
+
+We also looked at how the VueUse library implements this pattern in the useTitle and useCssVar composables. The useTitle composable uses the ref function, and the useCssVar uses the unref function so that we could see both variations in action.
+
+In the next lesson, we’ll look at a pattern to improve return values by making them dynamic. We’ll learn how we can return either a single value or an object, depending on what is needed:
+
+```JavaScript
+// Returns a single value
+const isDark = useDark();
+
+// Returns an object of values
+const {
+  counter,
+  pause,
+  resume,
+} = useInterval(1000, { controls: true });
+
+```
+
+This pattern can make your composable a lot simpler to use, especially if you only need a single value most of the time.
