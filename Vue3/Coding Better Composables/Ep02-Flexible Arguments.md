@@ -91,3 +91,27 @@ type MaybeRef<T> = T | Ref<T>
 This type definition means that the type MaybeRef<string> can either be a string or a Ref<string>, which is a ref with a string value inside.
 
 The next composable we’ll look at also uses this type to implement this pattern.
+
+## useCssVar
+
+The [useCssVar](https://vueuse.org/core/usecssvar/) composable allows us to grab the value of a CSS variable and use it in our app:
+
+```JavaScript
+const backgroundColor = useCssVar('--background-color');
+```
+
+Unlike useTitle though, here we need the string value so that we can look up the CSS variable in the DOM. Using the unref function, this composable can handle both refs and strings being passed in:
+
+```JavaScript
+// Using a string
+const backgroundColor = useCssVar('--background-color');
+
+// Using a ref
+const cssVarRef = ref('--background-color');
+const backgroundColor = useCssVar(cssVarRef);
+
+```
+
+Looking at the [source code](https://github.com/vueuse/vueuse/blob/e484c4f8e4320ff58da95c2d18945beb83772b72/packages/core/useCssVar/index.ts#L22), we can see that it uses the unref function to accomplish this. Actually, it uses a helper function, called unrefElement, to ensure we’re getting a DOM element and not just a Vue instance.
+
+Most composables in VueUse implement this pattern, if you want to explore it further. So pick one that looks interesting and dive into the code!
