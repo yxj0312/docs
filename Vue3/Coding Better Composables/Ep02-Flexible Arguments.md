@@ -79,6 +79,12 @@ const title = ref(newTitle ?? document?.title ?? null)
 
 The ?? syntax is the nullish coalescing operator — a fancy-sounding name for “if the value on the left is null or undefined, use the value on the right.” So this line first tries to use newTitle, but if that isn’t defined, it will use document.title, and if that isn’t defined, it will give up and use null.
 
+```JavaScript
+document?.title
+```
+
+This is js optional chaining operator. If document is defined then call.title, otherwise return undefined
+
 Something interesting to note for you TypeScript connoisseurs:
 
 The newTitle variable used here has the type MaybeRef<string>. Here is what the type is defined as:
