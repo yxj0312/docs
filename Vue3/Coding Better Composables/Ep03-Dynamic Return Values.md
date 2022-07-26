@@ -55,3 +55,14 @@ How you decide to do this switching is ultimately up to you. Do what makes the m
 Perhaps you’ll want to switch on an existing option instead of using a controls option only for this purpose. Maybe it will be cleaner to use a ternary in the return instead of an if statement. Or maybe there’s an entirely different way that works best for you. The important thing with this pattern is the switching, not how the switching works.
 
 Next, let’s see how some composables from VueUse implement this pattern.
+
+## useInterval
+
+First, let’s take a deeper look at how [useInterval](https://vueuse.org/shared/useinterval/#useinterval) works.
+
+This composable will update a counter on every interval:
+
+```JavaScript
+// Updates `counter` every 500 milliseconds
+const counter = useInterval(500);
+```
