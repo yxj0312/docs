@@ -66,3 +66,32 @@ This composable will update a counter on every interval:
 // Updates `counter` every 500 milliseconds
 const counter = useInterval(500);
 ```
+
+At [the very top](https://github.com/vueuse/vueuse/blob/e484c4f8e4320ff58da95c2d18945beb83772b72/packages/shared/useInterval/index.ts#L26) of the composable we destructure our options object, pulling out the controls option and renaming it to exposeControls. By default we won’t show the controls:
+
+```JavaScript
+const {
+  controls: exposeControls = false,
+  immediate = true,
+} = options;
+
+```
+
+Then, [at the end](https://github.com/vueuse/vueuse/blob/e484c4f8e4320ff58da95c2d18945beb83772b72/packages/shared/useInterval/index.ts#L33-L41), we have an if statement that switches on exposeControls. Either we return an object that includes the counter ref and all of the controls, or just the counter ref:
+
+```JavaScript
+if (exposeControls) {
+  return {
+    counter,
+    ...controls,
+  };
+else {
+  return counter;
+}
+
+```
+The extra controls come from a helper composable used by the useInterval composable. We’ll see this being used again in the next composable.
+
+With these two code snippets, we can make any composable have a more flexible return statement.
+
+Now let’s take a look at the useNow composable.
