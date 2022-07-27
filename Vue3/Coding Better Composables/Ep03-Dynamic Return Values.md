@@ -90,8 +90,27 @@ else {
 }
 
 ```
+
 The extra controls come from a helper composable used by the useInterval composable. We’ll see this being used again in the next composable.
 
 With these two code snippets, we can make any composable have a more flexible return statement.
 
 Now let’s take a look at the useNow composable.
+
+## useNow
+
+The [useNow](https://vueuse.org/core/usenow/) composable lets us grab a Date object that represents now and updates reactively:
+
+```JavaScript
+const now = useNow();
+```
+
+By default, it will refresh itself every frame — typically 60 times per second. We can change how often it updates, but we can also pause and resume the update process:
+
+```JavaScript
+const { now, pause, resume } = useNow({ controls: true });
+```
+
+This composable works in a very similar way to the useInterval composable. Internally they both use the useIntervalFn helper that [VueUse exposes](https://vueuse.org/shared/useintervalfn/).
+
+First, we [destructure the options](https://github.com/vueuse/vueuse/blob/f65707876e1d93211c44414c2a30dc90b1178d68/packages/core/useNow/index.ts#L32-L35) object to get the controls option, again renaming it to exposeControls to avoid a naming collision:
