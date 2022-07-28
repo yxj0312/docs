@@ -142,3 +142,13 @@ Here’s a list of other composables — that I could find — that implement th
 - useTimeout
 - useTimestamp
 - useTimeAgo
+
+## Wrapping Things Up
+
+We saw that dynamic return values let us choose how we want to use the composable more flexibly. We can get a single value back if that’s all we need. And we can also get an entire object with values, methods, and whatever else we might want.
+
+But we didn’t just look at the pattern itself. We saw how the useInterval and useNow composables from VueUse implement this pattern. Either they return a single value, a counter or the current timer, or they can also provide controls for pausing and resuming updates.
+
+This pattern is great for simplifying our code in most cases while still allowing for greater complexity when it’s needed. It’s sort of like a desk with a drawer. You can have lots of stuff laid out on the desk when you need it. But you can also put them away in the drawer to keep things tidy.
+
+In the next lesson in this series, we’ll learn how to write composables from scratch. We’ll look at starting with the interface in mind, imagining how it will be used, which makes it easier to write a composable that will work well for us far into the future.
