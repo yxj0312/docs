@@ -114,3 +114,31 @@ const { now, pause, resume } = useNow({ controls: true });
 This composable works in a very similar way to the useInterval composable. Internally they both use the useIntervalFn helper that [VueUse exposes](https://vueuse.org/shared/useintervalfn/).
 
 First, we [destructure the options](https://github.com/vueuse/vueuse/blob/f65707876e1d93211c44414c2a30dc90b1178d68/packages/core/useNow/index.ts#L32-L35) object to get the controls option, again renaming it to exposeControls to avoid a naming collision:
+
+```JavaScript
+const {
+  controls: exposeControls = false,
+  interval = 'requestAnimationFrame',
+} = options;
+```
+
+Then we return at the end of the composable. Here we use an if statement to switch between the two cases:
+
+```JavaScript
+if (exposeControls) {
+  return {
+    now,
+    ...controls,
+  };
+else {
+  return now;
+}
+```
+
+As you can see, this pattern is implemented nearly identically in both the useInterval and useNow composables. All of the composables in VueUse that implement this pattern do it in this particular way.
+
+Here’s a list of other composables — that I could find — that implement this pattern in VueUse, for you to explore more on your own:
+
+- useTimeout
+- useTimestamp
+- useTimeAgo
