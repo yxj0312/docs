@@ -14,7 +14,9 @@
 
 2. Queries: How many queries are being run?
 
-   n+1 issue (like without lazy loading)
+   n+1 issue (like without eager loading)
    order by: take double time->(index)
 
 3. Memory usage
+
+    Models Tab: eager loading for relationship
