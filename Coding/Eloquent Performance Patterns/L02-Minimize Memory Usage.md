@@ -14,6 +14,8 @@ class PostsController extends Controller
             ->latest('published_at')
             ->get()
             ->groupBy(fn ($post) => $post->published_at->year);
+
+        return View::make('posts', ['years' => $years]);
     }
 }
 
