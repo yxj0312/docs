@@ -20,3 +20,40 @@ class PostsController extends Controller
 }
 
 ```
+
+let's take a look at debugbar
+
+Memory usage: ~ 20MB
+
+Queries:
+
+- select * from 'posts' order by 'published_at' desc
+- select * from 'users' where 'users'.'id' in (1,2,3,4...)
+
+Why so many?
+
+cause we select all from the posts, which included post's body (article), which is large
+
+Let's update our query:
+
+```php
+class PostsController extends Controller
+{
+    public function index()
+    {
+        $years = Post::query()
+        // id for eloquent requirement
+        // author id for eager loading
+            ->select('id', 'title', 'slug', 'published_at', 'author_id')
+            ->with('author')
+            ->latest('published_at')
+            ->get()
+            ->groupBy(fn ($post) => $post->published_at->year);
+
+        return View::make('posts', ['years' => $years]);
+    }
+}
+
+```
+
+And now our memory usage down to 4.35MB
