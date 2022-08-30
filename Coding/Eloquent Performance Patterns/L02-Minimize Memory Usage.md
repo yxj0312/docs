@@ -57,3 +57,49 @@ class PostsController extends Controller
 ```
 
 And now our memory usage down to 4.35MB
+
+you can use the same technique with your relationship
+
+```php
+class PostsController extends Controller
+{
+    public function index()
+    {
+        $years = Post::query()
+        // id for eloquent requirement
+        // author id for eager loading
+            ->select('id', 'title', 'slug', 'published_at', 'author_id')
+            ->with(['author' => function(query){
+                $query->select('id', 'name');
+            }])
+            ->latest('published_at')
+            ->get()
+            ->groupBy(fn ($post) => $post->published_at->year);
+
+        return View::make('posts', ['years' => $years]);
+    }
+}
+
+```
+
+or even more clear
+
+```php
+class PostsController extends Controller
+{
+    public function index()
+    {
+        $years = Post::query()
+        // id for eloquent requirement
+        // author id for eager loading
+            ->select('id', 'title', 'slug', 'published_at', 'author_id')
+            ->with('author:id,name')
+            ->latest('published_at')
+            ->get()
+            ->groupBy(fn ($post) => $post->published_at->year);
+
+        return View::make('posts', ['years' => $years]);
+    }
+}
+
+```
