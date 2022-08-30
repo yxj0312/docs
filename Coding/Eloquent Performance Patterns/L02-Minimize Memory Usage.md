@@ -103,3 +103,9 @@ class PostsController extends Controller
 }
 
 ```
+
+When should you use the technique?
+
+Not for all the pages, tend to find this technique most useful on pages that interact with a lot of database records, such as index pages, exports functions.
+
+keep eye on your memory usage
