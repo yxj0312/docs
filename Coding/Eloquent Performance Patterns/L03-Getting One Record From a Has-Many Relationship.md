@@ -36,26 +36,31 @@ blade file
 
 Debugbar:
 
-We are now running 17 database queries, 15 are the same->n+1 issue
+- n+1 issue
 
-if our page displays 50 users, we are now executing a total of 52 queries.
+    We are now running 17 database queries, 15 are the same->n+1 issue
 
-Better solution: eager loading
+    if our page displays 50 users, we are now executing a total of 52 queries.
 
-UsersController.php
+    Better solution: eager loading
 
-```php
-public function index()
-{
-    $users = Users::query()
-        ->with('logins')
-        ->orderBy('name')
-        ->paginate();
-}
-```
+    UsersController.php
 
-```php
-{{ $user->logins()->sortByDesc('created_at')->first()->created_at->diffForHumans() }}
-```
+    ```php
+    public function index()
+    {
+        $users = Users::query()
+            ->with('logins')
+            ->orderBy('name')
+            ->paginate();
+    }
+    ```
 
-Now queries down to 3.
+    ```php
+    {{ $user->logins()->sortByDesc('created_at')->first()->created_at->diffForHumans() }}
+    ```
+
+    Now queries down to 3.
+
+- Some big problems: Models has been called 7515 times
+  memory usage up to 13.24mb
