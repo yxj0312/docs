@@ -16,3 +16,12 @@ public function up()
 }
 
 ```
+
+User.php
+
+```php
+public function logins()
+{
+    return $this->hasMany(Login::class);
+}
+```
