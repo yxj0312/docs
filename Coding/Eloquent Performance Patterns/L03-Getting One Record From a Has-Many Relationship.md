@@ -55,5 +55,7 @@ public function index()
 ```
 
 ```php
-{{ $user->logins()->latest()->first()->created_at->diffForHumans() }}
+{{ $user->logins()->sortByDesc('created_at')->first()->created_at->diffForHumans() }}
 ```
+
+Now queries down to 3.
