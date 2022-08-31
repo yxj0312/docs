@@ -39,3 +39,21 @@ Debugbar:
 We are now running 17 database queries, 15 are the same->n+1 issue
 
 if our page displays 50 users, we are now executing a total of 52 queries.
+
+Better solution: eager loading
+
+UsersController.php
+
+```php
+public function index()
+{
+    $users = Users::query()
+        ->with('logins')
+        ->orderBy('name')
+        ->paginate();
+}
+```
+
+```php
+{{ $user->logins()->latest()->first()->created_at->diffForHumans() }}
+```
