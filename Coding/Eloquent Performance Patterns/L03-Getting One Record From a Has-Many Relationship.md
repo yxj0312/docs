@@ -75,4 +75,8 @@ Debugbar:
 
         and whenever a user logs in, we'll create a new login record and then simply update this new last login ID column on the user's table. And from there we can just use a normal last login relationship on our user model
 
-        However
+        However, quite often caching isn't this simple in fact caching can get ridiculously complicated ridiculously fast.
+
+    - Solution 2: subqueries
+  
+        subqueries allow us to add extra columns to our query that are computed from another table.
