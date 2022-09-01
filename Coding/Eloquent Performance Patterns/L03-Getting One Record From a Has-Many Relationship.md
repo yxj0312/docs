@@ -64,3 +64,15 @@ Debugbar:
 
 - Some big problems: Models has been called 7515 times
   memory usage up to 13.24mb
+
+  - Solution 1: cache the last login on the users table
+  
+        add  following to users table
+
+        ```php
+        $table->foreignId('last_login_id')->constrained('logins')
+        ```
+
+        and whenever a user logs in, we'll create a new login record and then simply update this new last login ID column on the user's table. And from there we can just use a normal last login relationship on our user model
+
+        However
