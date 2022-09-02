@@ -104,6 +104,9 @@ Debugbar:
         blade file
 
         ```php
-            {{ $user->last_login_at }}
-            
+            {{ $user->last_login_at }}     
         ```
+
+        Models back to 15 (only 15 user models, not loading any login models anymore), and memory usage down to 4.06 mb
+
+        And only two database queries
