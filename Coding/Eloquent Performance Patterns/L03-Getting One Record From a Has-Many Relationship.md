@@ -80,3 +80,30 @@ Debugbar:
     - Solution 2: subqueries
   
         subqueries allow us to add extra columns to our query that are computed from another table.
+
+        we can run a sub query within our user's query to automatically get the user's last login
+
+        let's remove usersController eager load first
+
+        UsersController
+
+        ```php
+            <!-- take 1, because subquery can only take one column-->
+            public function index()
+            {
+                $user = User::query()
+                    ->addSelect(['last_login_at' => Login::select('created_at')
+                    ->whereColumn('user_id', 'users.id')
+                    ->latest()
+                    ->take(1)
+                    ])
+            }
+            
+        ```
+
+        blade file
+
+        ```php
+            {{ $user->last_login_at }}
+            
+        ```
