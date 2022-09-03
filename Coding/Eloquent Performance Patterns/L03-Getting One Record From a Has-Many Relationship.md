@@ -137,3 +137,27 @@ Debugbar:
                     ->paginate()
             }
     ```
+
+Last thing to do: move the subquery logic to a scope on the user model
+
+```php
+    public function index()
+            {
+                $user = User::query()
+                    ->withLastLoginAt()
+                    ->orderBy('name')
+                    ->paginate()
+            }
+```
+
+```php
+public function scopeWithLastLoginAt($query)
+{
+    $query->addSelect(['last_login_at' => Login::select('created_at')
+                    ->whereColumn('user_id', 'users.id')
+                    ->latest()
+                    ->take(1)
+                    ])
+                    ->withCasts(['last_login_at' => 'datetime'])
+}
+```
