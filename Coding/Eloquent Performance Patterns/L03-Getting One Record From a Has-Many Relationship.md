@@ -88,7 +88,7 @@ Debugbar:
         UsersController
 
         ```php
-            <!-- take 1, because subquery can only take one column-->
+            <!-- take 1, because subquery can only take one column (limit 1)-->
             public function index()
             {
                 $user = User::query()
@@ -110,3 +110,9 @@ Debugbar:
         Models back to 15 (only 15 user models, not loading any login models anymore), and memory usage down to 4.06 mb
 
         And only two database queries
+
+        You might be wondering have we not simply moved our multiple database query problem from laravel to the database layer?
+
+        The answer is yes, and no.
+
+        Yes in that database is technically still responsible for running all of these queries. one query to get the user and then individual sub queries to get the last login date for each user. However, databases are highly optimized for performing tasks like this. They are much better suited for this type of work than laravel or php is. And not only that, for laravel perspective, we're now running only one database query to get this data which means only one round trip from our web server to our database server. The end result is much much better performance.
