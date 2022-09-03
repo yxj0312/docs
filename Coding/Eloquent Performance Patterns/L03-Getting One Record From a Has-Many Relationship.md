@@ -116,3 +116,24 @@ Debugbar:
         The answer is yes, and no.
 
         Yes in that database is technically still responsible for running all of these queries. one query to get the user and then individual sub queries to get the last login date for each user. However, databases are highly optimized for performing tasks like this. They are much better suited for this type of work than laravel or php is. And not only that, for laravel perspective, we're now running only one database query to get this data which means only one round trip from our web server to our database server. The end result is much much better performance.
+
+    At last, let's add dateformating.
+
+    cause  $user->last_login_at is no more carbon date instance, we can not direct use the carbon method.
+
+    query time casting (laravel feature)
+
+    ```php
+    public function index()
+            {
+                $user = User::query()
+                    ->addSelect(['last_login_at' => Login::select('created_at')
+                    ->whereColumn('user_id', 'users.id')
+                    ->latest()
+                    ->take(1)
+                    ])
+                    ->withCasts(['last_login_at' => 'datetime'])
+                    ->orderBy('name')
+                    ->paginate()
+            }
+    ```
