@@ -41,3 +41,5 @@ public function scopeWithLastLogin($query)
 }
 
 ```
+
+However this time we're gonna automatically eager load our last login relationship
