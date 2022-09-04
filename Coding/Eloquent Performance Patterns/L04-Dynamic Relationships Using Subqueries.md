@@ -18,3 +18,26 @@ public function scopeWithLastLoginIpAddress($query)
 
 {{ $user->last_login_ip_address }}
 ```
+
+but if we have another requirement, like generate last login links, it would be nice if we still have Login models and relationships
+
+User.php
+
+```php
+// we need to 'last_login_id' column in user table which we don't have
+// so we need a sub query below
+public function lastLogin()
+{
+    return $this->belongsTo(Login::class);
+}
+
+public function scopeWithLastLogin($query)
+{
+    $query->addSelect(['last_login_id' => Login::select('id')
+        ->whereColumn('user_id', 'users.id')
+        ->latest()
+        ->take(1)
+    ]);
+}
+
+```
