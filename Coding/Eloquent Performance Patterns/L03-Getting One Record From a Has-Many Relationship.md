@@ -67,9 +67,9 @@ Debugbar:
 
   - Solution 1: cache the last login on the users table
   
-        add  following to users table
+    add  following to users table
 
-        ```php
+    ```php
         $table->foreignId('last_login_id')->constrained('logins')
         ```
 
