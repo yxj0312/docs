@@ -65,3 +65,73 @@ and user's blade view, using last login relationship instead of last_login_at at
 
 {{ $user->lastLogin->ip_address }}
 ```
+
+You can't lazy load Dynamic relationships and this is because unless we explicitly call the with lastLogin scope.No last_login_id will be  present  on the model.However, I don't find this to be an issue since I tend to use Dynamic relationships and situations where I have already trying to solve a performance issue and in those situations lazy loading is generally not the best approach anyway.
+
+If we could avoid all this work by simply using a has-one relationship with an order by?
+
+Answer is no
+
+```php
+
+public function lastLogin()
+{
+    return $this->hasOne(Login::class)->latest();
+}
+
+public function index()
+{
+    $users = User::query()
+        ->orderBy('name')
+        ->paginate();
+}
+
+```
+
+Debuggbar
+Still 15 App\Login Models and 15 App\User Models
+However, queries up to 17, (n+1 issue again)
+
+If using eager loading
+
+```php
+public function index()
+{
+    $users = User::query()
+        ->with('lastLogin')
+        ->orderBy('name')
+        ->paginate();
+}
+
+```
+
+Back to 3 Database Queries
+but back to 7515 Models.
+
+Since laravel can't set a limit when eager loading the lastLogin relationship since it needs to get multiple records one for each user.
+
+just underline why laravel works this way less force a wy to limit on our lastLogin relationship.
+
+```php
+
+public function lastLogin()
+{
+    return $this->hasOne(Login::class)->latest()->limit(1);
+}
+
+```
+
+we will get error: trying to get property 'created_at' of non-object
+
+it's because our view assumes that each user has a last_login record
+
+if we add a if statement in the blade view
+
+```php
+@if ($user->lastLogin) {
+    {{ $user->lastLogin->create_at->diffForHumans }}
+}
+@endif
+```
+
+and you can see we're only getting the last login information for one user.
