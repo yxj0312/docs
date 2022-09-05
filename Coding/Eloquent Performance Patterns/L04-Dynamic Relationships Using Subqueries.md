@@ -21,6 +21,10 @@ public function scopeWithLastLoginIpAddress($query)
 
 but if we have another requirement, like generate last login links, it would be nice if we still have Login models and relationships
 
+However this time we're gonna automatically eager load our last login relationship anytime this scope get called.
+
+When using this  technique, eloquent has no idea that the last_login_id column isn't a real column. meaning everything just works as if it is.
+
 User.php
 
 ```php
@@ -37,9 +41,27 @@ public function scopeWithLastLogin($query)
         ->whereColumn('user_id', 'users.id')
         ->latest()
         ->take(1)
-    ]);
+    ])->with('lastLogin');
 }
 
 ```
 
-However this time we're gonna automatically eager load our last login relationship
+update the query in the usersController
+
+```php
+public function index()
+{
+    $users = User::query()
+        ->withLastLogin()
+        ->orderBy('name')
+        ->paginate();
+}
+```
+
+and user's blade view, using last login relationship instead of last_login_at attribute
+
+```php
+{{ $user->lastLogin->create_at->diffForHumans }}
+
+{{ $user->lastLogin->ip_address }}
+```
