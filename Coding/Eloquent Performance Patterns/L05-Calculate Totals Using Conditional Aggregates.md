@@ -8,9 +8,9 @@ FeaturesController
 public function index()
 {
     $statuses = (object) [];
-    $statuses->requested = Feature::where('status','requested');
-    $statuses->planned = Feature::where('status','planned');
-    $statuses->completed = Feature::where('status','completed');
+    $statuses->requested = Feature::where('status','requested')->count();
+    $statuses->planned = Feature::where('status','planned')->count();
+    $statuses->completed = Feature::where('status','completed')->count();
 
     $features = Feature::query()
         ->withCount('comment')
@@ -28,3 +28,13 @@ Debugbar:
 We're running 3 queries to get the 3 statuses
 
 Now it is not a big problem, but if we have  more than 10 statuses?
+
+```sql
+select #
+    count(case when status = 'Requested' then 1 end) as requested,
+    count(case when status = 'Planned' then 1 end) as planned,
+    count(case when status = 'Completed' then 1 end) as completed, 
+from features
+
+
+```
