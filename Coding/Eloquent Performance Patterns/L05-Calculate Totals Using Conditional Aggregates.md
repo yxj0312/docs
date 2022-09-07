@@ -35,8 +35,6 @@ select #
     count(case when status = 'Planned' then 1 end) as planned,
     count(case when status = 'Completed' then 1 end) as completed, 
 from features
-
-
 ```
 
 ```php
@@ -59,4 +57,26 @@ public function index()
 }
 ```
 
-now only 1 query to get statuts total
+now only 1 query to get statuts total.
+
+postgres using filter clauses
+
+```php
+public function index()
+{
+    $statuses = Feature::toBase()
+        ->selectRaw("count(*) filter (where status = 'Requested') as requested")
+        ->selectRaw("count(*) filter (where status = 'Planned') as planned")
+        ->selectRaw("count(*) filter  (where status = 'Completed') as completed")
+        ->first();
+
+    $features = Feature::query()
+        ->withCount('comment')
+        ->paginate();
+
+    return View::make('features', [
+        'statuses' => $statuses,
+        ...
+    ]);
+}
+```
