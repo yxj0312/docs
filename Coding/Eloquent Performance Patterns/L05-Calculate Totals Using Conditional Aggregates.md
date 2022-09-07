@@ -38,3 +38,25 @@ from features
 
 
 ```
+
+```php
+public function index()
+{
+    $statuses = Feature::toBase()
+        ->selectRaw("count(case when status = 'Requested' then 1 end) as requested")
+        ->selectRaw("count(case when status = 'Planned' then 1 end) as planned")
+        ->selectRaw("count(case when status = 'Completed' then 1 end) as completed")
+        ->first();
+
+    $features = Feature::query()
+        ->withCount('comment')
+        ->paginate();
+
+    return View::make('features', [
+        'statuses' => $statuses,
+        ...
+    ]);
+}
+```
+
+now only 1 query to get statuts total
