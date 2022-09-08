@@ -21,3 +21,9 @@ public function isAuthor()
     return $this->feature->comment->first()->user_id === $this->user_id;
 }
 ```
+
+Debuggbar:
+Before: 3 queries and 61 models
+
+After: We up to 85 database queries (n+1 issue)
+and 1783 models (1782 comments within)
