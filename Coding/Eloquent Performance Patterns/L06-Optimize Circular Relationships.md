@@ -38,3 +38,18 @@ public function show(Feature $feature)
     return view('feature', ['feature' => $feature])
 }
 ```
+
+we need the feature for every comment and we need the comments for that feature, let's add that:
+
+```php
+public function show(Feature $feature)
+{
+    $feature->load('comments.user', 'comments.feature.comments');
+
+    return view('feature', ['feature' => $feature])
+}
+```
+
+Debuggbar:
+
+we back down to 5 queries, but still 103 models (82 comment models)
