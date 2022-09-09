@@ -53,3 +53,24 @@ public function show(Feature $feature)
 Debuggbar:
 
 we back down to 5 queries, but still 103 models (82 comment models)
+
+look at query: we load feature and comment and then we load them once again.
+
+Another approach:
+
+```php
+public function show(Feature $feature)
+{
+    $feature->load('comments.user');
+
+    // iterate through each comment
+    // manually set the relationship
+    $feature->comments->each->setRelation('feature', $feature)
+
+    return view('feature', ['feature' => $feature])
+}
+```
+
+Debuggbar:
+
+back down to 3 queries and 61 models
