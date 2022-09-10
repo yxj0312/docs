@@ -65,6 +65,7 @@ public function show(Feature $feature)
 
     // iterate through each comment
     // manually set the relationship
+    // pass the $feature that we've already had in the memory
     $feature->comments->each->setRelation('feature', $feature)
 
     return view('feature', ['feature' => $feature])
@@ -74,3 +75,7 @@ public function show(Feature $feature)
 Debuggbar:
 
 back down to 3 queries and 61 models
+
+The reason it works: set relation eloquent method.
+
+Eloquent users this method anytime. It loads a relationship and that has to assign it to a specific model. What would essentially done here is manually eager load the feature for all of these comments except we didn't actually have to load it from the database because we already have that feature in memory.
