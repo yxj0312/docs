@@ -79,3 +79,5 @@ back down to 3 queries and 61 models
 The reason it works: set relation eloquent method.
 
 Eloquent users this method anytime. It loads a relationship and that has to assign it to a specific model. What would essentially done here is manually eager load the feature for all of these comments except we didn't actually have to load it from the database because we already have that feature in memory.
+
+So next time you run into a situation like this where you have a circular relationship definitely keep the set relation method in mind.
