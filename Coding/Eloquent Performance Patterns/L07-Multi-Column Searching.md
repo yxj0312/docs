@@ -13,9 +13,12 @@ UsersController
 public function index()
 {
     $users = User::query()
+        ->search(request('search'))
         ->with('company')
         ->paginate();
     
     return view('users', ['users' => $users]);
 }
 ```
+
+let's add search scope in the user model
