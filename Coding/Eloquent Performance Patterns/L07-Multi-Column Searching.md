@@ -22,3 +22,23 @@ public function index()
 ```
 
 let's add search scope in the user model
+
+```php
+public function company()
+{
+    return $this->belongsTo(Company::class);
+}
+
+public function scopeSearch($query, String $terms = null)
+{
+    // wrap it in a collection, so we can do subsequent operations on it
+    // explode the search terms using a space as the delimiter
+    // we'll filter out any blank values
+    // and then we'll iterate through each term to add the necessary query logic
+    collect(explode('', $terms))->filter()->each(function($term) use($query){
+        $term = '%'.$term.'%';
+        $query->where('first_name', 'like', $term)
+        ->orwhere('last_name', 'like', $term)
+    });
+}
+```
