@@ -37,8 +37,19 @@ public function scopeSearch($query, String $terms = null)
     // and then we'll iterate through each term to add the necessary query logic
     collect(explode('', $terms))->filter()->each(function($term) use($query){
         $term = '%'.$term.'%';
-        $query->where('first_name', 'like', $term)
-        ->orwhere('last_name', 'like', $term)
+        // we want to check each keyword in isolation
+        // we need to wrap our orWhere conditions in a closure
+        $query->where(function ($query) use ($term) {
+            $query->where('first_name', 'like', $term)
+                ->orWhere('last_name', 'like', $term)
+                // company info doesn't exist in users' table
+                // orWhereHas accepts the relationship name as the 
+                //first argument and a closure as a second argument 
+                // which receives an instance of the query builder
+                ->orWhereHas('company', function($query) use ($term){
+                    query->where('name', 'like', $term)
+                });
+        });
     });
 }
 ```
