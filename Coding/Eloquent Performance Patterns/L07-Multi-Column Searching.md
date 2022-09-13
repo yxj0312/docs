@@ -53,3 +53,7 @@ public function scopeSearch($query, String $terms = null)
     });
 }
 ```
+
+Debuggbar:
+
+we have 3 queries and 2 models, and queries took 326ms to run.
