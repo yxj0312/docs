@@ -14,3 +14,7 @@ public function up()
     });
 }
 ```
+
+also add index() to firstname and lastname of user migration.
+
+Debugbar: run time changes to 329ms (slightly increased)
