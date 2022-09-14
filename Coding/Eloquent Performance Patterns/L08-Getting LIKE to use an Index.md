@@ -18,3 +18,10 @@ public function up()
 also add index() to firstname and lastname of user migration.
 
 Debugbar: run time changes to 329ms (slightly increased)
+
+we could use EXPLAIN on the query to look for the reason.
+
+let's pay attention to "possible_keys" and "key" columns:
+
+possible_keys represents indexes that potentially can be used in this query
+key represents indexes that are actually being used
