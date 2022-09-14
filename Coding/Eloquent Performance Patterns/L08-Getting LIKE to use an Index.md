@@ -25,3 +25,7 @@ let's pay attention to "possible_keys" and "key" columns:
 
 possible_keys represents indexes that potentially can be used in this query
 key represents indexes that are actually being used
+
+So, you can see our indexes for firstname, lastname and company name are not being used at all. The only index that's being used is the primary ID on the company's table.
+
+One of the reasons for this is because of the wild card prefix that have in our search terms. MySQL ist unable to use an index, if  search term starts with a wild card symbol. So let's start by removing that.
