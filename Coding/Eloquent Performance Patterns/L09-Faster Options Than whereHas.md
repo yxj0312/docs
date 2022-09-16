@@ -44,4 +44,4 @@ We're directly linking the users and the company's tables together. Both of thes
     }
 ```
 
-Run time: 113ms, our companies_name_index is being used
+Run time: 113ms, our companies_name_index is being used. firstname and lastname index are not being used.
