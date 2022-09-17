@@ -19,3 +19,7 @@ Isolation the query make the query to use all the indexes and much faster
         });
     }
 ```
+
+Debuggbar:
+
+3.93ms for run time
