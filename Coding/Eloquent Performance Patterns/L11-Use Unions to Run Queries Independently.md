@@ -61,3 +61,65 @@ where id in (
 ```
 
 Okay, let' rerun the explain: If we look at the "select_type" column, we can  see that we no longer have any dependencies. If we look at our indexes column, we can see that we're now using our first, last and company name indexes. and our run time back down to 1ms.
+
+And this approach works for more than one search term.
+
+```SQL
+select *
+from users
+where id in (
+    select id from (
+        select id
+        from users
+        where first_name like 'bill%' or last_name like 'bill%'
+
+        union
+
+        select users.id
+        from users
+        inner join companies on companies.id = users.company_id
+        where companies.name like 'bill%'
+    ) as matches
+)
+and id in (
+    select id from (
+        select id
+        from users
+        where first_name like 'microsoft%' or last_name like 'microsoft%'
+
+        union
+
+        select users.id
+        from users
+        inner join companies on companies.id = users.company_id
+        where companies.name like 'microsoft%'
+    ) as matches
+)
+```
+
+```php
+    public function scopeSearch($query, String $terms = null)
+    {
+        collect(str_getcsv($terms, ' ', '"'))->filter()->each(function($term) use($query){
+            $term = $term.'%';
+            $query->whereIn('id', function($query) use ($term){
+                $query->select('id')
+                    ->from(function ($query) use ($term){
+                        $query->select('id')
+                            ->from('users')
+                            ->where('first_name', 'like', $term)
+                            ->orWhere('last_name', 'like', $term)
+                            ->union(
+                                $query->newQuery()
+                                    ->select('users.id')
+                                    ->from('users')
+                                    ->join('companies', 'companies.id', '=', 'users.company_id')
+                                    ->where('companies.name', 'like', $term)
+                            );
+                    }, 'matches')
+            });
+        });
+    
+```
+
+Debuggbar, now 3.84ms
