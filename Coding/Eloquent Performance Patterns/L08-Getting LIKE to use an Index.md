@@ -7,6 +7,17 @@ company migration
 ```php
 public function up()
 {
+    Schema::create('users', function(Blueprint $table) {
+        $table->id();
+        ...
+        $table->string(first_name)->index();
+        $table->string(last_name)->index();
+        ...
+    });
+}
+
+public function up()
+{
     Schema::create('companies', function(Blueprint $table) {
         $table->id();
         $table->string('name')->index();
@@ -38,7 +49,7 @@ If we delete all subqueries, the indexes are used.
 
 So we have two issues:
 
-1. We need to remove the wild card prefix
+1. We need to remove the wild card prefix: MySQl is unable to use index if search item begins with wild card symbol (%)
 
    ```php
     public function company()
