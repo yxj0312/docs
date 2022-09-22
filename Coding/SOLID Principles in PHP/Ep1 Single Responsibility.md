@@ -18,10 +18,54 @@ class SalesReporter {
         return $this->format($sales);
     }
 
-    public function queryDBForSalesBetween($startDate, $endDate)
+    protected function queryDBForSalesBetween($startDate, $endDate)
     {
         return DB::tables('sales')->whereBetween('created_at', [$startDate, $endDate])->sum('charge') / 100;
     }
+
+    protected function format($sales)
+    {
+        return "<h1>Sales: $sales</h1>";
+    }
+}
+```
+
+What is Wrong here?
+
+1. Auth::check(), why here? in the SalesReporter. It's not the responsibility for SalesReporter to care about
+2. db query
+3. format
+
+```php
+use Repositories\SalesRepository;
+
+class SalesRepository {
+    public function between($startDate, $endDate)
+    {
+        return DB::tables('sales')->whereBetween('created_at', [$startDate, $endDate])->sum('charge') / 100;
+    }
+}
+
+class SalesReporter {
+
+    private $repo;
+
+    // idealy an interface, SalesRepositoryInterface
+    public function __construct(SalesRepository $repo)
+    {
+        $this->repo = $repo;
+    }
+
+    public function between($startDate, $endDate)
+    {
+        // get sales from db
+        $sales = $this->repo->betweens($startDate, $endDate);
+
+        // return results
+        return $this->format($sales);
+    }
+
+    
 
     protected function format($sales)
     {
