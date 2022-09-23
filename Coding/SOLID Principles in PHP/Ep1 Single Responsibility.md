@@ -37,6 +37,17 @@ What is Wrong here?
 3. format
 
 ```php
+interface SalesOutputInterface {
+    public function output();
+}
+
+class HtmlOutput implements SalesOutputInterface {
+    public function output()
+    {
+        return "<h1>Sales: $sales</h1>"
+    }
+}
+
 use Repositories\SalesRepository;
 
 class SalesRepository {
@@ -56,22 +67,21 @@ class SalesReporter {
         $this->repo = $repo;
     }
 
-    public function between($startDate, $endDate)
-    {
-        // get sales from db
+    public function between($startDate, $endDate, SalesOutputInterface $formatter)
+    {s
         $sales = $this->repo->betweens($startDate, $endDate);
 
-        // return results
-        return $this->format($sales);
-    }
-
-    
-
-    protected function format($sales)
-    {
-        return "<h1>Sales: $sales</h1>";
+        $formatter->output($sales);
     }
 }
 
+// web.php
+
+// IOC Container?
+$report = new SalesReporter(new SalesRepository);
+$begin = Carbon::now()->subDays(10);
+$end = Carbon::now();
+
+return $report->between($begin, $end, new HtmlOutput());
 
 ```
