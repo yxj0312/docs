@@ -22,6 +22,7 @@ class Profile {
 $user = new User;
 
 // NULL (doesn't blow up)
-echo $user->profile()?->employment();
+// echo $user->profile()?->employment();
+echo $user->profile()?->employment() ?? 'Not Provided';
 
 ```
