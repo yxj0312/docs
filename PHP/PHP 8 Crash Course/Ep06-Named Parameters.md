@@ -21,3 +21,14 @@ new Invoice(
     true
 );
 ```
+
+in php 8, you can do:
+
+```php
+new Invoice(
+    description: 'Customer installation',
+    total: 10000,
+    date: new DateTime(),
+    paid: true
+);
+```
