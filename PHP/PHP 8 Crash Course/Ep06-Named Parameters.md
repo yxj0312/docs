@@ -34,3 +34,47 @@ new Invoice(
 ```
 
 Problem: if u change the parameter name in the class, u have to keep it sync.
+
+btw u can do the construction like this
+
+```php
+class Invoice
+{
+    public function __construct(
+        private  $description;
+        private  $total;
+        private  $date;
+        private  $paid;
+    ) 
+    {
+    }
+}
+
+new Invoice(
+    'Customer installation',
+    10000,
+    new DateTime(),
+    true
+);
+```
+
+```php
+class Invoice
+{
+    public function __construct(
+        private  $description;
+        private  $total;
+        private  $date;
+        private  $paid;
+    ) 
+    {
+    }
+}
+
+new Invoice(
+    'Customer installation',
+    10000,
+    new DateTime(),
+    true
+);
+```
