@@ -32,3 +32,5 @@ new Invoice(
     paid: true
 );
 ```
+
+Problem: if u change the parameter name in the class, u have to keep it sync.
