@@ -25,4 +25,18 @@ preg_match('/_ch$/', $id);
 
 str_ends_with($id, '_ch');
 
+# str_contains
+
+$url = 'https://example.com?foo=bar';
+
+// check if we have a query string
+var_dump(parse_url($url)['query']);
+
+// or
+srtpos($url, '?') !== false;
+
+// php 8
+
+str_contains($url, '?');
+
 ```
