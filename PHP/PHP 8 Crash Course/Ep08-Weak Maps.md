@@ -10,5 +10,13 @@ $obj = new stdClass();
 
 // in the past, if u did want an object associated with a piece of data
 
-new SplObjectStorage
+$store = new SplObjectStorage();
+
+$store[$obj] = "foobar";
+
+
+// the key is our object
+var_dump($store);
+
+var_dump($store[$obj])
 ```
