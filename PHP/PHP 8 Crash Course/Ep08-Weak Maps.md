@@ -45,3 +45,21 @@ unset($obj);
 // removed from WeakMap
 var_dump($store[$obj])
 ```
+
+```php
+interface Event{}
+
+class Dispatcher {
+    protected WeakMap $dispatchCount;
+
+    public function __construct()
+    {
+        $this->dispatchCount = new WeakMap();
+    }
+
+    public function dispatch(Event $event)
+    {
+        
+    }
+}
+```
