@@ -49,6 +49,8 @@ var_dump($store[$obj])
 ```php
 interface Event{}
 
+class SomeEvent implements Event {}
+
 class Dispatcher {
     protected WeakMap $dispatchCount;
 
@@ -70,4 +72,15 @@ class Dispatcher {
 }
 
 
+$dispatcher = new Dispatcher();
+
+$event = new SomeEvent();
+$dispatcher->dispatch($event);
+$dispatcher->dispatch($event);
+
+$anotherEvent = new AnotherEvent();
+$dispatcher->dispatch($anotherEvent);
+
+// show the event name and dispatch times in the array
+var_dump($dispatcher)
 ```
