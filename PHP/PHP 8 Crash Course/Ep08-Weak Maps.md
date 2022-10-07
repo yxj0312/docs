@@ -59,7 +59,15 @@ class Dispatcher {
 
     public function dispatch(Event $event)
     {
-        
+        if(! isset($this->$this->dispatchCount[$event])) {
+            $this->dispatchCount[$event] = 0;
+        }
+
+        $this->dispatchCount[$event]++;
+
+        // dispatch the event
     }
 }
+
+
 ```
