@@ -6,7 +6,8 @@
 
 class User
 {
-    public function makeFriendsWith(User $user)
+    // before php 8, set ? for null situation
+    public function makeFriendsWith(?User $user)
     {
         var_dump('Yay friends');
     }
@@ -16,4 +17,5 @@ $joe = new User;
 $sam = new User;
 
 $joe->makeFriendsWith($sam);
+$joe->makeFriendsWith(null);
 ```
