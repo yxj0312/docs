@@ -19,3 +19,16 @@ $sam = new User;
 $joe->makeFriendsWith($sam);
 $joe->makeFriendsWith(null);
 ```
+
+```php
+class User
+{
+    // for php 8
+    // or public function makeFriendsWith(User|string $user)
+    public function makeFriendsWith(User|null $user)
+    {
+        var_dump('Yay friends');
+    }
+}
+
+```
