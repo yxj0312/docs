@@ -6,7 +6,11 @@
 
 class User
 {
-    // before php 8, set ? for null situation
+
+    /**
+     * @param User|string $user
+     */
+    // before php 8, set ? for null situation, or doc types
     public function makeFriendsWith(?User $user)
     {
         var_dump('Yay friends');
