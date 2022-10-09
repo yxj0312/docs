@@ -36,3 +36,20 @@ class User
 }
 
 ```
+
+```php
+class User
+{
+    
+    public function cancel(boll $immediate = false)
+    {
+        var_dump('Yay friends');
+    }
+}
+
+$joe = new User;
+$joe->cancel();
+$joe->cancel(true);
+$joe->cancel(false);
+
+```
