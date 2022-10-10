@@ -72,3 +72,29 @@ class User
     }
 }
 ```
+
+Sometimes cancel(false) is not so readable, so we do
+
+```php
+class User
+{
+    
+    public function cancel(boll|string $immediate = false)
+    {
+        var_dump('Yay friends');
+    }
+
+    public function cancelNow()
+    {
+        $this->cancel(true);
+    }
+
+    public function cancelOn()
+    {
+        $this->cancel('some time');
+    }
+}
+
+
+
+```
