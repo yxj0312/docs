@@ -50,6 +50,12 @@ class User
 $joe = new User;
 $joe->cancel();
 $joe->cancel(true);
-$joe->cancel(false);
 
+// will it be accepted?
+$joe->cancel('next week');
+
+// The answer is yes! Php prase that string into a boolean.
+
+// we can use declare type to avoid this.
+declare(strict_types=1);
 ```
