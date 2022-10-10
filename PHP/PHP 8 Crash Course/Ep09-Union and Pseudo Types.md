@@ -59,3 +59,16 @@ $joe->cancel('next week');
 // we can use declare type to avoid this.
 declare(strict_types=1);
 ```
+
+If we want this to work, we need a union type
+
+```php
+class User
+{
+    
+    public function cancel(boll|string $immediate = false)
+    {
+        var_dump('Yay friends');
+    }
+}
+```
