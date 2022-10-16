@@ -47,3 +47,31 @@
        es könnte sein: Ein Query, um diese Einträge im Webshop DB abzurufen oder ein fetch Request um solche Info einzulesen..
 
          - erzeugt PDF->auf Webshop Server wieder hochladen->über Webshop senden.
+
+2. Bonus Aufgabe:
+
+    Problem:
+    - weiße nicht, wie Webshop lauft
+    - weiße nicht, wie NAV die Rechnungen verwaltet
+
+  Meine Lösung:
+
+    Webshop:
+
+    - Mit Bestellungnr
+  
+      Für jeden Anonym Bestellung erstellt das Webshop ein unique Token/Hash-String für Bestellungnr.
+
+      Das Bestellungnr soll im Webshop gespeichert werden und die Kunden kann nach Einkauf auch sehen.
+
+      Es wäre besser, wenn einige Hinweise da auch zu schreiben, dass die Kunden das Bestellungsnr gut speichern soll, damit er kann nächste mal die Rechnunugen gut zu anforden.
+
+    - Ohne Bestellungsnr
+
+      - indexedDB oder Cookies zu verwenden: speichert die Bestellungsnr oder relvante Bestellungsinfo in den localStorage des Browers
+        - Benutzet die gespeicherte Info bei Rechungen Anforderung
+        - Problem: Datenschutz
+        - Muss gleiche Browser sein und LocalStorage noch nicht geleert werden
+
+      - Ein Suche-Form für Bestellung: Die Kunden sollen die gekaufte Waren, Datum, Anzahl sowie Zahlentypen(paypal, VISA) usw.anbieten.
+      - Eine Manuelle Prüfungen für Sicherheit: Mitarbeiter bekommt die Suche-Ergebnisse und pruüft ob die Rechnungen richtig zum Kunden gehört. Dann sende die Rechnungen wieder. 
