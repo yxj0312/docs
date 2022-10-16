@@ -56,22 +56,22 @@
 
   Meine Lösung:
 
-    Webshop:
+  Webshop:
 
-    - Mit Bestellungnr
-  
-      Für jeden Anonym Bestellung erstellt das Webshop ein unique Token/Hash-String für Bestellungnr.
+- Mit Bestellungnr
 
-      Das Bestellungnr soll im Webshop gespeichert werden und die Kunden kann nach Einkauf auch sehen.
+    Für jeden Anonym Bestellung erstellt das Webshop ein unique Token/Hash-String für Bestellungnr.
 
-      Es wäre besser, wenn einige Hinweise da auch zu schreiben, dass die Kunden das Bestellungsnr gut speichern soll, damit er kann nächste mal die Rechnunugen gut zu anforden.
+    Das Bestellungnr soll im Webshop gespeichert werden und die Kunden kann nach Einkauf auch sehen.
 
-    - Ohne Bestellungsnr
+    Es wäre besser, wenn einige Hinweise da auch zu schreiben, dass die Kunden das Bestellungsnr gut speichern soll, damit er kann nächste mal die Rechnunugen gut zu anforden.
 
-      - indexedDB oder Cookies zu verwenden: speichert die Bestellungsnr oder relvante Bestellungsinfo in den localStorage des Browers
-        - Benutzet die gespeicherte Info bei Rechungen Anforderung
-        - Problem: Datenschutz
-        - Muss gleiche Browser sein und LocalStorage noch nicht geleert werden
+- Ohne Bestellungsnr
 
-      - Ein Suche-Form für Bestellung: Die Kunden sollen die gekaufte Waren, Datum, Anzahl sowie Zahlentypen(paypal, VISA) usw.anbieten.
-      - Eine Manuelle Prüfungen für Sicherheit: Mitarbeiter bekommt die Suche-Ergebnisse und pruüft ob die Rechnungen richtig zum Kunden gehört. Dann sende die Rechnungen wieder. 
+  - indexedDB oder Cookies zu verwenden: speichert die Bestellungsnr oder relvante Bestellungsinfo in den localStorage des Browers
+    - Benutzet die gespeicherte Info bei Rechungen Anforderung
+    - Problem: Datenschutz
+    - Muss gleiche Browser sein und LocalStorage noch nicht geleert werden
+
+  - Ein Suche-Form für Bestellung: Die Kunden sollen die gekaufte Waren, Datum, Anzahl sowie Zahlentypen(paypal, VISA) usw.anbieten.
+  - Eine Manuelle Prüfungen für Sicherheit: Mitarbeiter bekommt die Suche-Ergebnisse und pruüft ob die Rechnungen richtig zum Kunden gehört. Dann sende die Rechnungen wieder.
