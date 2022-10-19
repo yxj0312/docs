@@ -21,3 +21,5 @@
 
     - Awesome shop pages
     - Convenient and secure pay types
+  
+  Technique: Vue 3, Laravel 9
