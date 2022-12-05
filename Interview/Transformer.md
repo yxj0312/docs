@@ -23,3 +23,8 @@
     - Convenient and secure pay types
   
   Technique: Vue 3, Laravel 9
+
+- Models
+  - users: name
+  - products: name, description, slug, price, sale
+  - tags: name
