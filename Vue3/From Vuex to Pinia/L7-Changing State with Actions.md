@@ -87,3 +87,96 @@ export const useEventStore = defineStore('EventStore', {
 Now, here’s the big aha moment of Pinia. You know what makes Pinia great? There are no more mutations!
 
 Because there are no more mutations, this means we can get rid of the commit function. And rather than committing, because the function gets access to the this keyword which contains the entire store, we can update our state directly just like we did with getters.
+
+```javaScript
+import { defineStore } from 'pinia'
+import EventService from '../services/EventService.js'
+
+export const useEventStore = defineStore('EventStore', {
+  // Code omitted for conciseness
+  state: () => ({
+    events: []
+  }),
+  actions: {
+    fetchEvents() {
+      return EventService.getEvents()
+        .then(response => {
+        // This one line takes care of the mutation
+        // with no additional configuration!
+          this.events = response.data
+        })
+        .catch(error => {
+          throw error
+        })
+    }
+  }
+})
+```
+
+So in our case, all we need to do it set this.events to equal response.data.
+
+Once we save, we won’t notice any changes in our app yet, but that’s because we haven’t changed it in the component yet, so let’s do that next.
+
+## Dispatching Actions with Pinia
+
+Inside of EventList.vue, we’ll see that in Vuex, any time you wanted to call an action, you had to invoke the dispatch function to do so. However, in Pinia, because every property is something that can be called directly on the store, we don’t need a special keyword. In other words, we can call our actions directly on the store.
+
+To illustrate this, let’s start by import our useEventStore function from EventStore.js. And then we’ll instantiate it inside of a setup lifecycle hook just like we did in App.vue.
+
+```javaScript
+import { useEventStore } from '../stores/EventStore'
+
+export default {
+  // Other code omitted for conciseness
+  setup() {
+    const eventStore = useEventStore()
+
+    return {
+      eventStore
+    }
+  }
+}
+```
+
+Once we do that, we can swap out the Vuex $store for our new Pinia store eventStore and then call fetchEvents directly rather than dispatching it.
+
+```javaScript
+import EventCard from '../components/EventCard.vue'
+import { useEventStore } from '../stores/EventStore'
+
+export default {
+  // Other code omitted for conciseness
+  setup() {
+    const eventStore = useEventStore()
+
+    return {
+      eventStore
+    }
+  },
+  created() {
+    this.eventStore.fetchEvents().catch(error => {
+      this.$router.push({
+        name: 'ErrorDisplay',
+        params: { error: error }
+      })
+    })
+  },
+}
+```
+
+And so if we save now, We’ll notice that when we refresh. There you go, everything is not working. Why is that? Well, the reason for this is because we’re actually referring to the events inside of Vuex still.
+
+So let’s go ahead and make that change as well by removing the computed property and referring to the state directly in the template just like you see below:
+
+```javaScript
+<template>
+  <h1>{{ eventStore.numberOfEvents }} Events for Good</h1>
+  <div class="events">
+    <EventCard
+      v-for="event in eventStore.events"
+      :key="event.id"
+      :event="event"
+    />
+  </div>
+</template>
+```
