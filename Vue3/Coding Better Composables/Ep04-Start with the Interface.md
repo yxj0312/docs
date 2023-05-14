@@ -81,3 +81,5 @@ const {
 ```
 
 At this point, we have a pretty good understanding of how we’ll want to use the useMouse composable. But, of course, requirements change over time, so this isn’t set in stone. But you can see how much our interface has changed by prototyping a bit. If we had just gone with our first guess, we might have written a composable that would need to be refactored soon.
+
+test
