@@ -23,3 +23,12 @@ The header is contains the type of token (in our case: JWT) and the hashing algo
 The payload contains the information we are transmitting (usually info about the user) along with some optional “claims” such as who issued the token, its expiration date, and if the user is an admin, etc.
 
 The signature is a hash of the header + the payload + the secret. The secret lives on the server and is used to decrypt the token as well as to sign new tokens.
+
+## How we’ll use JWT
+
+In this course, we’ll use JWT to build out a front-end authentication solution into a simple Vue app. This means we’ll be creating an interface for users to create an account that they can log in and out of. Both actions of signing up and logging in will provide the user with a token.
+
+When logged in, the user will be able to access a protected route, which is our dashboard. When the dashboard loads, it requests some private data from the server by making an API call that includes a copy of our JWT token.
+
+Upon logging out, we’ll make sure the token is cleared from local storage. Additionally, we’ll learn how to handle authentication errors.
+
