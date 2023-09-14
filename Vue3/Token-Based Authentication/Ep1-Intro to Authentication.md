@@ -1,6 +1,6 @@
 # Intro to Authentication
 
-## Intro to Authentication
+## Intro to Authentication and JWT
 
 [JSON Web Tokens](https://jwt.io/) are an open, industry standard RFC 7519 method for representing claims securely between two parties.
 
@@ -31,4 +31,3 @@ In this course, we’ll use JWT to build out a front-end authentication solution
 When logged in, the user will be able to access a protected route, which is our dashboard. When the dashboard loads, it requests some private data from the server by making an API call that includes a copy of our JWT token.
 
 Upon logging out, we’ll make sure the token is cleared from local storage. Additionally, we’ll learn how to handle authentication errors.
-
