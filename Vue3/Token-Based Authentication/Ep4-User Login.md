@@ -54,3 +54,52 @@ This means that when our login Action commits the SET_USER_DATA Mutation, we’r
 Since we’ll then have a JWT token in the axios header, we should be successfully accessing our private event data when we’re redirected to the dashboard route (which calls out for those private events).
 
 We’re almost ready to try this out in the browser, but first we need to add LoginUser into our router.js so we can access it.
+
+## Adding LoginUser as a route
+
+src/router.js
+
+```javaScript
+ import LoginUser from './views/LoginUser.vue'
+    ...
+      routes: [
+        ...
+        {
+          path: '/login',
+          name: 'login',
+          component: LoginUser
+        }
+      ]
+```
+
+## Adding Router Links
+
+src/views/LoginUser.vue
+
+```javaScript
+<form>
+    ...
+      <button type="submit" name="button">
+        Login
+      </button>
+    
+      <router-link to="/register">
+        Don't have an account? Register.
+      </router-link>
+    </form>
+```
+
+src/views/RegisterUser.vue
+
+```javaScript
+ <form>
+    ...
+      <button type="submit" name="button">
+        Login
+      </button>
+    
+      <router-link to="/login">
+        Already have an account? Login.
+      </router-link>
+    </form>
+```
