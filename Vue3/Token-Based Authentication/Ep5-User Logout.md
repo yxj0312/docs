@@ -111,5 +111,18 @@ src/router.js
                 next()
     })
 ```
+
 Great. Now every time we navigate to a new route ( beforeEach ), we are checking if that route requires authentication and if we have a user logged in. If it does require authentication and we don’t have a user, we’ll redirect to our home route. Otherwise, we can fulfill that route request. We’re almost done, there’s just one little feature we need to add.
+
 ## Hiding the Dashboard Link
+
+If we check this out in the browser, we can see when we hit the Logout button, not only are we logged out, but since we no longer have the permission to access the guarded Dashboard route, we are redirected to the home page. But we can still see the Dashboard link in the navbar. Even though that link won’t take us to the guarded route when we click on it, that’s even more of a reason to hide it when a user is logged out. So let’s head into our AppNav component and make sure it won’t show up when it shouldn’t.
+
+src/components/AppNav.vue
+
+```js
+ <router-link v-if="loggedIn" to="/dashboard">
+      Dashboard
+    </router-link>
+```
+By simply adding v-if="loggedIn", we will show this button only when a user is logged in. This is similar to the previous lesson, where we hid the Login button whenever a user was not logged in.
