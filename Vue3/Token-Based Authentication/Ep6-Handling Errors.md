@@ -60,10 +60,125 @@ app.post('/register', (req, res) => {
     ...
     })
 ```
+
 Now that we understand how our dummy server is behaving, and what triggers those status codes to be sent back, we can start adding to our Vue app to receive and display them.
 
 ## Handling the Login Error
 
+Inside of our LoginUser component, in our login method, we can add the ability to catch the error the server sends back to us.
+
+src/views/LoginUser.vue
+  
+  ```js
+  login () {
+      this.$store
+        .dispatch('login', {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push({ name: 'dashboard' })
+        })
+        .catch(err => {
+          // now what?
+        })
+    }
+  ```
+
+  Once an error is caught, we can add it to a new error property on our component’s data, like so:
+
+  src/views/LoginUser.vue
+
+  ```js
+   <script>
+    export default {
+      data () {
+        return {
+       ...
+          error: null
+        }
+      },
+      methods: {
+        login () {
+          ...
+            .catch(err => {
+              this.error = err.response.data.error
+            })
+        }
+      }
+    }
+    </script>
+  ```
+  
+  Now that we are locally storing that error status code, we can display that message in our template.
+
+Below our button, we’ll add:
+
+src/views/LoginUser.vue
+
+```html
+<template>
+    ...
+     <p>{{ error }}</p>
+    ...
+    </template>
+```
+
+If our user attempts to login with invalid credentials, they’ll now be met with an error message.
+
+Great. Now we can head into our RegisterUser component and repeat this process.
+
 ## Handling the Register Errors
 
+Inside of our RegisterUser component, we will catch the error the same way we just did, but now in the register method. We’ll also be adding that response error to a new errors property on our component’s data.
+
+src/views/RegisterUser.vue
+  
+  ```js
+  <script>
+    export default {
+      data () {
+        return {
+          ...
+          errors: null
+        }
+      },
+      methods: {
+        register () {
+          ...
+            .catch(err => {
+              this.errors = err.response.data.errors
+            })
+        }
+      }
+    }
+    </script>
+  ```
+
+  Now we can add to our template to display the error messages we’ve collected. We’ll do that by iterating over them with a v-for.
+
+src/views/RegisterUser.vue
+
+```html
+ <template>
+    ...
+    <ul>
+      <li v-for="(error, index) in errors" :key="index">
+        {{ error }}
+      </li>
+    </ul>
+    ...
+    </template>
+```
+
+Great, now when a user logs in with an already-registered email or too short of a password, they’ll be notified.
+
 ## Side Notes
+
+1.In addition to whatever validation you are doing on the server-side, you’ll also want to add validation to these forms on the front end. We teach you how to do that in our Next Level Vue course.
+
+2.You’ll want to handle when the server API is down. We also teach this in Next Level Vue course.
+
+3.Depending on the level of security your app requires, the message here will vary. For example, if you don’t want a hacker knowing the email they just input exists in your database, you probably shouldn’t tell them: “The email already exists.” You and your team can decide on the best message to display for your needs.
+
+4.You may be wondering at this point why we’re only handling these errors at the component level and not using Vuex. These errors are presently not of concern to our entire app, so we don’t need to share them with any other components. We’re better off simply keeping this functionality of catching, storing and displaying the errors within the components that care about them.
