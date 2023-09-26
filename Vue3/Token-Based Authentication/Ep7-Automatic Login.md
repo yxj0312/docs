@@ -36,3 +36,32 @@ As you can see in the created hook, we’re checking to see if user data exists 
 Great. Now our user won’t have to log in every time the browser is refreshed. They could even close their entire browser, go to bed, and navigate to our app the next day and find themselves “still” logged in. I say “still” because technically they were logged out, but we forced that re-login process when they pulled up the app.
 
 ## Adding a Security Measure
+
+While we’re here in the main.js file, we can take some time to add a security measure to our app. Currently, it’s possible for an ill-intentioned person to save a fake token to local storage. While this might allow them to navigate to certain parts of our app, if they navigate somewhere that makes an API call for private resources, we can intercept that request and log them out.
+
+Let’s take a look at the code for that:
+
+src/main.js
+
+```js
+ new Vue({
+      router,
+      store,
+      created () {
+     ...
+     axios.interceptors.response.use(
+            response => response, // simply return the response 
+      error => {
+          if (error.response.status === 401) { // if we catch a 401 error
+           this.$store.dispatch('logout') // force a log out 
+      }
+      return Promise.reject(error) // reject the Promise, with the error as the reason
+         }
+     )
+      },
+      render: h => h(App)
+    }).$mount('#app')
+```
+If we step through this, we see we’re intercepting the response from axios, and returning it as-is when it’s correct. However, when there is an error , we’re checking to see if it’s a 401 status code ( which means the user is unauthorized to view the content they’re attempting to load), and if so we use Vue Router to redirect to the homepage, and use Vuex to force a logout. We’ll then return a rejection of the Promise, and pass in the error as the reason for that rejection.
+
+Great. Now even if someone attempts to hack our app with a fake token, they will be logged out as soon as they try to access private resources.
