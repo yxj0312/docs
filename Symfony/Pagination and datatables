@@ -1,0 +1,220 @@
+When dealing with a large dataset like 100k or more rows, obtaining the total number of records for pagination can be resource-intensive. It's generally not recommended to fetch the total count of all records every time you request a paginated subset, as this can lead to performance issues.
+
+Instead, a common approach is to provide an estimate of the total count or use other techniques for displaying pagination information to the user without fetching the exact count for every request. DataTables provides the `recordsTotal` and `recordsFiltered` properties in the JSON response, which you can leverage for this purpose.
+
+Here's an updated example with comments for clarification:
+
+### Backend (Symfony Controller/Service):
+
+```php
+// ProductController.php
+
+use App\Entity\Product;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+class ProductController extends AbstractController
+{
+    public function dataTableAction(Request $request): JsonResponse
+    {
+        // Retrieve DataTables parameters
+        $draw = $request->query->get('draw');
+        $start = $request->query->get('start');
+        $length = $request->query->get('length');
+        $searchValue = $request->query->get('search')['value'];
+
+        // Fetch paginated and filtered data
+        $data = $this->getDoctrine()->getRepository(Product::class)->getProductsDataTable(
+            $start,
+            $length,
+            $searchValue
+        );
+
+        // Use an estimate for the total number of records
+        $totalRecordsEstimate = 100000; // Replace with your estimate or logic
+
+        // Get the count of filtered records
+        $filteredRecords = count($data);
+
+        // Return DataTables JSON response with estimated total records
+        return new JsonResponse([
+            'draw' => $draw,
+            'recordsTotal' => $totalRecordsEstimate, // Use an estimate
+            'recordsFiltered' => $filteredRecords,
+            'data' => $data,
+        ]);
+    }
+}
+```
+
+In this example, `$totalRecordsEstimate` is a placeholder for your estimate of the total number of records. You can use a precomputed estimate or a statistical technique to provide a reasonable approximation without fetching all records from the database.
+
+Remember that DataTables' main purpose is to provide a smooth and responsive user interface, and users typically expect this even for large datasets. Displaying an estimated total count can be an acceptable trade-off in performance for better user experience.
+
+
+When dealing with large datasets in Symfony and aiming to provide a precomputed estimate or a statistical technique for the total count, consider the following best practices:
+
+### 1. Use Cached Count:
+
+- **Precompute and Cache:** Precompute the total count periodically, and cache the result. Symfony provides caching mechanisms (e.g., Symfony Cache component or annotations like `@Cache`) to store and retrieve data efficiently.
+
+- **Cache Expiry:** Set an appropriate expiration time for the cache to ensure that the count is periodically recalculated, considering the rate of data changes.
+
+### 2. Statistical Sampling:
+
+- **Sampling Technique:** Implement a statistical sampling technique to estimate the total count without fetching all records. For instance, you could sample a small subset of the data and extrapolate the total count based on this sample.
+
+- **Random Sampling:** Randomly select a representative sample from the dataset. This method can provide a reasonable estimate with less computational cost.
+
+### 3. Asynchronous Updates:
+
+- **Background Jobs:** Implement asynchronous background jobs to periodically update the total count. This way, the user experience is not impacted by the count calculation, and the estimation is more up-to-date.
+
+- **Queue System:** Utilize a queue system (e.g., RabbitMQ, Redis Queue) to handle these background jobs efficiently.
+
+### Example Implementation:
+
+```php
+// ProductRepository.php
+
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+
+class ProductRepository extends ServiceEntityRepository
+{
+    public function getTotalRecordsEstimate(): int
+    {
+        // Check if the estimate is cached
+        $cachedEstimate = $this->cache->get('total_records_estimate');
+
+        if ($cachedEstimate !== null) {
+            return $cachedEstimate;
+        }
+
+        // If not cached, perform statistical sampling or other estimation technique
+        $estimate = $this->performSamplingEstimation();
+
+        // Cache the estimate with an appropriate expiration time
+        $this->cache->set('total_records_estimate', $estimate, 3600); // Cache for 1 hour
+
+        return $estimate;
+    }
+
+    private function performSamplingEstimation(): int
+    {
+        // Implement your statistical sampling logic here
+        // Return an estimated total count based on the sample
+    }
+}
+```
+
+### Considerations:
+
+- **Trade-off:** Balance accuracy with performance. Choose a method that provides a good enough estimate without imposing a heavy computational burden.
+
+- **Update Frequency:** Consider how often the total count needs to be updated based on your application's requirements.
+
+- **Monitoring:** Implement monitoring to track the accuracy of your estimation method over time and adjust it if needed.
+
+By combining caching, statistical techniques, and asynchronous updates, you can achieve a balance between providing a responsive user interface and estimating the total count of large datasets efficiently in Symfony. Adjust the implementation based on your specific application requirements and performance considerations.
+
+
+Certainly! Let's walk through explicit examples for implementing a cached count and a statistical sampling technique for estimating the total count of products in Symfony.
+
+### Example 1: Cached Count
+
+```php
+// ProductRepository.php
+
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Contracts\Cache\CacheInterface;
+
+class ProductRepository extends ServiceEntityRepository
+{
+    private $cache;
+
+    public function __construct(ManagerRegistry $registry, CacheInterface $cache)
+    {
+        parent::__construct($registry, Product::class);
+        $this->cache = $cache;
+    }
+
+    public function getTotalRecords(): int
+    {
+        // Check if the total count is cached
+        $cachedCount = $this->cache->get('total_product_count');
+
+        if ($cachedCount !== null) {
+            return $cachedCount;
+        }
+
+        // If not cached, fetch the total count from the database
+        $totalCount = $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        // Cache the total count with an expiration time (e.g., 1 hour)
+        $this->cache->set('total_product_count', $totalCount, 3600);
+
+        return $totalCount;
+    }
+}
+```
+
+In this example, the `getTotalRecords` method first checks if the total count is cached. If cached, it returns the cached value. If not, it fetches the total count from the database, caches it, and then returns the result.
+
+### Example 2: Statistical Sampling
+
+```php
+// ProductRepository.php
+
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Contracts\Cache\CacheInterface;
+
+class ProductRepository extends ServiceEntityRepository
+{
+    private $cache;
+
+    public function __construct(ManagerRegistry $registry, CacheInterface $cache)
+    {
+        parent::__construct($registry, Product::class);
+        $this->cache = $cache;
+    }
+
+    public function getTotalRecordsEstimate(): int
+    {
+        // Check if the estimate is cached
+        $cachedEstimate = $this->cache->get('total_records_estimate');
+
+        if ($cachedEstimate !== null) {
+            return $cachedEstimate;
+        }
+
+        // If not cached, perform statistical sampling estimation
+        $estimate = $this->performSamplingEstimation();
+
+        // Cache the estimate with an expiration time (e.g., 1 hour)
+        $this->cache->set('total_records_estimate', $estimate, 3600);
+
+        return $estimate;
+    }
+
+    private function performSamplingEstimation(): int
+    {
+        // Implement statistical sampling logic
+        // For simplicity, let's assume 10% of the total count as the estimate
+        $totalCount = $this->getTotalRecords();
+        $estimate = (int)($totalCount * 0.1); // 10% of the total count
+
+        return $estimate;
+    }
+}
+```
+
+In this example, the `getTotalRecordsEstimate` method checks if the estimate is cached. If cached, it returns the cached value. If not, it invokes the `performSamplingEstimation` method, which implements a simple statistical sampling logic (in this case, assuming 10% of the total count). The estimate is then cached and returned.
+
+Remember, these are simplified examples, and you may need to adapt the caching and estimation logic based on the characteristics of your dataset and the specific requirements of your application.
