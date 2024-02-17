@@ -1,4 +1,4 @@
-When dealing with a large dataset like 100k or more rows, obtaining the total number of records for pagination can be resource-intensive. It's generally not recommended to fetch the total count of all records every time you request a paginated subset, as this can lead to performance issues.
+I'llWhen dealing with a large dataset like 100k or more rows, obtaining the total number of records for pagination can be resource-intensive. It's generally not recommended to fetch the total count of all records every time you request a paginated subset, as this can lead to performance issues.
 
 Instead, a common approach is to provide an estimate of the total count or use other techniques for displaying pagination information to the user without fetching the exact count for every request. DataTables provides the `recordsTotal` and `recordsFiltered` properties in the JSON response, which you can leverage for this purpose.
 
@@ -218,3 +218,76 @@ class ProductRepository extends ServiceEntityRepository
 In this example, the `getTotalRecordsEstimate` method checks if the estimate is cached. If cached, it returns the cached value. If not, it invokes the `performSamplingEstimation` method, which implements a simple statistical sampling logic (in this case, assuming 10% of the total count). The estimate is then cached and returned.
 
 Remember, these are simplified examples, and you may need to adapt the caching and estimation logic based on the characteristics of your dataset and the specific requirements of your application.
+
+
+This is a `Paginator` class in PHP, likely intended for use in Symfony applications with Doctrine ORM. The purpose of this class is to simplify pagination of database queries, providing methods to handle pagination-related tasks like retrieving a specific page of results, determining the number of pages, and more.
+
+Here's a breakdown of the `Paginator` class:
+
+1. **Constants:**
+   - The class defines a constant `PAGE_SIZE` with a default value of 10, which represents the number of results per page. It's a common practice to use constants for configuration options.
+
+2. **Constructor:**
+   - The constructor takes a `DoctrineQueryBuilder` and an optional page size. It initializes properties and allows you to set a custom page size.
+
+3. **Paginate Method:**
+   - The `paginate` method is responsible for executing the query with pagination settings. It takes a page number as an argument, sets the first result and max results for the query, and then retrieves the paginated results using Doctrine Paginator.
+
+4. **Pagination Methods:**
+   - Methods like `getCurrentPage`, `getLastPage`, `getPageSize`, `hasPreviousPage`, `getPreviousPage`, `hasNextPage`, and `getNextPage` provide information about the current pagination state.
+
+5. **Utility Methods:**
+   - `hasToPaginate` checks if there are more results than the page size, and `getNumResults` returns the total number of results.
+
+6. **Results Methods:**
+   - `getResults` returns a traversable iterator containing the paginated results.
+
+### How to Use:
+
+Assuming you have a Doctrine query builder, you can use this `Paginator` as follows in a Symfony controller or service:
+
+```php
+use App\Pagination\Paginator;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+
+class MyController extends AbstractController
+{
+    public function index(): Response
+    {
+        $queryBuilder = $this->getDoctrine()->getRepository(MyEntity::class)->createQueryBuilder('e');
+        
+        // Create the Paginator instance
+        $paginator = new Paginator($queryBuilder);
+
+        // Paginate for the first page (default page size)
+        $paginator->paginate();
+
+        // Access pagination information
+        $currentPage = $paginator->getCurrentPage();
+        $lastPage = $paginator->getLastPage();
+        $pageSize = $paginator->getPageSize();
+        $hasNextPage = $paginator->hasNextPage();
+        $nextPage = $paginator->getNextPage();
+        $numResults = $paginator->getNumResults();
+
+        // Access paginated results
+        $results = $paginator->getResults();
+
+        // Your logic to render and return a response
+        return $this->render('your_template.html.twig', [
+            'results' => $results,
+            'pagination' => [
+                'currentPage' => $currentPage,
+                'lastPage' => $lastPage,
+                'pageSize' => $pageSize,
+                'hasNextPage' => $hasNextPage,
+                'nextPage' => $nextPage,
+                'numResults' => $numResults,
+            ],
+        ]);
+    }
+}
+```
+
+This example demonstrates how to create an instance of the `Paginator`, paginate the results, and access pagination-related information in a Symfony controller. Adjust the code based on your specific entities and use case.
