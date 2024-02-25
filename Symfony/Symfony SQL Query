@@ -1,0 +1,94 @@
+Symfony uses an Object-Relational Mapping (ORM) system, and Doctrine is the most commonly used ORM with Symfony. Doctrine allows you to interact with your database using high-level object-oriented entities and Query Language (DQL), which is similar to SQL but operates on your entities rather than raw database tables. Here are some examples of how Symfony, with Doctrine, performs SQL queries:
+
+### 1. Retrieving Entities:
+
+To retrieve entities from the database, you can use the Doctrine EntityManager and DQL:
+
+```php
+// Example: Retrieve all products from the database
+$entityManager = $this->getDoctrine()->getManager();
+$query = $entityManager->createQuery('SELECT p FROM App\Entity\Product p');
+$products = $query->getResult();
+```
+
+### 2. Query Builder:
+
+Doctrine provides a query builder that allows you to construct queries using a more fluent syntax:
+
+```php
+// Example: Using Query Builder to retrieve products with a certain price
+$entityManager = $this->getDoctrine()->getManager();
+$query = $entityManager->createQueryBuilder()
+    ->select('p')
+    ->from('App\Entity\Product', 'p')
+    ->where('p.price > :price')
+    ->setParameter('price', 100)
+    ->getQuery();
+
+$products = $query->getResult();
+```
+
+### 3. Native SQL Queries:
+
+You can also execute native SQL queries using Doctrine:
+
+```php
+// Example: Execute a native SQL query to retrieve products
+$entityManager = $this->getDoctrine()->getManager();
+$conn = $entityManager->getConnection();
+
+$sql = 'SELECT * FROM product';
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$products = $stmt->fetchAll();
+```
+
+### 4. Persisting Entities:
+
+To insert or update entities, use the Doctrine EntityManager:
+
+```php
+// Example: Persisting a new product to the database
+$entityManager = $this->getDoctrine()->getManager();
+
+$newProduct = new Product();
+$newProduct->setName('New Product');
+$newProduct->setPrice(50);
+
+$entityManager->persist($newProduct);
+$entityManager->flush();
+```
+
+### 5. DQL (Doctrine Query Language):
+
+DQL allows you to write queries using your entity classes and properties:
+
+```php
+// Example: Using DQL to retrieve products with a certain price
+$entityManager = $this->getDoctrine()->getManager();
+$query = $entityManager->createQuery('SELECT p FROM App\Entity\Product p WHERE p.price > :price');
+$query->setParameter('price', 100);
+
+$products = $query->getResult();
+```
+
+### 6. Repository:
+
+You can also define custom repository methods in your entity repository class:
+
+```php
+// Example: Custom repository method to find products by category
+class ProductRepository extends EntityRepository
+{
+    public function findByCategory($category)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.category = :category')
+            ->setParameter('category', $category)
+            ->getQuery()
+            ->getResult();
+    }
+}
+```
+
+These are just basic examples, and Doctrine provides many more features for handling complex scenarios, relationships, and transactions. It's important to refer to the Doctrine documentation for a comprehensive understanding of how to use Doctrine effectively with Symfony: [Doctrine Documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/2.11/index.html)
