@@ -191,3 +191,106 @@ Explanation:
 - `addFlash` adds a flash message to be displayed on the next request.
 - `redirectToRoute` redirects to a specified route.
 - `render` renders a Twig template with the specified variables.
+
+Certainly! Let's go through the provided Symfony event subscriber line by line:
+
+```php
+<?php
+
+namespace App\EventSubscriber;
+
+use Doctrine\DBAL\Exception\DriverException;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\Event\ConsoleErrorEvent;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
+
+final class CheckRequirementsSubscriber implements EventSubscriberInterface
+{
+    // Constructor injecting the EntityManagerInterface
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager
+    ) {
+    }
+
+    // Event Subscribers must define this method to declare the events they
+    // listen to. You can listen to several events, execute more than one method
+    // for each event and set the priority of each event too.
+    // See https://symfony.com/doc/current/event_dispatcher.html#creating-an-event-subscriber
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            // Errors are one of the events defined by the Console. See the
+            // rest here: https://symfony.com/doc/current/components/console/events.html
+            ConsoleEvents::ERROR => 'handleConsoleError',
+            // See: https://symfony.com/doc/current/components/http_kernel.html#component-http-kernel-event-table
+            KernelEvents::EXCEPTION => 'handleKernelException',
+        ];
+    }
+
+    /**
+     * This method checks if there has been an error in a command related to
+     * the database and then, it checks if the 'sqlite3' PHP extension is enabled
+     * or not to display a better error message.
+     */
+    public function handleConsoleError(ConsoleErrorEvent $event): void
+    {
+        $commandNames = ['doctrine:fixtures:load', 'doctrine:database:create', 'doctrine:schema:create', 'doctrine:database:drop'];
+
+        if ($event->getCommand() && \in_array($event->getCommand()->getName(), $commandNames, true)) {
+            if ($this->isSQLitePlatform() && !\extension_loaded('sqlite3')) {
+                // Create SymfonyStyle for console output
+                $io = new SymfonyStyle($event->getInput(), $event->getOutput());
+                // Display an error message if the 'sqlite3' extension is not loaded
+                $io->error('This command requires the "sqlite3" PHP extension enabled because, by default, the Symfony Demo application uses SQLite to store its information.');
+            }
+        }
+    }
+
+    /**
+     * This method checks if the triggered exception is related to the database
+     * and then, it checks if the required 'sqlite3' PHP extension is enabled.
+     */
+    public function handleKernelException(ExceptionEvent $event): void
+    {
+        $exception = $event->getThrowable();
+        // Since any exception thrown during a Twig template rendering is wrapped
+        // in a Twig_Error_Runtime, we must get the original exception.
+        $previousException = $exception->getPrevious();
+
+        // Driver exception may happen in controller or in twig template rendering
+        $isDriverException = ($exception instanceof DriverException || $previousException instanceof DriverException);
+
+        // Check if SQLite is enabled
+        if ($isDriverException && $this->isSQLitePlatform() && !\extension_loaded('sqlite3')) {
+            // Modify the exception if SQLite is used without the 'sqlite3' extension
+            $event->setThrowable(new \Exception('PHP extension "sqlite3" must be enabled because, by default, the Symfony Demo application uses SQLite to store its information.'));
+        }
+    }
+
+    /**
+     * Checks if the application is using SQLite as its database.
+     */
+    private function isSQLitePlatform(): bool
+    {
+        $databasePlatform = $this->entityManager->getConnection()->getDatabasePlatform();
+
+        return $databasePlatform instanceof SQLitePlatform;
+    }
+}
+```
+
+Explanation:
+
+- `CheckRequirementsSubscriber` is a Symfony event subscriber responsible for checking requirements related to the SQLite database.
+- `getSubscribedEvents` defines which events this subscriber listens to (`ConsoleEvents::ERROR` and `KernelEvents::EXCEPTION`).
+- `handleConsoleError` is triggered when a console error occurs, and it checks if the command is related to the database and if the 'sqlite3' extension is enabled.
+- `handleKernelException` is triggered when a kernel exception occurs, and it checks if the exception is related to the database and if the 'sqlite3' extension is enabled.
+- `isSQLitePlatform` checks if the application is using SQLite as its database.
+- The constructor injects the `EntityManagerInterface` into the subscriber.
+- SymfonyStyle is used to output messages in a console-friendly way.
+- The subscriber handles errors and exceptions, providing meaningful error messages in case of missing 'sqlite3' extension.
