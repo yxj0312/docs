@@ -1,4 +1,4 @@
-loo looCertainly! Let's go through the code line by line:
+I'llloo looCertainly! Let's go through the code line by line:
 
 ```php
 namespace App\Controller\Admin;
@@ -294,3 +294,138 @@ Explanation:
 - The constructor injects the `EntityManagerInterface` into the subscriber.
 - SymfonyStyle is used to output messages in a console-friendly way.
 - The subscriber handles errors and exceptions, providing meaningful error messages in case of missing 'sqlite3' extension.
+
+Sure, let's break down the `PostRepository` class line by line:
+
+```php
+namespace App\Repository;
+
+use App\Entity\Post;
+use App\Entity\Tag;
+use App\Pagination\Paginator;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use function Symfony\Component\String\u;
+
+/**
+ * This custom Doctrine repository contains some methods which are useful when
+ * querying for blog post information.
+ *
+ * See https://symfony.com/doc/current/doctrine.html#querying-for-objects-the-repository
+ *
+ * @author Ryan Weaver <weaverryan@gmail.com>
+ * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Yonel Ceruto <yonelceruto@gmail.com>
+ *
+ * @method Post|null findOneByTitle(string $postTitle)
+ *
+ * @template-extends ServiceEntityRepository<Post>
+ */
+class PostRepository extends ServiceEntityRepository
+{
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Post::class);
+    }
+```
+
+1. **Namespace and Use Statements:**
+   - Namespaces help organize code, and `use` statements import external classes.
+   - Notable uses:
+     - `ServiceEntityRepository`: A base class for creating custom repositories in Doctrine.
+     - `ManagerRegistry`: Interface for managing Doctrine managers.
+     - `u`: A function from Symfony's String component for string manipulation.
+
+2. **Class Docblock:**
+   - Describes the purpose of the class.
+   - Mentions the source for more information (Symfony documentation).
+   - Lists authors contributing to the class.
+   - Contains a custom method `findOneByTitle` for additional query functionality.
+
+3. **Class Declaration:**
+   - Extends `ServiceEntityRepository`, specifying `Post` as the managed entity.
+   - The `@template-extends` annotation helps with type hinting.
+
+4. **Constructor:**
+   - Takes a `ManagerRegistry` as a dependency.
+   - Calls the parent constructor with the `ManagerRegistry` and the `Post` class.
+
+```php
+    public function findLatest(int $page = 1, ?Tag $tag = null): Paginator
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->addSelect('a', 't')
+            ->innerJoin('p.author', 'a')
+            ->leftJoin('p.tags', 't')
+            ->where('p.publishedAt <= :now')
+            ->orderBy('p.publishedAt', 'DESC')
+            ->setParameter('now', new \DateTime())
+        ;
+
+        if (null !== $tag) {
+            $qb->andWhere(':tag MEMBER OF p.tags')
+                ->setParameter('tag', $tag);
+        }
+
+        return (new Paginator($qb))->paginate($page);
+    }
+```
+
+5. **`findLatest` Method:**
+   - Finds the latest blog posts with optional pagination and filtering by tag.
+   - Uses Doctrine QueryBuilder (`$qb`) to construct a query.
+   - Joins the `author` and optionally left joins `tags` associations.
+   - Filters posts with a `publishedAt` date less than or equal to the current time.
+   - Orders results by `publishedAt` in descending order.
+   - Optionally filters by a specified tag.
+   - Returns a `Paginator` object with the results paginated.
+
+```php
+    public function findBySearchQuery(string $query, int $limit = Paginator::PAGE_SIZE): array
+    {
+        $searchTerms = $this->extractSearchTerms($query);
+
+        if (0 === \count($searchTerms)) {
+            return [];
+        }
+
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        foreach ($searchTerms as $key => $term) {
+            $queryBuilder
+                ->orWhere('p.title LIKE :t_'.$key)
+                ->setParameter('t_'.$key, '%'.$term.'%')
+            ;
+        }
+
+        /** @var Post[] $result */
+        $result = $queryBuilder
+            ->orderBy('p.publishedAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $result;
+    }
+```
+
+6. **`findBySearchQuery` Method:**
+   - Finds blog posts based on a search query.
+   - Uses the `extractSearchTerms` method to split and clean the search query.
+   - Constructs a query using Doctrine QueryBuilder for each search term in the title.
+   - Orders results by `publishedAt` in descending order.
+   - Returns an array of `Post` entities.
+
+```php
+    /**
+     * Transforms the search string into an array of search terms.
+     *
+     * @return string[]
+     */
+    private function extractSearchTerms(string $searchQuery): array
+    {
+        $terms = array_unique(u($searchQuery)->replaceMatches('/[[:space:]]+/', ' ')->trim()->split(' '));
+
+        // ignore the search terms that are too short
+       
