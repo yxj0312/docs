@@ -1,4 +1,4 @@
-I'llloo looCertainly! Let's go through the code line by line:
+OOI'llloo looCertainly! Let's go through the code line by line:
 
 ```php
 namespace App\Controller\Admin;
@@ -429,3 +429,118 @@ class PostRepository extends ServiceEntityRepository
 
         // ignore the search terms that are too short
        
+Certainly, let's go through the `AppExtension` Twig extension line by line:
+
+```php
+<?php
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace App\Twig;
+
+use Symfony\Component\Intl\Locales;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+
+/**
+ * See https://symfony.com/doc/current/templating/twig_extension.html.
+ *
+ * @author Ryan Weaver <weaverryan@gmail.com>
+ * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @author Julien ITARD <julienitard@gmail.com>
+ */
+final class AppExtension extends AbstractExtension
+{
+    /**
+     * @var string[]
+     */
+    private readonly array $localeCodes;
+
+    /**
+     * @var list<array{code: string, name: string}>|null
+     */
+    private ?array $locales = null;
+
+    // The $locales argument is injected thanks to the service container.
+    // See https://symfony.com/doc/current/service_container.html#binding-arguments-by-name-or-type
+    public function __construct(string $locales)
+    {
+        $localeCodes = explode('|', $locales);
+        sort($localeCodes);
+        $this->localeCodes = $localeCodes;
+    }
+```
+
+1. **Namespace and Use Statements:**
+   - Namespaces help organize code, and `use` statements import external classes.
+   - Notable use: `Symfony\Component\Intl\Locales` for working with locale information.
+
+2. **Class Docblock:**
+   - Describes the purpose of the class.
+   - Provides a link to the Symfony documentation on Twig extensions.
+   - Lists authors contributing to the class.
+
+3. **Class Declaration:**
+   - Extends `AbstractExtension`, a base class for creating Twig extensions.
+
+4. **Properties:**
+   - `$localeCodes`: An array to store locale codes.
+   - `$locales`: An array to cache the result of the `getLocales` method.
+
+5. **Constructor:**
+   - Takes a string of pipe-separated locale codes as a parameter.
+   - Initializes and sorts the `$localeCodes` property with the provided locales.
+
+```php
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('locales', $this->getLocales(...)),
+        ];
+    }
+```
+
+6. **`getFunctions` Method:**
+   - Overrides the `getFunctions` method from the base class.
+   - Returns an array of Twig functions, including a new function named `'locales'`.
+   - Associates the `'locales'` function with the `getLocales` method.
+
+```php
+    /**
+     * Takes the list of codes of the locales (languages) enabled in the
+     * application and returns an array with the name of each locale written
+     * in its own language (e.g. English, Français, Español, etc.).
+     *
+     * @return array<int, array<string, string>>
+     */
+    public function getLocales(): array
+    {
+        if (null !== $this->locales) {
+            return $this->locales;
+        }
+
+        $this->locales = [];
+
+        foreach ($this->localeCodes as $localeCode) {
+            $this->locales[] = ['code' => $localeCode, 'name' => Locales::getName($localeCode, $localeCode)];
+        }
+
+        return $this->locales;
+    }
+}
+```
+
+7. **`getLocales` Method:**
+   - Returns an array of locale information.
+   - Checks if locales are already cached; if so, returns them.
+   - If not cached, populates the `$locales` array with locale information fetched using Symfony's `Locales` class.
+   - Returns the resulting array of locale information.
+
+This extension provides a Twig function named `'locales'` that can be used in Twig templates to retrieve information about enabled locales.
