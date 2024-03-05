@@ -544,3 +544,127 @@ final class AppExtension extends AbstractExtension
    - Returns the resulting array of locale information.
 
 This extension provides a Twig function named `'locales'` that can be used in Twig templates to retrieve information about enabled locales.
+Certainly, let's go through the `Validator` class line by line:
+
+```php
+<?php
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace App\Utils;
+
+use Symfony\Component\Console\Exception\InvalidArgumentException;
+use function Symfony\Component\String\u;
+
+/**
+ * This class is used to provide an example of integrating simple classes as
+ * services into a Symfony application.
+ * See https://symfony.com/doc/current/service_container.html#creating-configuring-services-in-the-container.
+ *
+ * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ */
+final class Validator
+{
+```
+
+1. **Namespace and Use Statements:**
+   - Defines the namespace of the class.
+   - Imports the `InvalidArgumentException` class from Symfony Console.
+   - Imports the `u` function from Symfony's `String` component.
+
+2. **Class Docblock:**
+   - Describes the purpose of the class.
+   - Provides a link to the Symfony documentation on creating and configuring services.
+   - Lists the author contributing to the class.
+
+3. **Class Declaration:**
+   - Declares the `Validator` class as `final`, meaning it cannot be extended.
+
+```php
+    public function validateUsername(?string $username): string
+    {
+        if (empty($username)) {
+            throw new InvalidArgumentException('The username can not be empty.');
+        }
+
+        if (1 !== preg_match('/^[a-z_]+$/', $username)) {
+            throw new InvalidArgumentException('The username must contain only lowercase Latin characters and underscores.');
+        }
+
+        return $username;
+    }
+```
+
+4. **`validateUsername` Method:**
+   - Validates a given username.
+   - Checks if the username is empty; if so, throws an exception.
+   - Uses a regular expression to check if the username contains only lowercase Latin characters and underscores.
+   - Returns the validated username.
+
+```php
+    public function validatePassword(?string $plainPassword): string
+    {
+        if (empty($plainPassword)) {
+            throw new InvalidArgumentException('The password can not be empty.');
+        }
+
+        if (u($plainPassword)->trim()->length() < 6) {
+            throw new InvalidArgumentException('The password must be at least 6 characters long.');
+        }
+
+        return $plainPassword;
+    }
+```
+
+5. **`validatePassword` Method:**
+   - Validates a given password.
+   - Checks if the password is empty; if so, throws an exception.
+   - Uses Symfony's `String` component to trim the password and checks if its length is at least 6 characters.
+   - Returns the validated password.
+
+```php
+    public function validateEmail(?string $email): string
+    {
+        if (empty($email)) {
+            throw new InvalidArgumentException('The email can not be empty.');
+        }
+
+        if (null === u($email)->indexOf('@')) {
+            throw new InvalidArgumentException('The email should look like a real email.');
+        }
+
+        return $email;
+    }
+```
+
+6. **`validateEmail` Method:**
+   - Validates a given email.
+   - Checks if the email is empty; if so, throws an exception.
+   - Uses Symfony's `String` component to check if the email contains the '@' symbol.
+   - Returns the validated email.
+
+```php
+    public function validateFullName(?string $fullName): string
+    {
+        if (empty($fullName)) {
+            throw new InvalidArgumentException('The full name cannot be empty.');
+        }
+
+        return $fullName;
+    }
+}
+```
+
+7. **`validateFullName` Method:**
+   - Validates a given full name.
+   - Checks if the full name is empty; if so, throws an exception.
+   - Returns the validated full name.
+
+This `Validator` class provides methods to validate a username, password, email, and full name, throwing exceptions with specific messages if validation fails. It's designed as an example of integrating simple classes as services in a Symfony application.
