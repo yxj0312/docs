@@ -668,3 +668,160 @@ final class Validator
    - Returns the validated full name.
 
 This `Validator` class provides methods to validate a username, password, email, and full name, throwing exceptions with specific messages if validation fails. It's designed as an example of integrating simple classes as services in a Symfony application.
+
+Certainly! Let's go through the `BlogController` class line by line:
+
+```php
+<?php
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace App\Controller\Admin;
+
+use App\Entity\Post;
+use App\Entity\User;
+use App\Form\PostType;
+use App\Repository\PostRepository;
+use App\Security\PostVoter;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\SubmitButton;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+/**
+ * Controller used to manage blog contents in the backend.
+ *
+ * Please note that the application backend is developed manually for learning
+ * purposes. However, in your real Symfony application, you should use any of the
+ * existing bundles that let you generate ready-to-use backends without effort.
+ * See https://symfony.com/bundles
+ *
+ * @author Ryan Weaver <weaverryan@gmail.com>
+ * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ */
+#[Route('/admin/post')]
+#[IsGranted(User::ROLE_ADMIN)]
+final class BlogController extends AbstractController
+{
+    // ... [snip]
+```
+
+1. **Namespace and Use Statements:**
+   - Specifies the namespace for the `BlogController` class.
+   - Imports various Symfony components and classes, such as form types, security annotations, and entity repositories.
+
+2. **Class Docblock:**
+   - Describes the purpose of the class.
+   - Recommends using existing bundles for backend generation.
+   - Lists authors contributing to the class.
+
+3. **Class Declaration:**
+   - Declares the `BlogController` class as `final` and extends `AbstractController`.
+
+```php
+    /**
+     * Lists all Post entities.
+     */
+    #[Route('/', name: 'admin_index', methods: ['GET'])]
+    #[Route('/', name: 'admin_post_index', methods: ['GET'])]
+    public function index(
+        #[CurrentUser] User $user,
+        PostRepository $posts,
+    ): Response {
+        $authorPosts = $posts->findBy(['author' => $user], ['publishedAt' => 'DESC']);
+
+        return $this->render('admin/blog/index.html.twig', ['posts' => $authorPosts]);
+    }
+```
+
+4. **`index` Method:**
+   - Lists all posts for the current user.
+   - Uses the `CurrentUser` annotation to inject the current user into the method.
+   - Retrieves posts from the repository based on the current user.
+   - Renders the `admin/blog/index.html.twig` template with the list of posts.
+
+```php
+    /**
+     * Creates a new Post entity.
+     */
+    #[Route('/new', name: 'admin_post_new', methods: ['GET', 'POST'])]
+    public function new(
+        #[CurrentUser] User $user,
+        Request $request,
+        EntityManagerInterface $entityManager,
+    ): Response {
+        // ... [snip]
+    }
+```
+
+5. **`new` Method:**
+   - Creates a new post entity.
+   - Uses the `CurrentUser` annotation to inject the current user into the method.
+   - Handles the form submission for creating a new post.
+   - Persists the new post and redirects based on the button clicked in the form.
+
+```php
+    /**
+     * Finds and displays a Post entity.
+     */
+    #[Route('/{id}', name: 'admin_post_show', requirements: ['id' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    public function show(Post $post): Response
+    {
+        // ... [snip]
+    }
+```
+
+6. **`show` Method:**
+   - Finds and displays a specific post.
+   - Uses the `PostVoter` to check if the current user has access to view the post.
+   - Renders the `admin/blog/show.html.twig` template with the post details.
+
+```php
+    /**
+     * Displays a form to edit an existing Post entity.
+     */
+    #[Route('/{id}/edit', name: 'admin_post_edit', requirements: ['id' => Requirement::POSITIVE_INT], methods: ['GET', 'POST'])]
+    #[IsGranted('edit', subject: 'post', message: 'Posts can only be edited by their authors.')]
+    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
+    {
+        // ... [snip]
+    }
+```
+
+7. **`edit` Method:**
+   - Displays a form to edit an existing post entity.
+   - Uses the `IsGranted` annotation to check if the current user is authorized to edit the post.
+   - Handles the form submission for editing the post.
+
+```php
+    /**
+     * Deletes a Post entity.
+     */
+    #[Route('/{id}/delete', name: 'admin_post_delete', requirements: ['id' => Requirement::POSITIVE_INT], methods: ['POST'])]
+    #[IsGranted('delete', subject: 'post')]
+    public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response
+    {
+        // ... [snip]
+    }
+}
+```
+
+8. **`delete` Method:**
+   - Deletes a post entity.
+   - Uses the `IsGranted` annotation to check if the current user is authorized to delete the post.
+   - Handles the form submission for deleting the post, including CSRF token validation.
+
+This `BlogController` class manages CRUD operations for blog posts in the admin backend, with appropriate security checks and annotations. It serves as an example for learning Symfony backend development.
