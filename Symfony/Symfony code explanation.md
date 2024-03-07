@@ -825,3 +825,141 @@ final class BlogController extends AbstractController
    - Handles the form submission for deleting the post, including CSRF token validation.
 
 This `BlogController` class manages CRUD operations for blog posts in the admin backend, with appropriate security checks and annotations. It serves as an example for learning Symfony backend development.
+
+Certainly! Let's go through the `RedirectToPreferredLocaleSubscriber` class line by line:
+
+```php
+<?php
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace App\EventSubscriber;
+
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use function Symfony\Component\String\u;
+
+/**
+ * When visiting the homepage, this listener redirects the user to the most
+ * appropriate localized version according to the browser settings.
+ *
+ * See https://symfony.com/doc/current/components/http_kernel.html#the-kernel-request-event
+ *
+ * @author Oleg Voronkovich <oleg-voronkovich@yandex.ru>
+ */
+final class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
+{
+    /**
+     * @var string[]
+     */
+    private array $locales;
+    private readonly string $defaultLocale;
+
+    // Constructor that initializes the subscriber with supported locales and the default locale.
+    public function __construct(
+        private readonly UrlGeneratorInterface $urlGenerator,
+        string $locales,
+        ?string $defaultLocale = null
+    ) {
+        // Split the supported locales string and store them in an array.
+        $this->locales = explode('|', trim($locales));
+
+        // Ensure that the list of supported locales is not empty.
+        if (empty($this->locales)) {
+            throw new \UnexpectedValueException('The list of supported locales must not be empty.');
+        }
+
+        // Set the default locale to the provided one or the first one in the list.
+        $this->defaultLocale = $defaultLocale ?: $this->locales[0];
+
+        // Ensure that the default locale is one of the supported locales.
+        if (!\in_array($this->defaultLocale, $this->locales, true)) {
+            throw new \UnexpectedValueException(sprintf('The default locale ("%s") must be one of "%s".', $this->defaultLocale, $locales));
+        }
+
+        // Add the default locale at the first position of the array.
+        // Symfony\HttpFoundation\Request::getPreferredLanguage returns the first element when no appropriate language is found.
+        array_unshift($this->locales, $this->defaultLocale);
+        $this->locales = array_unique($this->locales);
+    }
+
+    // Define the events this subscriber listens to.
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::REQUEST => 'onKernelRequest',
+        ];
+    }
+
+    // Event handler for the kernel request event.
+    public function onKernelRequest(RequestEvent $event): void
+    {
+        // Get the request from the event.
+        $request = $event->getRequest();
+
+        // Ignore sub-requests and all URLs but the homepage.
+        if (!$event->isMainRequest() || '/' !== $request->getPathInfo()) {
+            return;
+        }
+
+        // Ignore requests from referrers with the same HTTP host to prevent changing language for users who already selected it.
+        $referrer = $request->headers->get('referer');
+
+        if (null !== $referrer && u($referrer)->ignoreCase()->startsWith($request->getSchemeAndHttpHost())) {
+            return;
+        }
+
+        // Get the preferred language based on browser settings.
+        $preferredLanguage = $request->getPreferredLanguage($this->locales);
+
+        // Redirect if the preferred language is different from the default locale.
+        if ($preferredLanguage !== $this->defaultLocale) {
+            $response = new RedirectResponse($this->urlGenerator->generate('homepage', ['_locale' => $preferredLanguage]));
+            $event->setResponse($response);
+        }
+    }
+}
+```
+
+This Symfony event subscriber is responsible for redirecting users to the most appropriate localized version of the homepage based on their browser settings. Here's a breakdown of the key aspects:
+
+1. **Namespace and Use Statements:**
+   - Defines the namespace for the `RedirectToPreferredLocaleSubscriber` class.
+   - Imports necessary Symfony components and functions.
+
+2. **Class Docblock:**
+   - Provides information about the purpose of the class.
+   - Includes a link to Symfony documentation for reference.
+   - Lists the author of the class.
+
+3. **Class Declaration:**
+   - Declares the `RedirectToPreferredLocaleSubscriber` class as `final`.
+   - Implements the `EventSubscriberInterface`.
+
+4. **Constructor:**
+   - Initializes the subscriber with the `UrlGeneratorInterface`, supported locales, and default locale.
+   - Validates that the list of supported locales is not empty.
+   - Sets the default locale and ensures it is in the list of supported locales.
+   - Adds the default locale at the beginning of the array to prioritize it.
+
+5. **`getSubscribedEvents` Method:**
+   - Defines the events to which this subscriber responds. In this case, it listens to the `KernelEvents::REQUEST` event.
+
+6. **`onKernelRequest` Method:**
+   - Handles the kernel request event.
+   - Checks if it is the main request and the path is the homepage ('/').
+   - Ignores requests from the same host to prevent changing the language for users who already selected it.
+   - Determines the preferred language based on the browser settings.
+   - Redirects to the appropriate localized homepage if the preferred language is different from the default locale.
+
+This subscriber plays a crucial role in providing a localized experience for users visiting the homepage, redirecting them based on their preferred language.
