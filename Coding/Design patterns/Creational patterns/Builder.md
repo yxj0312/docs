@@ -249,3 +249,9 @@ Think about creating a director class. It may encapsulate various ways to constr
 The client code creates both the builder and the director objects. Before construction starts, the client must pass a builder object to the director. Usually, the client does this only once, via parameters of the director’s class constructor. The director uses the builder object in all further construction. There’s an alternative approach, where the builder is passed to a specific product construction method of the director.
 
 The construction result can be obtained directly from the director only if all products follow the same interface. Otherwise, the client should fetch the result from the builder.
+
+## Pros and Cons
+ You can construct objects step-by-step, defer construction steps or run steps recursively.
+ You can reuse the same construction code when building various representations of products.
+ Single Responsibility Principle. You can isolate complex construction code from the business logic of the product.
+ The overall complexity of the code increases since the pattern requires creating multiple new classes.
