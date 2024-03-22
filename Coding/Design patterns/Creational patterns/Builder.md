@@ -267,5 +267,5 @@ You can combine Builder with Bridge: the director class plays the role of the ab
 
 Abstract Factories, Builders and Prototypes can all be implemented as Singletons.
 
-Real World Example
+## Real World Example
 One of the best applications of the Builder pattern is an SQL query builder. The builder interface defines the common steps required to build a generic SQL query. On the other hand, concrete builders, corresponding to different SQL dialects, implement these steps by returning parts of SQL queries that can be executed in a particular database engine.
