@@ -269,3 +269,91 @@ Abstract Factories, Builders and Prototypes can all be implemented as Singletons
 
 ## Real World Example
 One of the best applications of the Builder pattern is an SQL query builder. The builder interface defines the common steps required to build a generic SQL query. On the other hand, concrete builders, corresponding to different SQL dialects, implement these steps by returning parts of SQL queries that can be executed in a particular database engine.
+
+            $sql .= " WHERE " . implode(' AND ', $query->where);
+        }
+        if (isset($query->limit)) {
+            $sql .= $query->limit;
+        }
+        $sql .= ";";
+        return $sql;
+    }
+}
+
+/**
+ * This Concrete Builder is compatible with PostgreSQL. While Postgres is very
+ * similar to Mysql, it still has several differences. To reuse the common code,
+ * we extend it from the MySQL builder, while overriding some of the building
+ * steps.
+ */
+class PostgresQueryBuilder extends MysqlQueryBuilder
+{
+    /**
+     * Among other things, PostgreSQL has slightly different LIMIT syntax.
+     */
+    public function limit(int $start, int $offset): SQLQueryBuilder
+    {
+        parent::limit($start, $offset);
+
+        $this->query->limit = " LIMIT " . $start . " OFFSET " . $offset;
+
+        return $this;
+    }
+
+    // + tons of other overrides...
+}
+
+
+/**
+ * Note that the client code uses the builder object directly. A designated
+ * Director class is not necessary in this case, because the client code needs
+ * different queries almost every time, so the sequence of the construction
+ * steps cannot be easily reused.
+ *
+ * Since all our query builders create products of the same type (which is a
+ * string), we can interact with all builders using their common interface.
+ * Later, if we implement a new Builder class, we will be able to pass its
+ * instance to the existing client code without breaking it thanks to the
+ * SQLQueryBuilder interface.
+ */
+function clientCode(SQLQueryBuilder $queryBuilder)
+{
+    // ...
+
+    $query = $queryBuilder
+        ->select("users", ["name", "email", "password"])
+        ->where("age", 18, ">")
+        ->where("age", 30, "<")
+        ->limit(10, 20)
+        ->getSQL();
+
+    echo $query;
+
+    // ...
+}
+
+
+/**
+ * The application selects the proper query builder type depending on a current
+ * configuration or the environment settings.
+ */
+// if ($_ENV['database_type'] == 'postgres') {
+//     $builder = new PostgresQueryBuilder(); } else {
+//     $builder = new MysqlQueryBuilder(); }
+//
+// clientCode($builder);
+
+
+echo "Testing MySQL query builder:\n";
+clientCode(new MysqlQueryBuilder());
+
+echo "\n\n";
+
+echo "Testing PostgresSQL query builder:\n";
+clientCode(new PostgresQueryBuilder());
+ Output.txt: Execution result
+Testing MySQL query builder:
+SELECT name, email, password FROM users WHERE age > '18' AND age < '30' LIMIT 10, 20;
+
+Testing PostgresSQL query builder:
+SELECT name, email, password FROM users WHERE age > '18' AND age < '30' LIMIT 10 
