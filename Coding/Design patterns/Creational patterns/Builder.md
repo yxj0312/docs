@@ -270,6 +270,7 @@ Abstract Factories, Builders and Prototypes can all be implemented as Singletons
 ## Real World Example
 One of the best applications of the Builder pattern is an SQL query builder. The builder interface defines the common steps required to build a generic SQL query. On the other hand, concrete builders, corresponding to different SQL dialects, implement these steps by returning parts of SQL queries that can be executed in a particular database engine.
 
+```php
             $sql .= " WHERE " . implode(' AND ', $query->where);
         }
         if (isset($query->limit)) {
@@ -356,4 +357,5 @@ Testing MySQL query builder:
 SELECT name, email, password FROM users WHERE age > '18' AND age < '30' LIMIT 10, 20;
 
 Testing PostgresSQL query builder:
-SELECT name, email, password FROM users WHERE age > '18' AND age < '30' LIMIT 10 
+SELECT name, email, password FROM users WHERE age > '18' AND age < '30' LIMIT 10
+```
