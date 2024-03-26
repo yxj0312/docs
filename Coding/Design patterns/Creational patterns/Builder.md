@@ -251,12 +251,14 @@ The client code creates both the builder and the director objects. Before constr
 The construction result can be obtained directly from the director only if all products follow the same interface. Otherwise, the client should fetch the result from the builder.
 
 ## Pros and Cons
+
  You can construct objects step-by-step, defer construction steps or run steps recursively.
  You can reuse the same construction code when building various representations of products.
  Single Responsibility Principle. You can isolate complex construction code from the business logic of the product.
  The overall complexity of the code increases since the pattern requires creating multiple new classes.
 
 ## Relations with Other Patterns
+
 Many designs start by using Factory Method (less complicated and more customizable via subclasses) and evolve toward Abstract Factory, Prototype, or Builder (more flexible, but more complicated).
 
 Builder focuses on constructing complex objects step by step. Abstract Factory specializes in creating families of related objects. Abstract Factory returns the product immediately, whereas Builder lets you run some additional construction steps before fetching the product.
@@ -267,10 +269,289 @@ You can combine Builder with Bridge: the director class plays the role of the ab
 
 Abstract Factories, Builders and Prototypes can all be implemented as Singletons.
 
+## Conceptual Example
+
+This example illustrates the structure of the Builder design pattern and focuses on the following questions:
+
+What classes does it consist of?
+What roles do these classes play?
+In what way the elements of the pattern are related?
+After learning about the pattern’s structure it’ll be easier for you to grasp the following example, based on a real-world PHP use case.
+
+```php
+<?php
+
+namespace RefactoringGuru\Builder\Conceptual;
+
+/**
+ * The Builder interface specifies methods for creating the different parts of
+ * the Product objects.
+ */
+interface Builder
+{
+    public function producePartA(): void;
+
+    public function producePartB(): void;
+
+    public function producePartC(): void;
+}
+
+/**
+ * The Concrete Builder classes follow the Builder interface and provide
+ * specific implementations of the building steps. Your program may have several
+ * variations of Builders, implemented differently.
+ */
+class ConcreteBuilder1 implements Builder
+{
+    private $product;
+
+    /**
+     * A fresh builder instance should contain a blank product object, which is
+     * used in further assembly.
+     */
+    public function __construct()
+    {
+        $this->reset();
+    }
+
+    public function reset(): void
+    {
+        $this->product = new Product1();
+    }
+
+    /**
+     * All production steps work with the same product instance.
+     */
+    public function producePartA(): void
+    {
+        $this->product->parts[] = "PartA1";
+    }
+
+    public function producePartB(): void
+    {
+        $this->product->parts[] = "PartB1";
+    }
+
+    public function producePartC(): void
+    {
+        $this->product->parts[] = "PartC1";
+    }
+
+    /**
+     * Concrete Builders are supposed to provide their own methods for
+     * retrieving results. That's because various types of builders may create
+     * entirely different products that don't follow the same interface.
+     * Therefore, such methods cannot be declared in the base Builder interface
+     * (at least in a statically typed programming language). Note that PHP is a
+     * dynamically typed language and this method CAN be in the base interface.
+     * However, we won't declare it there for the sake of clarity.
+     *
+     * Usually, after returning the end result to the client, a builder instance
+     * is expected to be ready to start producing another product. That's why
+     * it's a usual practice to call the reset method at the end of the
+     * `getProduct` method body. However, this behavior is not mandatory, and
+     * you can make your builders wait for an explicit reset call from the
+     * client code before disposing of the previous result.
+     */
+    public function getProduct(): Product1
+    {
+        $result = $this->product;
+        $this->reset();
+
+        return $result;
+    }
+}
+
+/**
+ * It makes sense to use the Builder pattern only when your products are quite
+ * complex and require extensive configuration.
+ *
+ * Unlike in other creational patterns, different concrete builders can produce
+ * unrelated products. In other words, results of various builders may not
+ * always follow the same interface.
+ */
+class Product1
+{
+    public $parts = [];
+
+    public function listParts(): void
+    {
+        echo "Product parts: " . implode(', ', $this->parts) . "\n\n";
+    }
+}
+
+/**
+ * The Director is only responsible for executing the building steps in a
+ * particular sequence. It is helpful when producing products according to a
+ * specific order or configuration. Strictly speaking, the Director class is
+ * optional, since the client can control builders directly.
+ */
+class Director
+{
+    /**
+     * @var Builder
+     */
+    private $builder;
+
+    /**
+     * The Director works with any builder instance that the client code passes
+     * to it. This way, the client code may alter the final type of the newly
+     * assembled product.
+     */
+    public function setBuilder(Builder $builder): void
+    {
+        $this->builder = $builder;
+    }
+
+    /**
+     * The Director can construct several product variations using the same
+     * building steps.
+     */
+    public function buildMinimalViableProduct(): void
+    {
+        $this->builder->producePartA();
+    }
+
+    public function buildFullFeaturedProduct(): void
+    {
+        $this->builder->producePartA();
+        $this->builder->producePartB();
+        $this->builder->producePartC();
+    }
+}
+
+/**
+ * The client code creates a builder object, passes it to the director and then
+ * initiates the construction process. The end result is retrieved from the
+ * builder object.
+ */
+function clientCode(Director $director)
+{
+    $builder = new ConcreteBuilder1();
+    $director->setBuilder($builder);
+
+    echo "Standard basic product:\n";
+    $director->buildMinimalViableProduct();
+    $builder->getProduct()->listParts();
+
+    echo "Standard full featured product:\n";
+    $director->buildFullFeaturedProduct();
+    $builder->getProduct()->listParts();
+
+    // Remember, the Builder pattern can be used without a Director class.
+    echo "Custom product:\n";
+    $builder->producePartA();
+    $builder->producePartC();
+    $builder->getProduct()->listParts();
+}
+
+$director = new Director();
+clientCode($director);
+```
+
+Output.txt: Execution result
+
+```php
+
+Standard basic product:
+Product parts: PartA1
+
+Standard full featured product:
+Product parts: PartA1, PartB1, PartC1
+
+Custom product:
+Product parts: PartA1, PartC1
+```
+
 ## Real World Example
+
 One of the best applications of the Builder pattern is an SQL query builder. The builder interface defines the common steps required to build a generic SQL query. On the other hand, concrete builders, corresponding to different SQL dialects, implement these steps by returning parts of SQL queries that can be executed in a particular database engine.
 
 ```php
+<?php
+
+namespace RefactoringGuru\Builder\RealWorld;
+
+/**
+ * The Builder interface declares a set of methods to assemble an SQL query.
+ *
+ * All of the construction steps are returning the current builder object to
+ * allow chaining: $builder->select(...)->where(...)
+ */
+interface SQLQueryBuilder
+{
+    public function select(string $table, array $fields): SQLQueryBuilder;
+
+    public function where(string $field, string $value, string $operator = '='): SQLQueryBuilder;
+
+    public function limit(int $start, int $offset): SQLQueryBuilder;
+
+    // +100 other SQL syntax methods...
+
+    public function getSQL(): string;
+}
+
+/**
+ * Each Concrete Builder corresponds to a specific SQL dialect and may implement
+ * the builder steps a little bit differently from the others.
+ *
+ * This Concrete Builder can build SQL queries compatible with MySQL.
+ */
+class MysqlQueryBuilder implements SQLQueryBuilder
+{
+    protected $query;
+
+    protected function reset(): void
+    {
+        $this->query = new \stdClass();
+    }
+
+    /**
+     * Build a base SELECT query.
+     */
+    public function select(string $table, array $fields): SQLQueryBuilder
+    {
+        $this->reset();
+        $this->query->base = "SELECT " . implode(", ", $fields) . " FROM " . $table;
+        $this->query->type = 'select';
+
+        return $this;
+    }
+
+    /**
+     * Add a WHERE condition.
+     */
+    public function where(string $field, string $value, string $operator = '='): SQLQueryBuilder
+    {
+        if (!in_array($this->query->type, ['select', 'update', 'delete'])) {
+            throw new \Exception("WHERE can only be added to SELECT, UPDATE OR DELETE");
+        }
+        $this->query->where[] = "$field $operator '$value'";
+
+        return $this;
+    }
+
+    /**
+     * Add a LIMIT constraint.
+     */
+    public function limit(int $start, int $offset): SQLQueryBuilder
+    {
+        if (!in_array($this->query->type, ['select'])) {
+            throw new \Exception("LIMIT can only be added to SELECT");
+        }
+        $this->query->limit = " LIMIT " . $start . ", " . $offset;
+
+        return $this;
+    }
+
+    /**
+     * Get the final query string.
+     */
+    public function getSQL(): string
+    {
+        $query = $this->query;
+        $sql = $query->base;
+        if (!empty($query->where)) {
             $sql .= " WHERE " . implode(' AND ', $query->where);
         }
         if (isset($query->limit)) {
@@ -352,10 +633,15 @@ echo "\n\n";
 
 echo "Testing PostgresSQL query builder:\n";
 clientCode(new PostgresQueryBuilder());
- Output.txt: Execution result
+
+```
+
+Output.txt: Execution result
+
+```php
 Testing MySQL query builder:
 SELECT name, email, password FROM users WHERE age > '18' AND age < '30' LIMIT 10, 20;
 
 Testing PostgresSQL query builder:
-SELECT name, email, password FROM users WHERE age > '18' AND age < '30' LIMIT 10
+SELECT name, email, password FROM users WHERE age > '18' AND age < '30' LIMIT 10 OFFSET 20;
 ```
