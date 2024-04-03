@@ -46,3 +46,19 @@ Here’s how it works: you create a set of objects, configured in various ways. 
 In real life, prototypes are used for performing various tests before starting mass production of a product. However, in this case, prototypes don’t participate in any actual production, playing a passive role instead.
 
 Since industrial prototypes don’t really copy themselves, a much closer analogy to the pattern is the process of mitotic cell division (biology, remember?). After mitotic division, a pair of identical cells is formed. The original cell acts as a prototype and takes an active role in creating the copy.
+
+## Structure
+
+Basic implementation
+The structure of the Prototype design pattern
+The Prototype interface declares the cloning methods. In most cases, it’s a single clone method.
+
+The Concrete Prototype class implements the cloning method. In addition to copying the original object’s data to the clone, this method may also handle some edge cases of the cloning process related to cloning linked objects, untangling recursive dependencies, etc.
+
+The Client can produce a copy of any object that follows the prototype interface.
+
+Prototype registry implementation
+The prototype registry
+The Prototype Registry provides an easy way to access frequently-used prototypes. It stores a set of pre-built objects that are ready to be copied. The simplest prototype registry is a name → prototype hash map. However, if you need better search criteria than a simple name, you can build a much more robust version of the registry.
+
+## Pseudocode
