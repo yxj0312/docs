@@ -186,3 +186,18 @@ The Prototype pattern lets you use a set of pre-built objects configured in vari
 3. The cloning method usually consists of just one line: running a new operator with the prototypical version of the constructor. Note, that every class must explicitly override the cloning method and use its own class name along with the new operator. Otherwise, the cloning method may produce an object of a parent class.
 
 4. Optionally, create a centralized prototype registry to store a catalog of frequently used prototypes.You can implement the registry as a new factory class or put it in the base prototype class with a static method for fetching the prototype. This method should search for a prototype based on search criteria that the client code passes to the method. The criteria might either be a simple string tag or a complex set of search parameters. After the appropriate prototype is found, the registry should clone it and return the copy to the client.Finally, replace the direct calls to the subclasses’ constructors with calls to the factory method of the prototype registry.
+
+## Pros and Cons
+
+You can clone objects without coupling to their concrete classes.
+
+ You can get rid of repeated initialization code in favor of cloning pre-built prototypes.
+
+ You can produce complex objects more conveniently.
+
+ You get an alternative to inheritance when dealing with
+ configuration presets for complex objects.
+
+Con
+
+ Cloning complex objects that have circular references might be very tricky.
