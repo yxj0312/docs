@@ -213,8 +213,9 @@ You can extract this behavior into a separate visitor class and implement only t
 7. The client must create visitor objects and pass them into elements via “acceptance” methods.
 
 ## Pros and Cons
-Open/Closed Principle. You can introduce a new behavior that can work with objects of different classes without changing these classes.
- Single Responsibility Principle. You can move multiple versions of the same behavior into the same class.
- A visitor object can accumulate some useful information while working with various objects. This might be handy when you want to traverse some complex object structure, such as an object tree, and apply the visitor to each object of this structure.
- You need to update all visitors each time a class gets added to or removed from the element hierarchy.
- Visitors might lack the necessary access to the private fields and methods of the elements that they’re supposed to work with.
+
+- Open/Closed Principle. You can introduce a new behavior that can work with objects of different classes without changing these classes.
+- Single Responsibility Principle. You can move multiple versions of the same behavior into the same class.
+- A visitor object can accumulate some useful information while working with various objects. This might be handy when you want to traverse some complex object structure, such as an object tree, and apply the visitor to each object of this structure.
+- You need to update all visitors each time a class gets added to or removed from the element hierarchy.
+- Visitors might lack the necessary access to the private fields and methods of the elements that they’re supposed to work with.
