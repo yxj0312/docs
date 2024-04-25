@@ -373,3 +373,15 @@ It allows the same client code to work with different types of visitors:
 A + ConcreteVisitor2
 B + ConcreteVisitor2
 ```
+
+## Real World Example
+
+In this example, the Visitor pattern helps to introduce a reporting feature into an existing class hierarchy: Company > Department > Employee
+
+Once the Visitor infrastructure is added to the app, you can easily add other similar behaviors to the app, without changing the existing classes.
+
+index.php: Real world example
+
+```php
+
+```
